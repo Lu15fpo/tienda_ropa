@@ -1,19 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
-import 'package:tienda_ropa/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:tienda_ropa/features/shop/controllers/review_controller.dart';
+import 'package:tienda_ropa/features/shop/models/review_model.dart';
 
 import '../../../../../common/widgets/products/ratings/rating_indicator.dart';
 import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
-import '../../../../../utils/helpers/helper_functions.dart';
 
 class UserReviewCard extends StatelessWidget {
-  const UserReviewCard({super.key});
+  const UserReviewCard({super.key, required this.review});
+
+  final ReviewModel review;
 
   @override
   Widget build(BuildContext context) {
-    final dark = THelperFunctions.isDarkMode(context);
+    final controller = ReviewController.instance;
+
     return Column(
       children: [
         Row(
@@ -21,64 +24,77 @@ class UserReviewCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                const CircleAvatar(backgroundImage: AssetImage(TImages.userProfileImage1)),
+                /// Foto de perfil del usuario
+                CircleAvatar(
+                  radius: 20,
+                  backgroundImage: review.userProfileImage.isNotEmpty
+                      ? CachedNetworkImageProvider(review.userProfileImage)
+                      : null,
+                  child: review.userProfileImage.isEmpty
+                      ? const Icon(Icons.person)
+                      : null,
+                ),
                 const SizedBox(width: TSizes.spaceBtwItems),
-                Text('Mabe Mejia', style: Theme.of(context).textTheme.titleLarge),
+
+                /// Nombre del usuario
+                Flexible(
+                  child: Text(
+                    review.userName,
+                    style: Theme.of(context).textTheme.titleLarge,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ],
             ),
-            IconButton(onPressed: (){}, icon: const Icon(Icons.more_vert)),
           ],
         ),
         const SizedBox(height: TSizes.spaceBtwItems),
 
-        /// Recomendaciones
+        /// Rating y fecha
         Row(
           children: [
-            const TRatingBarIndicator(rating: 4),
+            TRatingBarIndicator(rating: review.rating),
             const SizedBox(width: TSizes.spaceBtwItems),
-            Text('14 Mar, 2025', style: Theme.of(context).textTheme.bodyMedium),
+            Text(
+              controller.formatReviewDate(review.createdAt),
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
           ],
         ),
         const SizedBox(height: TSizes.spaceBtwItems),
-        const ReadMoreText(
-          'La interfaz de usuario de la aplicacion is muy intuitiva. Es posible navegar y hacer compras de manera amigable. Buen trabajo!',
-          trimLines: 1,
+
+        /// Comentario de la reseña
+        ReadMoreText(
+          review.comment,
+          trimLines: 2,
           trimMode: TrimMode.Line,
           trimExpandedText: ' mostrar menos',
-          trimCollapsedText: ' mostrar mas',
-          moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: TColors.primary),
-          lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: TColors.primary),
-        ),
-        const SizedBox(height: TSizes.spaceBtwItems),
-
-        /// Recomendaciones grupales
-        TRoundedContainer(
-          backgroundColor: dark ? TColors.darkGrey : TColors.grey,
-          child: Padding(
-              padding: EdgeInsets.all(TSizes.md),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Mens Locker Clothing', style: Theme.of(context).textTheme.titleMedium),
-                      Text('14 Mar, 2025', style: Theme.of(context).textTheme.bodyMedium),
-                    ],
-                  ),
-                  const ReadMoreText(
-                    'La interfaz de usuario de la aplicacion is muy intuitiva. Es posible navegar y hacer compras de manera amigable. Buen trabajo!',
-                    trimLines: 1,
-                    trimMode: TrimMode.Line,
-                    trimExpandedText: ' mostrar menos',
-                    trimCollapsedText: ' mostrar mas',
-                    moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: TColors.primary),
-                    lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: TColors.primary),
-                  ),
-                ],
-              ),
+          trimCollapsedText: ' mostrar más',
+          moreStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: TColors.primary,
+          ),
+          lessStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: TColors.primary,
           ),
         ),
-        const SizedBox(height: TSizes.spaceBtwSections),
+
+        /// Mostrar si fue actualizada
+        if (review.updatedAt != null) ...[
+          const SizedBox(height: TSizes.xs),
+          Text(
+            'Editado',
+            style: Theme.of(context).textTheme.bodySmall!.apply(
+                  color: Colors.grey,
+                  fontStyle: FontStyle.italic,
+                ),
+          ),
+        ],
+
+        const SizedBox(height: TSizes.spaceBtwItems),
       ],
     );
   }

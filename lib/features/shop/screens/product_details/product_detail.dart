@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 import 'package:tienda_ropa/common/widgets/texts/section_heading.dart';
 import 'package:tienda_ropa/features/shop/controllers/product/cart_controller.dart';
+import 'package:tienda_ropa/features/shop/controllers/review_controller.dart';
 import 'package:tienda_ropa/features/shop/screens/cart/cart.dart';
 import 'package:tienda_ropa/features/shop/screens/product_details/widgets/bottom_add_to_cart_widget.dart';
 import 'package:tienda_ropa/features/shop/screens/product_details/widgets/product_attributes.dart';
@@ -24,6 +25,13 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
+    final reviewController = Get.put(ReviewController());
+
+    // Cargar estadísticas de reseñas para el producto
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      reviewController.loadProductRatingStats(product.id);
+    });
+
     return Scaffold(
       bottomNavigationBar: TBottomAddToCart(product: product),
       body: SingleChildScrollView(
@@ -84,8 +92,17 @@ class ProductDetailScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const TSectionHeading(title: 'Recomendaciones (199)', showActionButton: false),
-                      IconButton(icon: const Icon(Iconsax.arrow_right_3, size: 18), onPressed: () => Get.to(() => const ProductReviewsScreen())),
+                      Obx(() {
+                        final count = reviewController.reviewsCount.value;
+                        return TSectionHeading(
+                          title: 'Recomendaciones ($count)',
+                          showActionButton: false,
+                        );
+                      }),
+                      IconButton(
+                        icon: const Icon(Iconsax.arrow_right_3, size: 18),
+                        onPressed: () => Get.to(() => ProductReviewsScreen(product: product)),
+                      ),
                     ],
                   ),
                   const SizedBox(height: TSizes.spaceBtwSections),

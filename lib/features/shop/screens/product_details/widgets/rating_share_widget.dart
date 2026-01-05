@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tienda_ropa/features/shop/controllers/review_controller.dart';
 import 'package:tienda_ropa/features/shop/models/product_model.dart';
+import 'package:tienda_ropa/features/shop/screens/product_reviews/product_reviews.dart';
 
 import '../../../../../utils/constants/sizes.dart';
 
@@ -15,25 +18,54 @@ class TRatingAndShare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ReviewController());
+
+    // Cargar estadísticas de reseñas al construir el widget
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.loadProductRatingStats(product.id);
+    });
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        /// Calificacion
-        Row(
-          children: [
-            Icon(Iconsax.star5, color: Colors.amber, size: 24),
-            SizedBox(width: TSizes.spaceBtwItems / 2),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(text: '5.0', style: Theme.of(context).textTheme.bodyLarge),
-                  const TextSpan(text: '(199)')
-                ],
-              ),
+        /// Calificación - Clickeable para ir a reseñas
+        InkWell(
+          onTap: () {
+            Get.to(() => ProductReviewsScreen(product: product));
+          },
+          borderRadius: BorderRadius.circular(TSizes.sm),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: TSizes.xs,
+              horizontal: TSizes.sm,
             ),
-          ],
+            child: Obx(() {
+              return Row(
+                children: [
+                  const Icon(Iconsax.star5, color: Colors.amber, size: 24),
+                  const SizedBox(width: TSizes.spaceBtwItems / 2),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: controller.averageRating.value > 0
+                              ? controller.averageRating.value.toStringAsFixed(1)
+                              : '0.0',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        TextSpan(
+                          text: ' (${controller.reviewsCount.value})',
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            }),
+          ),
         ),
-        /// Boton de compartir
+
+        /// Botón de compartir
         IconButton(
           onPressed: () {
             // Compartir información del producto
@@ -50,10 +82,9 @@ ${product.description ?? 'Sin descripción disponible'}
 ID del Producto: ${product.id}
 ''';
             SharePlus.instance.share(
-              ShareParams(text: shareText, subject: product.title)
-            );
+                ShareParams(text: shareText, subject: product.title));
           },
-          icon: const Icon(Icons.share, size: TSizes.iconMd)
+          icon: const Icon(Icons.share, size: TSizes.iconMd),
         ),
       ],
     );

@@ -13,7 +13,6 @@ import '../features/shop/screens/cart/cart.dart';
 import '../features/shop/screens/checkout/checkout.dart';
 import '../features/shop/screens/home/home.dart';
 import '../features/shop/screens/order/order.dart';
-import '../features/shop/screens/product_reviews/product_reviews.dart';
 import '../features/shop/screens/store/store.dart';
 
 class AppRoutes {
@@ -22,7 +21,7 @@ class AppRoutes {
     GetPage(name: TRoutes.store, page: () => const StoreScreen()),
     GetPage(name: TRoutes.favourites, page: () => const FavouriteScreen()),
     GetPage(name: TRoutes.settings, page: () => const SettingsScreen()),
-    GetPage(name: TRoutes.productReviews, page: () => const ProductReviewsScreen()),
+    // ProductReviewsScreen removido - requiere parámetro product, usar Get.to() directamente
     GetPage(name: TRoutes.order, page: () => const OrderScreen()),
     GetPage(name: TRoutes.checkout, page: () => const CheckoutScreen()),
     GetPage(name: TRoutes.cart, page: () => const CartScreen()),
