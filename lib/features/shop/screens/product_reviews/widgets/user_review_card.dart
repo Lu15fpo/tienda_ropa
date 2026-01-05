@@ -22,29 +22,32 @@ class UserReviewCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                /// Foto de perfil del usuario
-                CircleAvatar(
-                  radius: 20,
-                  backgroundImage: review.userProfileImage.isNotEmpty
-                      ? CachedNetworkImageProvider(review.userProfileImage)
-                      : null,
-                  child: review.userProfileImage.isEmpty
-                      ? const Icon(Icons.person)
-                      : null,
-                ),
-                const SizedBox(width: TSizes.spaceBtwItems),
-
-                /// Nombre del usuario
-                Flexible(
-                  child: Text(
-                    review.userName,
-                    style: Theme.of(context).textTheme.titleLarge,
-                    overflow: TextOverflow.ellipsis,
+            Expanded(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  /// Foto de perfil del usuario
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundImage: review.userProfileImage.isNotEmpty
+                        ? CachedNetworkImageProvider(review.userProfileImage)
+                        : null,
+                    child: review.userProfileImage.isEmpty
+                        ? const Icon(Icons.person)
+                        : null,
                   ),
-                ),
-              ],
+                  const SizedBox(width: TSizes.spaceBtwItems),
+
+                  /// Nombre del usuario
+                  Expanded(
+                    child: Text(
+                      review.userName,
+                      style: Theme.of(context).textTheme.titleLarge,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -55,9 +58,21 @@ class UserReviewCard extends StatelessWidget {
           children: [
             TRatingBarIndicator(rating: review.rating),
             const SizedBox(width: TSizes.spaceBtwItems),
-            Text(
-              controller.formatReviewDate(review.createdAt),
-              style: Theme.of(context).textTheme.bodyMedium,
+            Builder(
+              builder: (context) {
+                try {
+                  return Text(
+                    controller.formatReviewDate(review.createdAt),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  );
+                } catch (e) {
+                  print('Error al formatear fecha en UserReviewCard: $e');
+                  return Text(
+                    'Hace poco',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  );
+                }
+              },
             ),
           ],
         ),

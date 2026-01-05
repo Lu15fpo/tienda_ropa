@@ -54,6 +54,35 @@ class ReviewModel {
   factory ReviewModel.fromJson(Map<String, dynamic> document) {
     final data = document;
     if (data.isEmpty) return ReviewModel.empty();
+
+    // Función helper para convertir fechas de manera segura
+    DateTime parseDate(dynamic dateData, DateTime defaultDate) {
+      try {
+        if (dateData == null) return defaultDate;
+        if (dateData is Timestamp) return dateData.toDate();
+        if (dateData is String) return DateTime.parse(dateData);
+        if (dateData is DateTime) return dateData;
+        return defaultDate;
+      } catch (e) {
+        print('Error al parsear fecha: $e');
+        return defaultDate;
+      }
+    }
+
+    // Función helper para fechas opcionales
+    DateTime? parseDateNullable(dynamic dateData) {
+      try {
+        if (dateData == null) return null;
+        if (dateData is Timestamp) return dateData.toDate();
+        if (dateData is String) return DateTime.parse(dateData);
+        if (dateData is DateTime) return dateData;
+        return null;
+      } catch (e) {
+        print('Error al parsear fecha nullable: $e');
+        return null;
+      }
+    }
+
     return ReviewModel(
       id: data['Id'] ?? '',
       productId: data['ProductId'] ?? '',
@@ -62,8 +91,8 @@ class ReviewModel {
       userProfileImage: data['UserProfileImage'] ?? '',
       rating: (data['Rating'] ?? 0.0).toDouble(),
       comment: data['Comment'] ?? '',
-      createdAt: (data['CreatedAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
-      updatedAt: (data['UpdatedAt'] as Timestamp?)?.toDate(),
+      createdAt: parseDate(data['CreatedAt'], DateTime.now()),
+      updatedAt: parseDateNullable(data['UpdatedAt']),
     );
   }
 
@@ -73,6 +102,34 @@ class ReviewModel {
     if (document.data() != null) {
       final data = document.data()!;
 
+      // Función helper para convertir fechas de manera segura
+      DateTime parseDate(dynamic dateData, DateTime defaultDate) {
+        try {
+          if (dateData == null) return defaultDate;
+          if (dateData is Timestamp) return dateData.toDate();
+          if (dateData is String) return DateTime.parse(dateData);
+          if (dateData is DateTime) return dateData;
+          return defaultDate;
+        } catch (e) {
+          print('Error al parsear fecha en fromSnapshot: $e');
+          return defaultDate;
+        }
+      }
+
+      // Función helper para fechas opcionales
+      DateTime? parseDateNullable(dynamic dateData) {
+        try {
+          if (dateData == null) return null;
+          if (dateData is Timestamp) return dateData.toDate();
+          if (dateData is String) return DateTime.parse(dateData);
+          if (dateData is DateTime) return dateData;
+          return null;
+        } catch (e) {
+          print('Error al parsear fecha nullable en fromSnapshot: $e');
+          return null;
+        }
+      }
+
       return ReviewModel(
         id: document.id,
         productId: data['ProductId'] ?? '',
@@ -81,9 +138,8 @@ class ReviewModel {
         userProfileImage: data['UserProfileImage'] ?? '',
         rating: (data['Rating'] ?? 0.0).toDouble(),
         comment: data['Comment'] ?? '',
-        createdAt:
-            (data['CreatedAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
-        updatedAt: (data['UpdatedAt'] as Timestamp?)?.toDate(),
+        createdAt: parseDate(data['CreatedAt'], DateTime.now()),
+        updatedAt: parseDateNullable(data['UpdatedAt']),
       );
     } else {
       return ReviewModel.empty();

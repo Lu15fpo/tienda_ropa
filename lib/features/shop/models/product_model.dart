@@ -22,6 +22,10 @@ class ProductModel {
   List<ProductAttributeModel>? productAttributes;
   List<ProductVariationModel>? productVariations;
 
+  // Campos de reseñas
+  double averageRating;
+  int reviewsCount;
+
   ProductModel({
     required this.id,
     required this.title,
@@ -39,6 +43,8 @@ class ProductModel {
     this.description,
     this.productAttributes,
     this.productVariations,
+    this.averageRating = 0.0,
+    this.reviewsCount = 0,
   });
 
   /// Crear una funcion vacia para un codigo limpio
@@ -59,6 +65,8 @@ class ProductModel {
       'Brand': brand?.toJson(),
       'Description': description,
       'ProductType': productType,
+      'AverageRating': averageRating,
+      'ReviewsCount': reviewsCount,
       'ProductAttributes': productAttributes != null ? productAttributes!.map((e) => e.toJson()).toList() : [],
       'ProductVariations': productVariations != null ? productVariations!.map((e) => e.toJson()).toList() : [],
     };
@@ -80,6 +88,8 @@ class ProductModel {
       categoryId: data['CategoryId'] ?? '',
       description: data['Description'] ?? '',
       productType: data['ProductType'] ?? '',
+      averageRating: double.parse((data['AverageRating'] ?? 0.0).toString()),
+      reviewsCount: data['ReviewsCount'] ?? 0,
       brand: data['Brand'] != null ? BrandModel.fromJson(data['Brand']) : null,
       images: data['Images'] != null ? List<String>.from(data['Images']) : [],
       productAttributes: data['ProductAttributes'] != null
@@ -106,6 +116,8 @@ class ProductModel {
       productType: data['ProductType'] ?? '',
       categoryId: data['CategoryId'] ?? '',
       description: data['Description'] ?? '',
+      averageRating: double.parse((data['AverageRating'] ?? 0.0).toString()),
+      reviewsCount: data['ReviewsCount'] ?? 0,
       brand: data['Brand'] != null ? BrandModel.fromJson(data['Brand']) : null,
       images: data['Images'] != null ? List<String>.from(data['Images']) : [],
       productAttributes: data['ProductAttributes'] != null

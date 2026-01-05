@@ -48,7 +48,7 @@ class ReviewRepository extends GetxController {
           .get();
 
       return snapshot.docs
-          .map((doc) => ReviewModel.fromSnapshot(doc))
+          .map((doc) => ReviewModel.fromSnapshot(doc as DocumentSnapshot<Map<String, dynamic>>))
           .toList();
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;

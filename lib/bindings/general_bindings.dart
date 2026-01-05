@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:tienda_ropa/data/repositories/review/review_repository.dart';
 import 'package:tienda_ropa/features/shop/controllers/product/variation_controller.dart';
+import 'package:tienda_ropa/features/shop/controllers/review_controller.dart';
 
 import '../features/personalization/controllers/address_controller.dart';
 import '../features/shop/controllers/product/checkout_controller.dart';
@@ -12,5 +14,7 @@ class GeneralBindings extends Bindings {
     Get.put(VariationController());
     Get.put(AddressController());
     Get.put(CheckoutController());
+    Get.put(ReviewRepository());
+    Get.lazyPut(() => ReviewController()); // Lazy loading para evitar dependencia con UserController
   }
 }

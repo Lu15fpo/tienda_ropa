@@ -11,7 +11,9 @@ class ReviewController extends GetxController {
 
   /// Variables
   final reviewRepository = ReviewRepository.instance;
-  final userController = UserController.instance;
+
+  /// Getter para UserController (lazy loading)
+  UserController get userController => UserController.instance;
 
   /// Observables
   RxBool isLoading = false.obs;
@@ -32,8 +34,17 @@ class ReviewController extends GetxController {
     try {
       isLoading.value = true;
 
+      // Pequeño delay para asegurar que Firebase haya procesado los cambios
+      await Future.delayed(const Duration(milliseconds: 300));
+
       // Obtener todas las reseñas del producto
       final reviews = await reviewRepository.getProductReviews(productId);
+
+      print('📋 Reseñas cargadas: ${reviews.length}');
+      for (var review in reviews) {
+        print('   - ID: ${review.id}, CreatedAt type: ${review.createdAt.runtimeType}, Value: ${review.createdAt}');
+      }
+
       productReviews.assignAll(reviews);
 
       // Calcular estadísticas
@@ -42,6 +53,7 @@ class ReviewController extends GetxController {
       // Verificar si el usuario actual ya dejó una reseña
       await checkUserReview(productId);
     } catch (e) {
+      print('❌ Error en loadProductReviews: $e');
       TLoaders.errorSnackBar(
           title: 'Error', message: 'No se pudieron cargar las reseñas');
     } finally {
@@ -150,11 +162,12 @@ class ReviewController extends GetxController {
       // Resetear formulario
       resetForm();
 
-      // Volver a la pantalla anterior
-      Get.back();
+      // Volver a la pantalla anterior con resultado
+      Get.back(result: true);
     } catch (e) {
       TLoaders.errorSnackBar(
           title: 'Error', message: 'No se pudo guardar la reseña');
+      print('Error al guardar reseña: $e');
     } finally {
       isLoading.value = false;
     }
@@ -250,25 +263,46 @@ class ReviewController extends GetxController {
   }
 
   /// Formatear fecha de reseña
-  String formatReviewDate(DateTime date) {
-    final now = DateTime.now();
-    final difference = now.difference(date);
+  String formatReviewDate(dynamic date) {
+    try {
+      // Manejar diferentes tipos de entrada
+      DateTime dateTime;
 
-    if (difference.inDays == 0) {
-      if (difference.inHours == 0) {
-        return 'Hace ${difference.inMinutes} minutos';
+      if (date is DateTime) {
+        dateTime = date;
+      } else if (date is String) {
+        // Intentar parsear el string
+        dateTime = DateTime.parse(date);
+      } else {
+        // Si es otro tipo, retornar fecha desconocida
+        return 'Fecha desconocida';
       }
-      return 'Hace ${difference.inHours} horas';
-    } else if (difference.inDays == 1) {
-      return 'Ayer';
-    } else if (difference.inDays < 7) {
-      return 'Hace ${difference.inDays} días';
-    } else if (difference.inDays < 30) {
-      return 'Hace ${(difference.inDays / 7).floor()} semanas';
-    } else if (difference.inDays < 365) {
-      return 'Hace ${(difference.inDays / 30).floor()} meses';
-    } else {
-      return 'Hace ${(difference.inDays / 365).floor()} años';
+
+      final now = DateTime.now();
+      final difference = now.difference(dateTime);
+
+      if (difference.inDays == 0) {
+        if (difference.inHours == 0) {
+          if (difference.inMinutes == 0) {
+            return 'Justo ahora';
+          }
+          return 'Hace ${difference.inMinutes} minutos';
+        }
+        return 'Hace ${difference.inHours} horas';
+      } else if (difference.inDays == 1) {
+        return 'Ayer';
+      } else if (difference.inDays < 7) {
+        return 'Hace ${difference.inDays} días';
+      } else if (difference.inDays < 30) {
+        return 'Hace ${(difference.inDays / 7).floor()} semanas';
+      } else if (difference.inDays < 365) {
+        return 'Hace ${(difference.inDays / 30).floor()} meses';
+      } else {
+        return 'Hace ${(difference.inDays / 365).floor()} años';
+      }
+    } catch (e) {
+      print('Error al formatear fecha: $e');
+      return 'Fecha no disponible';
     }
   }
 }
