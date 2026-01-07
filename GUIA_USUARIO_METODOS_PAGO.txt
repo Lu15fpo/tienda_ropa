@@ -1,0 +1,207 @@
+═══════════════════════════════════════════════════════════════════════════════
+  GUÍA DE USO - SISTEMA DE MÉTODOS DE PAGO
+═══════════════════════════════════════════════════════════════════════════════
+
+📱 PARA USUARIOS FINALES
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎯 ¿QUÉ ES ESTE SISTEMA?
+
+El sistema de métodos de pago te permite guardar tus tarjetas de crédito/débito
+de forma segura en la aplicación para realizar compras más rápidas sin tener
+que ingresar los datos cada vez.
+
+🔒 SEGURIDAD:
+• Solo guardamos los últimos 4 dígitos de tu tarjeta
+• El CVV NUNCA se almacena
+• Tu información está encriptada en Firebase
+• Puedes eliminar tus métodos en cualquier momento
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📖 CÓMO USAR EL SISTEMA:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 1. AGREGAR TU PRIMERA TARJETA                                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ PASO 1: Ve a tu perfil                                                      │
+│ • Abre la app                                                               │
+│ • Toca el ícono de "Cuenta" en la parte inferior                            │
+│                                                                              │
+│ PASO 2: Accede a "Mis Métodos de Pago"                                      │
+│ • Busca la opción "💳 Mis Métodos de Pago"                                 │
+│ • Toca para abrir                                                           │
+│                                                                              │
+│ PASO 3: Agregar nuevo método                                                │
+│ • Toca el botón redondo [+] en la parte inferior derecha                    │
+│                                                                              │
+│ PASO 4: Llena el formulario                                                 │
+│ • Nombre del titular: Tu nombre completo (ej: JUAN PEREZ)                   │
+│ • Número de tarjeta: Los 16 dígitos de tu tarjeta                           │
+│   └─ Se formatearán automáticamente con espacios                            │
+│   └─ El tipo de tarjeta se detectará automáticamente                        │
+│ • Fecha de expiración: Mes y año (ej: 12/25)                                │
+│   └─ Se formateará automáticamente al escribir                              │
+│ • CVV: Los 3 dígitos del reverso (o 4 para AmEx)                            │
+│   └─ Este NO se guardará por seguridad                                      │
+│                                                                              │
+│ PASO 5: Marca como predeterminado (opcional)                                │
+│ • Si es tu primera tarjeta, márcala como predeterminada                     │
+│ • Esto la usará automáticamente en tus compras                              │
+│                                                                              │
+│ PASO 6: Guardar                                                             │
+│ • Toca el botón "Guardar Método de Pago"                                    │
+│ • Verás un mensaje de confirmación                                          │
+│ • La tarjeta aparecerá en tu lista                                          │
+│                                                                              │
+│ ✅ ¡Listo! Tu tarjeta está guardada de forma segura                         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 2. USAR TU TARJETA EN UNA COMPRA                                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ PASO 1: Agrega productos al carrito                                         │
+│ • Navega por la tienda                                                      │
+│ • Agrega los productos que desees comprar                                   │
+│                                                                              │
+│ PASO 2: Ve al carrito                                                       │
+│ • Toca el ícono del carrito                                                 │
+│ • Revisa tus productos                                                      │
+│ • Toca "Pagar"                                                              │
+│                                                                              │
+│ PASO 3: Verifica el método de pago                                          │
+│ • En la pantalla de "Orden de Pago" verás:                                  │
+│   ┌──────────────────────────────┐                                         │
+│   │ Método de pago   [Cambiar]   │                                         │
+│   │ [Visa] •••• •••• •••• 4242   │                                         │
+│   │        JUAN PEREZ             │                                         │
+│   └──────────────────────────────┘                                         │
+│                                                                              │
+│ PASO 4: Cambiar método (si lo deseas)                                       │
+│ • Toca "Cambiar"                                                            │
+│ • Se abrirá una lista con todas tus tarjetas                                │
+│ • Toca la que desees usar                                                   │
+│ • O toca "Agregar nuevo método" si quieres usar otra                        │
+│                                                                              │
+│ PASO 5: Completar compra                                                    │
+│ • Verifica dirección de envío                                               │
+│ • Toca "Pagar $XX.XX"                                                       │
+│ • ¡Tu compra está confirmada!                                               │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 3. GESTIONAR TUS TARJETAS                                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ ESTABLECER COMO PREDETERMINADA:                                             │
+│ • Ve a "Mis Métodos de Pago"                                                │
+│ • Toca sobre la tarjeta que deseas establecer                               │
+│ • Se marcará con un badge verde "✓ Predeterminado"                          │
+│ • La anterior perderá el badge                                              │
+│                                                                              │
+│ ELIMINAR UNA TARJETA:                                                       │
+│ • Ve a "Mis Métodos de Pago"                                                │
+│ • Toca el ícono de basura [🗑️] en la tarjeta                               │
+│ • Confirma la eliminación                                                   │
+│ • La tarjeta se eliminará permanentemente                                   │
+│                                                                              │
+│ AGREGAR MÁS TARJETAS:                                                       │
+│ • Puedes tener múltiples tarjetas guardadas                                 │
+│ • Solo toca [+] y agrega otra tarjeta                                       │
+│ • Podrás elegir cuál usar en cada compra                                    │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+❓ PREGUNTAS FRECUENTES:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ P: ¿Es seguro guardar mi tarjeta?                                           │
+│ R: Sí, solo guardamos los últimos 4 dígitos. El número completo y el CVV    │
+│    NO se almacenan. Tu información está protegida en Firebase.              │
+│                                                                              │
+│ P: ¿Puedo tener varias tarjetas guardadas?                                  │
+│ R: Sí, puedes agregar todas las que desees y elegir cuál usar en cada       │
+│    compra.                                                                   │
+│                                                                              │
+│ P: ¿Qué es el método predeterminado?                                        │
+│ R: Es la tarjeta que se usará automáticamente en tus compras. Puedes        │
+│    cambiarla en cualquier momento.                                          │
+│                                                                              │
+│ P: ¿Por qué no se guarda el CVV?                                            │
+│ R: Por seguridad. El CVV es información sensible que no debe almacenarse.   │
+│    Solo lo pedimos para validar que tienes la tarjeta física.               │
+│                                                                              │
+│ P: ¿Puedo editar una tarjeta guardada?                                      │
+│ R: Actualmente solo puedes eliminar y agregar de nuevo. Esta función        │
+│    estará disponible en futuras actualizaciones.                            │
+│                                                                              │
+│ P: ¿Qué pasa si mi tarjeta expira?                                          │
+│ R: Debes agregar la nueva tarjeta con la fecha actualizada y eliminar       │
+│    la antigua.                                                               │
+│                                                                              │
+│ P: No acepta mi número de tarjeta, ¿por qué?                                │
+│ R: Verificamos que el número sea válido usando el algoritmo de Luhn.        │
+│    Asegúrate de ingresar correctamente los 16 dígitos.                      │
+│                                                                              │
+│ P: ¿Qué tipos de tarjetas acepta?                                           │
+│ R: Visa, MasterCard, American Express y Discover.                           │
+│                                                                              │
+│ P: ¿Puedo usar esta tarjeta en otra cuenta?                                 │
+│ R: No, las tarjetas guardadas son exclusivas de tu cuenta.                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎨 INTERFAZ Y ELEMENTOS VISUALES:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ELEMENTOS QUE VERÁS:                                                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ [Visa] = Badge del tipo de tarjeta                                          │
+│ •••• •••• •••• 4242 = Número enmascarado (solo últimos 4 visibles)          │
+│ ✓ Predeterminado = Método que se usa por defecto                            │
+│ [✏️] = Botón de editar (próximamente)                                       │
+│ [🗑️] = Botón de eliminar                                                    │
+│ [+] = Botón para agregar nuevo método                                       │
+│                                                                              │
+│ VISTA PREVIA DE TARJETA:                                                    │
+│ Al agregar un método, verás una representación visual de tu tarjeta         │
+│ que se actualiza en tiempo real mientras escribes. Los colores cambian      │
+│ según el tipo de tarjeta:                                                    │
+│ • Visa: Azul oscuro                                                         │
+│ • MasterCard: Rojo a naranja                                                │
+│ • American Express: Azul claro                                              │
+│ • Discover: Naranja                                                         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⚠️ CONSEJOS Y MEJORES PRÁCTICAS:
+
+✓ Verifica que tu tarjeta no esté expirada antes de agregarla
+✓ Asegúrate de escribir correctamente el nombre del titular
+✓ Mantén al menos un método predeterminado para compras rápidas
+✓ Elimina tarjetas que ya no uses o que hayan expirado
+✓ No compartas tu cuenta con otros para proteger tus métodos de pago
+✓ Si cambias de tarjeta, recuerda actualizar tu método predeterminado
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📞 SOPORTE:
+
+Si tienes problemas con el sistema de métodos de pago:
+• Verifica que tienes conexión a internet
+• Asegúrate de estar logueado en tu cuenta
+• Intenta cerrar y volver a abrir la app
+• Si el problema persiste, contacta a soporte
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Versión del sistema: 1.0
+Última actualización: 07/01/2026
+
