@@ -5,6 +5,8 @@ import 'package:tienda_ropa/features/authentication/screens/password_configurati
 import 'package:tienda_ropa/features/authentication/screens/signup/signup.dart';
 import 'package:tienda_ropa/features/personalization/screens/profile/profile.dart';
 import 'package:tienda_ropa/features/personalization/screens/settings/settings.dart';
+import 'package:tienda_ropa/features/shop/screens/payment_methods/add_payment_method.dart';
+import 'package:tienda_ropa/features/shop/screens/payment_methods/payment_methods.dart';
 import 'package:tienda_ropa/features/shop/screens/wishlist/wishlist.dart';
 import 'package:tienda_ropa/routes/routes.dart';
 
@@ -27,6 +29,8 @@ class AppRoutes {
     GetPage(name: TRoutes.cart, page: () => const CartScreen()),
     GetPage(name: TRoutes.userProfile, page: () => const ProfileScreen()),
     /// GetPage(name: TRoutes.userAddress, page: () => const UserAddressScreen()),
+    GetPage(name: TRoutes.paymentMethods, page: () => const PaymentMethodsScreen()),
+    GetPage(name: TRoutes.addPaymentMethod, page: () => const AddPaymentMethodScreen()),
     GetPage(name: TRoutes.signup, page: () => const SignupScreen()),
     GetPage(name: TRoutes.verifyEmail, page: () => const VerifyEmailScreen()),
     GetPage(name: TRoutes.signIn, page: () => const LoginScreen()),

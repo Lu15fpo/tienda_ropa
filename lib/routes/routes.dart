@@ -17,6 +17,8 @@ class TRoutes {
   static const allProducts = '/all-products';
   static const userProfile = '/user-profile';
   static const userAddress = '/user-address';
+  static const paymentMethods = '/payment-methods';
+  static const addPaymentMethod = '/add-payment-method';
   static const signup = '/signup';
   static const signupSuccess = '/signup-success';
   static const verifyEmail = '/verify-email';

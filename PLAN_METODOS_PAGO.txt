@@ -287,9 +287,19 @@ ACTUALMENTE TENEMOS:
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ FASE 8: RUTAS                                                               │
 └─────────────────────────────────────────────────────────────────────────────┘
-[ ] PASO 8.1: Agregar rutas en app_routes.dart
-    - Ruta a PaymentMethodsScreen
-    - Ruta a AddPaymentMethodScreen
+[✓] PASO 8.1: Agregar rutas en app_routes.dart
+    Ubicación: lib/routes/app_routes.dart
+    - ✅ Import de PaymentMethodsScreen agregado
+    - ✅ Import de AddPaymentMethodScreen agregado
+    - ✅ GetPage para TRoutes.paymentMethods agregado
+    - ✅ GetPage para TRoutes.addPaymentMethod agregado
+
+[✓] PASO 8.2: Agregar constantes de rutas en routes.dart
+    Ubicación: lib/routes/routes.dart
+    - ✅ Constante paymentMethods = '/payment-methods'
+    - ✅ Constante addPaymentMethod = '/add-payment-method'
+
+    COMPLETADO: 07/01/2026 ✅
 
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ FASE 9: PRUEBAS Y REFINAMIENTO                                              │

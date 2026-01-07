@@ -1,0 +1,263 @@
+═══════════════════════════════════════════════════════════════════════════════
+  FASE 8 COMPLETADA - RUTAS
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ FECHA DE COMPLETACIÓN: 07/01/2026
+📍 ARCHIVOS MODIFICADOS:
+   - lib/routes/routes.dart
+   - lib/routes/app_routes.dart
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🛣️ RUTAS AGREGADAS:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 1. Constantes de Rutas (routes.dart)                                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ CONSTANTES AGREGADAS:                                                    │
+│                                                                              │
+│    static const paymentMethods = '/payment-methods';                        │
+│    └─ Ruta para la pantalla de lista de métodos de pago                    │
+│                                                                              │
+│    static const addPaymentMethod = '/add-payment-method';                   │
+│    └─ Ruta para la pantalla de agregar método de pago                      │
+│                                                                              │
+│ 📍 UBICACIÓN EN EL ARCHIVO:                                                │
+│    Insertadas después de userAddress y antes de signup                      │
+│                                                                              │
+│ ✅ RESULTADO:                                                               │
+│    class TRoutes {                                                           │
+│      // ...existing routes...                                               │
+│      static const userAddress = '/user-address';                            │
+│      static const paymentMethods = '/payment-methods';        ◄─── NUEVO   │
+│      static const addPaymentMethod = '/add-payment-method';   ◄─── NUEVO   │
+│      static const signup = '/signup';                                       │
+│      // ...existing routes...                                               │
+│    }                                                                         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 2. Configuración de Rutas (app_routes.dart)                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ IMPORTS AGREGADOS:                                                       │
+│                                                                              │
+│    import 'package:tienda_ropa/features/shop/screens/payment_methods/       │
+│            add_payment_method.dart';                                         │
+│                                                                              │
+│    import 'package:tienda_ropa/features/shop/screens/payment_methods/       │
+│            payment_methods.dart';                                            │
+│                                                                              │
+│ ✅ GETPAGE AGREGADOS:                                                       │
+│                                                                              │
+│    GetPage(                                                                  │
+│      name: TRoutes.paymentMethods,                                           │
+│      page: () => const PaymentMethodsScreen()                               │
+│    ),                                                                        │
+│                                                                              │
+│    GetPage(                                                                  │
+│      name: TRoutes.addPaymentMethod,                                         │
+│      page: () => const AddPaymentMethodScreen()                             │
+│    ),                                                                        │
+│                                                                              │
+│ 📍 UBICACIÓN EN LA LISTA:                                                  │
+│    Insertadas después de userProfile y antes de signup                      │
+│                                                                              │
+│ ✅ RESULTADO:                                                               │
+│    static final pages = [                                                   │
+│      // ...existing routes...                                               │
+│      GetPage(name: TRoutes.userProfile, page: () => ProfileScreen()),      │
+│      GetPage(name: TRoutes.paymentMethods,                   ◄─── NUEVO    │
+│              page: () => PaymentMethodsScreen()),                           │
+│      GetPage(name: TRoutes.addPaymentMethod,                 ◄─── NUEVO    │
+│              page: () => AddPaymentMethodScreen()),                         │
+│      GetPage(name: TRoutes.signup, page: () => SignupScreen()),            │
+│      // ...existing routes...                                               │
+│    ];                                                                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📱 NAVEGACIÓN DISPONIBLE:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ MÉTODO 1: Navegación Directa con Get.to()                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ USO ACTUAL EN LA APP:                                                       │
+│                                                                              │
+│ // Desde SettingsScreen                                                     │
+│ TSettingsMenuTile(                                                           │
+│   icon: Iconsax.card,                                                        │
+│   title: 'Mis Métodos de Pago',                                             │
+│   onTap: () => Get.to(() => const PaymentMethodsScreen())                   │
+│ )                                                                            │
+│                                                                              │
+│ // Desde PaymentMethodsScreen al agregar método                             │
+│ FloatingActionButton(                                                        │
+│   onPressed: () => Get.to(() => const AddPaymentMethodScreen())             │
+│ )                                                                            │
+│                                                                              │
+│ // Desde CheckoutController modal                                           │
+│ ElevatedButton(                                                              │
+│   onPressed: () async {                                                      │
+│     Get.back();                                                              │
+│     await Get.to(() => const AddPaymentMethodScreen());                      │
+│   }                                                                          │
+│ )                                                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ MÉTODO 2: Navegación con Rutas Nombradas (Ahora Disponible)                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ AHORA TAMBIÉN SE PUEDE USAR:                                                │
+│                                                                              │
+│ // Navegar a lista de métodos de pago                                       │
+│ Get.toNamed(TRoutes.paymentMethods);                                         │
+│                                                                              │
+│ // Navegar a agregar método de pago                                         │
+│ Get.toNamed(TRoutes.addPaymentMethod);                                       │
+│                                                                              │
+│ VENTAJAS DE USAR RUTAS NOMBRADAS:                                           │
+│ ✓ Código más limpio y mantenible                                           │
+│ ✓ Menos imports necesarios                                                  │
+│ ✓ Facilita testing                                                          │
+│ ✓ Permite deep linking en el futuro                                        │
+│ ✓ Gestión centralizada de rutas                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔄 EJEMPLOS DE USO:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ EJEMPLO 1: Navegar desde cualquier parte de la app                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ // Método actual (sigue funcionando)                                        │
+│ import 'package:tienda_ropa/features/shop/screens/payment_methods/          │
+│         payment_methods.dart';                                               │
+│                                                                              │
+│ Get.to(() => const PaymentMethodsScreen());                                 │
+│                                                                              │
+│ // Método con ruta nombrada (ahora disponible)                              │
+│ import 'package:tienda_ropa/routes/routes.dart';                            │
+│                                                                              │
+│ Get.toNamed(TRoutes.paymentMethods);                                         │
+│                                                                              │
+│ ✅ VENTAJA: Solo necesitas importar routes.dart en lugar del archivo        │
+│             completo de la pantalla                                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ EJEMPLO 2: Navegación con reemplazo                                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ // Reemplazar pantalla actual                                               │
+│ Get.offNamed(TRoutes.paymentMethods);                                        │
+│                                                                              │
+│ // Limpiar stack y navegar                                                  │
+│ Get.offAllNamed(TRoutes.paymentMethods);                                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ EJEMPLO 3: Navegación con parámetros (futura expansión)                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ // Si en el futuro necesitas pasar parámetros                               │
+│ Get.toNamed(                                                                 │
+│   TRoutes.addPaymentMethod,                                                  │
+│   arguments: {'editMode': true, 'paymentId': '123'}                         │
+│ );                                                                           │
+│                                                                              │
+│ // Recibir parámetros en la pantalla destino                                │
+│ final args = Get.arguments;                                                  │
+│ if (args['editMode'] == true) {                                             │
+│   // Cargar datos para edición                                              │
+│ }                                                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📋 LISTA COMPLETA DE RUTAS EN LA APP:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ RUTAS PÚBLICAS (Sin autenticación)                                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ • TRoutes.onBoarding        = '/on-boarding'                                │
+│ • TRoutes.signIn            = '/sign-in'                                    │
+│ • TRoutes.signup            = '/signup'                                     │
+│ • TRoutes.verifyEmail       = '/verify-email'                               │
+│ • TRoutes.forgetPassword    = '/forget-password'                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ RUTAS PRINCIPALES (Navegación Bottom Bar)                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ • TRoutes.home              = '/'                                           │
+│ • TRoutes.store             = '/store'                                      │
+│ • TRoutes.favourites        = '/favourites'                                 │
+│ • TRoutes.settings          = '/settings'                                   │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ RUTAS DE COMPRAS                                                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ • TRoutes.cart              = '/cart'                                       │
+│ • TRoutes.checkout          = '/checkout'                                   │
+│ • TRoutes.order             = '/order'                                      │
+│ • TRoutes.paymentMethods    = '/payment-methods'        ◄─── NUEVO         │
+│ • TRoutes.addPaymentMethod  = '/add-payment-method'     ◄─── NUEVO         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ RUTAS DE PERFIL                                                             │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ • TRoutes.userProfile       = '/user-profile'                               │
+│ • TRoutes.userAddress       = '/user-address'                               │
+│ • TRoutes.paymentMethods    = '/payment-methods'        ◄─── NUEVO         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ VERIFICACIONES REALIZADAS:
+
+✓ Imports agregados correctamente: OK
+✓ Constantes de rutas agregadas: OK
+✓ GetPage configurados correctamente: OK
+✓ Sin errores de compilación: OK
+✓ Sin conflictos con rutas existentes: OK
+✓ Rutas únicas y descriptivas: OK
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📊 ESTADO DEL PROYECTO:
+
+COMPLETADAS:
+✅ FASE 1: Modelo de Datos (PaymentMethodModel)
+✅ FASE 2: Repositorio (PaymentMethodRepository)
+✅ FASE 3: Controlador (PaymentMethodController)
+✅ FASE 4: Validadores y Utilidades
+✅ FASE 5: Widgets de Interfaz
+✅ FASE 6: Pantallas
+✅ FASE 7: Integración
+✅ FASE 8: Rutas ◄─── ESTAMOS AQUÍ
+
+PENDIENTES:
+⏳ FASE 9: Pruebas y Refinamiento (ÚLTIMA FASE)
+
+PROGRESO: 88% COMPLETADO 🎉🎉🎉🎉
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎯 PRÓXIMO PASO:
+
+FASE 9: PRUEBAS Y REFINAMIENTO (FINAL)
+└─ Realizar pruebas completas del sistema
+   ├─ Verificar flujo completo de agregar método
+   ├─ Verificar selección en checkout
+   ├─ Verificar eliminación de métodos
+   ├─ Verificar establecer predeterminado
+   ├─ Verificar validaciones de formulario
+   ├─ Verificar integración Firebase
+   ├─ Verificar navegación entre pantallas
+   ├─ Crear guía de uso para el usuario
+   └─ Documentación final del sistema
+
+═══════════════════════════════════════════════════════════════════════════════
+
