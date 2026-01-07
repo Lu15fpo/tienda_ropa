@@ -202,16 +202,29 @@ ACTUALMENTE TENEMOS:
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ FASE 5: WIDGETS DE INTERFAZ                                                 │
 └─────────────────────────────────────────────────────────────────────────────┘
-[ ] PASO 5.1: Crear widget SinglePaymentMethod
+[✓] PASO 5.1: Crear widget SinglePaymentMethod
     Ubicación: lib/features/shop/screens/payment_methods/widgets/single_payment_method.dart
-    - Similar a TSingleAddress
-    - Mostrar tarjeta enmascarada
-    - Indicador de predeterminado
+    - ✅ Widget para mostrar tarjeta en lista
+    - ✅ Similar a TSingleAddress
+    - ✅ Muestra número enmascarado
+    - ✅ Muestra nombre del titular
+    - ✅ Muestra fecha de expiración
+    - ✅ Indicador de predeterminado
+    - ✅ Botones de editar/eliminar
+    - ✅ Tipo de tarjeta (badge)
+    - ✅ Diseño responsive
 
-[ ] PASO 5.2: Crear widget CardInputFormatter
-    Ubicación: lib/common/widgets/payment/card_input_formatter.dart
-    - Formatear entrada de tarjeta automáticamente (espacios cada 4 dígitos)
-    - Detectar tipo de tarjeta mientras escribe
+[✓] PASO 5.2: Crear widget CardPreview
+    Ubicación: lib/common/widgets/payment/card_preview.dart
+    - ✅ Vista previa realista de tarjeta
+    - ✅ Gradientes según tipo de tarjeta
+    - ✅ Chip animado
+    - ✅ Formateo en tiempo real
+    - ✅ Logo de tipo de tarjeta
+    - ✅ Diseño tipo tarjeta real
+    - ✅ Sombras y efectos visuales
+
+    COMPLETADO: 07/01/2026 ✅
 
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ FASE 6: PANTALLAS                                                           │
