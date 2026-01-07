@@ -39,12 +39,28 @@ class OrderController extends GetxController {
   /// Agregar metodo para procesar el pedido
   void processOrder(double totalAmount) async {
     try {
+      // Validar que haya una dirección seleccionada
+      if (addressController.selectedAddress.value.id.isEmpty) {
+        TLoaders.warningSnackBar(
+          title: 'Dirección requerida',
+          message: 'Por favor selecciona una dirección de envío antes de continuar.'
+        );
+        return;
+      }
+
       // Empezar Carga
       TFullScreenLoader.openLoadingDialog('Procesando Orden', TImages.pencilAnimation);
 
       // Obtener ID de autentificacion de usuario
       final userId = AuthenticationRepository.instance.authUser.uid;
-      if (userId.isEmpty) return;
+      if (userId.isEmpty) {
+        TFullScreenLoader.stopLoading();
+        TLoaders.errorSnackBar(title: 'Error', message: 'No se pudo obtener el usuario.');
+        return;
+      }
+
+      print('📍 [OrderController] Dirección seleccionada: ${addressController.selectedAddress.value.name}');
+      print('📍 [OrderController] Dirección completa: ${addressController.selectedAddress.value.toString()}');
 
       // Obtener subtotal del carrito
       final subTotal = cartController.totalCartPrice.value;

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tienda_ropa/common/widgets/appbar/appbar.dart';
 
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/validators/validation.dart';
 import '../../controllers/address_controller.dart';
-import 'address.dart';
 
 class AddNewAddressScreen extends StatelessWidget {
   const AddNewAddressScreen({super.key});
@@ -88,12 +86,7 @@ class AddNewAddressScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      if (controller.addressFormKey.currentState!.validate()) {
-                        controller.addNewAddress();
-                        Get.off(() => const UserAddressScreen());
-                      }
-                    },
+                    onPressed: () => controller.addNewAddress(),
                     child: const Text('Guardar'),
                   ),
                 ),

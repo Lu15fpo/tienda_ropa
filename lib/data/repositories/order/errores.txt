@@ -1,0 +1,86 @@
+[GETX] REPLACE ROUTE null
+[GETX] NEW ROUTE /UserAddressScreen
+D/InputMethodManagerUtils(28973): startInputInner - Id : 0
+I/InputMethodManager(28973): startInputInner - IInputMethodManagerGlobalInvoker.startInputOrWindowGainedFocus
+I/ImeTracker(28973): com.example.tienda_ropa:3745b3fb: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+I/InputMethodManager_LC(28973): hsifw() - flag : 0
+I/InputMethodManager_LC(28973): hsifw() - mService.hideSoftInput
+D/InsetsController(28973): hide(ime(), fromIme=false)
+I/ImeTracker(28973): com.example.tienda_ropa:3745b3fb: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+D/CompatChangeReporter(28973): Compat change id reported: 395521150; UID 10506; state: ENABLED
+D/InputTransport(28973): Input channel constructed: 'ClientS', fd=261
+[GETX] OPEN DIALOG 489457658
+[GETX] CLOSE DIALOG 489457658
+[GETX] CLOSE TO ROUTE /UserAddressScreen
+[GETX] CLOSE TO ROUTE /AddNewAddressScreen
+
+======== Exception caught by rendering library =====================================================
+The following assertion was thrown during layout:
+A RenderFlex overflowed by 46 pixels on the bottom.
+
+The relevant error-causing widget was:
+  Column Column:file:///C:/Users/lu15p/StudioProjects/tienda_ropa/lib/features/personalization/controllers/address_controller.dart:137:16
+I/VRI[MainActivity]@fcbb231(28973): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@fcbb231
+I/VRI[MainActivity]@fcbb231(28973): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@fcbb231
+D/WindowOnBackDispatcher(28973): onBackInvoked, callback=io.flutter.embedding.android.FlutterActivity$1@7022ec
+D/WindowOnBackDispatcher(28973): onBackInvoked, callback=io.flutter.embedding.android.FlutterActivity$1@7022ec
+I/ImeFocusController(28973): onPreWindowFocus: skipped hasWindowFocus=false mHasImeFocus=true
+I/ImeFocusController(28973): onPostWindowFocus: skipped hasWindowFocus=false mHasImeFocus=true
+I/VRI[MainActivity]@fcbb231(28973): handleAppVisibility mAppVisible = true visible = false
+D/VRI[MainActivity]@fcbb231(28973): visibilityChanged oldVisibility=true newVisibility=false
+I/SV[106908584 MainActivity](28973): onWindowVisibilityChanged(8) false io.flutter.embedding.android.FlutterSurfaceView{65f4ba8 V.E...... ........ 0,0-1080,2340} of VRI[MainActivity]@fcbb231
+I/SurfaceView(28973): 106908584 Changes: creating=false format=false size=false visible=true alpha=false hint=false left=false top=false z=false attached=true lifecycleStrategy=false
+I/SurfaceView(28973): 106908584 Cur surface: Surface(name=null mNativeObject=-5476376632748580080)/@0x3c03c77
+D/SurfaceComposerClient(28973): setCornerRadius ## 65f4ba8 SurfaceView[com.example.tienda_ropa/com.example.tienda_ropa.MainActivity]@0#7223 cornerRadius=0.000000
+I/SurfaceView(28973): 106908584 surfaceDestroyed
+I/SV[106908584 MainActivity](28973): surfaceDestroyed callback.size 1 #2 io.flutter.embedding.android.FlutterSurfaceView{65f4ba8 V.E...... ........ 0,0-1080,2340}
+I/SV[106908584 MainActivity](28973): updateSurface: mVisible = false mSurface.isValid() = true
+I/SV[106908584 MainActivity](28973): releaseSurfaces: viewRoot = VRI[MainActivity]@fcbb231
+V/SurfaceView(28973): Layout: x=0 y=0 w=1080 h=2340, frame=Rect(0, 0 - 1080, 2340)
+D/SurfaceView(28973): 110365893 windowPositionLost, frameNr = 0
+D/HWUI    (28973): CacheManager::trimMemory(20)
+I/VRI[MainActivity]@fcbb231(28973): Relayout returned: old=(0,0,1080,2340) new=(0,0,1080,2340) relayoutAsync=false req=(1080,2340)8 dur=10 res=0x2 s={false 0x0} ch=true seqId=0
+I/SV[106908584 MainActivity](28973): windowStopped(true) false io.flutter.embedding.android.FlutterSurfaceView{65f4ba8 V.E...... ........ 0,0-1080,2340} of VRI[MainActivity]@fcbb231
+D/SV[106908584 MainActivity](28973): updateSurface: surface is not valid
+I/SV[106908584 MainActivity](28973): releaseSurfaces: viewRoot = VRI[MainActivity]@fcbb231
+D/VRI[MainActivity]@fcbb231(28973): applyTransactionOnDraw applyImmediately
+D/SV[106908584 MainActivity](28973): updateSurface: surface is not valid
+I/SV[106908584 MainActivity](28973): releaseSurfaces: viewRoot = VRI[MainActivity]@fcbb231
+D/VRI[MainActivity]@fcbb231(28973): applyTransactionOnDraw applyImmediately
+D/VRI[MainActivity]@fcbb231(28973): Not drawing due to not visible. Reason=!mAppVisible && !mForceDecorViewVisibility
+D/VRI[MainActivity]@fcbb231(28973): Pending transaction will not be applied in sync with a draw due to view not visible
+I/VRI[MainActivity]@fcbb231(28973): mWNT: t=0xb4000076f4c6f350 mBlastBufferQueue=0xnull fn= 0 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl.handleSyncRequestWhenNoAsyncDraw:6733 android.view.ViewRootImpl.performTraversals:5504 android.view.ViewRootImpl.doTraversal:3924
+D/HWUI    (28973): CacheManager::trimMemory(20)
+I/VRI[MainActivity]@fcbb231(28973): stopped(true) old = false
+D/VRI[MainActivity]@fcbb231(28973): WindowStopped on com.example.tienda_ropa/com.example.tienda_ropa.MainActivity set to true
+D/HWUI    (28973): CacheManager::trimMemory(20)
+D/SV[106908584 MainActivity](28973): updateSurface: surface is not valid
+I/SV[106908584 MainActivity](28973): releaseSurfaces: viewRoot = VRI[MainActivity]@fcbb231
+D/VRI[MainActivity]@fcbb231(28973): applyTransactionOnDraw applyImmediately
+D/InputTransport(28973): Input channel destroyed: 'ClientS', fd=179
+D/SV[106908584 MainActivity](28973): updateSurface: surface is not valid
+I/SV[106908584 MainActivity](28973): releaseSurfaces: viewRoot = VRI[MainActivity]@fcbb231
+D/VRI[MainActivity]@fcbb231(28973): applyTransactionOnDraw applyImmediately
+D/BBA2    (28973): setIsFg isFg = false; delayValue 3999ms
+Lost connection to device.
+The overflowing RenderFlex has an orientation of Axis.vertical.
+The edge of the RenderFlex that is overflowing has been marked in the rendering with a yellow and black striped pattern. This is usually caused by the contents being too big for the RenderFlex.
+
+Consider applying a flex factor (e.g. using an Expanded widget) to force the children of the RenderFlex to fit within the available space instead of being sized to their natural size.
+This is considered an error condition because it indicates that there is content that cannot be seen. If the content is legitimately bigger than the available space, consider clipping it with a ClipRect widget before putting it in the flex, or using a scrollable container rather than a Flex, like a ListView.
+
+The specific RenderFlex in question is: RenderFlex#d0c39 relayoutBoundary=up10 OVERFLOWING
+...  needs compositing
+...  parentData: offset=Offset(24.0, 24.0) (can use size)
+...  constraints: BoxConstraints(0.0<=w<=336.0, 0.0<=h<=372.0)
+...  size: Size(336.0, 372.0)
+...  direction: vertical
+...  mainAxisAlignment: start
+...  mainAxisSize: max
+...  crossAxisAlignment: start
+...  textDirection: ltr
+...  verticalDirection: down
+...  spacing: 0.0
+◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤
+====================================================================================================
+[GETX] OPEN DIALOG 687648075

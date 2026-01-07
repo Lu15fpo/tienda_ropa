@@ -132,38 +132,65 @@ class AddressController extends GetxController {
   Future<dynamic> selectNewAddressPopup(BuildContext context) {
     return showModalBottomSheet(
       context: context,
-      builder: (_) => Container(
-        padding: const EdgeInsets.all(TSizes.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TSectionHeading(title: 'Seleccionar Direccion', showActionButton: false),
-            FutureBuilder(
-              future: getAllUserAddresses(),
-              builder: (_, snapshot) {
-                /// Funcion de ayuda: Manejo del Loader, No Record o mensaje de error
-                final response = TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot);
-                if (response != null) return response;
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(TSizes.cardRadiusLg)),
+      ),
+      builder: (_) => DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        minChildSize: 0.3,
+        maxChildSize: 0.9,
+        expand: false,
+        builder: (_, scrollController) => SingleChildScrollView(
+          controller: scrollController,
+          child: Padding(
+            padding: const EdgeInsets.all(TSizes.lg),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TSectionHeading(title: 'Seleccionar Direccion', showActionButton: false),
+                const SizedBox(height: TSizes.spaceBtwItems),
+                Obx(
+                  () => FutureBuilder(
+                    key: Key(refreshData.value.toString()),
+                    future: getAllUserAddresses(),
+                    builder: (_, snapshot) {
+                      /// Funcion de ayuda: Manejo del Loader, No Record o mensaje de error
+                      final response = TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot);
+                      if (response != null) return response;
 
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (_, index) => TSingleAddress(
-                    address: snapshot.data![index],
-                    onTap: () async {
-                      await selectAddress(snapshot.data![index]);
-                      Get.back();
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (_, index) => TSingleAddress(
+                          address: snapshot.data![index],
+                          onTap: () async {
+                            await selectAddress(snapshot.data![index]);
+                            Get.back();
+                          },
+                        ),
+                      );
                     },
                   ),
-                );
-              },
+                ),
+                const SizedBox(height: TSizes.spaceBtwSections),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      await Get.to(() => const AddNewAddressScreen());
+                      // Actualizar la lista después de regresar
+                      refreshData.toggle();
+                    },
+                    child: const Text('Agregar nueva direccion')
+                  ),
+                ),
+                const SizedBox(height: TSizes.spaceBtwItems),
+              ],
             ),
-            const SizedBox(height: TSizes.defaultSpace * 2),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(onPressed: () => Get.to(() => const AddNewAddressScreen()), child: const Text('Agregar nueva direccion')),
-            ),
-          ],
+          ),
         ),
       ),
     );
