@@ -1,0 +1,359 @@
+═══════════════════════════════════════════════════════════════════════════════
+  FASE 4 COMPLETADA - VALIDADORES Y UTILIDADES
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ FECHA DE COMPLETACIÓN: 07/01/2026
+📍 ARCHIVOS CREADOS/MODIFICADOS:
+   - lib/utils/validators/validation.dart (EXPANDIDO)
+   - lib/utils/formatters/card_input_formatters.dart (NUEVO)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📦 VALIDADORES IMPLEMENTADOS (validation.dart):
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ VALIDADOR DE NÚMERO DE TARJETA                                              │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ validateCardNumber(String? value)                                        │
+│                                                                              │
+│ VALIDACIONES:                                                                │
+│ 1. Campo no vacío                                                           │
+│ 2. Solo números (elimina espacios y guiones)                                │
+│ 3. Longitud entre 13 y 19 dígitos                                           │
+│ 4. Algoritmo de Luhn (checksum matemático)                                  │
+│                                                                              │
+│ ALGORITMO DE LUHN:                                                          │
+│ - Recorre número de derecha a izquierda                                     │
+│ - Duplica cada segundo dígito                                               │
+│ - Si el resultado > 9, resta 9                                              │
+│ - Suma todos los dígitos                                                    │
+│ - Válido si suma es divisible por 10                                        │
+│                                                                              │
+│ EJEMPLO:                                                                     │
+│ Input: "4242 4242 4242 4242"                                                │
+│ Clean: "4242424242424242"                                                   │
+│ Luhn:  [4+2+8+2+8+2+8+2+8+2+8+2+8+2+8+2] = 80                              │
+│ Valid: 80 % 10 == 0 ✓                                                       │
+│                                                                              │
+│ MENSAJES DE ERROR:                                                          │
+│ - "El número de tarjeta es requerido."                                      │
+│ - "El número de tarjeta debe contener solo números."                        │
+│ - "El número de tarjeta debe tener entre 13 y 19 dígitos."                 │
+│ - "Número de tarjeta inválido."                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ VALIDADOR DE CVV                                                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ validateCVV(String? value)                                               │
+│                                                                              │
+│ VALIDACIONES:                                                                │
+│ 1. Campo no vacío                                                           │
+│ 2. Solo números                                                             │
+│ 3. Longitud de 3 o 4 dígitos                                                │
+│    - 3 dígitos: Visa, MasterCard, Discover                                  │
+│    - 4 dígitos: American Express                                            │
+│                                                                              │
+│ MENSAJES DE ERROR:                                                          │
+│ - "El CVV es requerido."                                                    │
+│ - "El CVV debe contener solo números."                                      │
+│ - "El CVV debe tener 3 o 4 dígitos."                                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ VALIDADOR DE FECHA DE EXPIRACIÓN                                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ validateExpiryDate(String? value)                                        │
+│                                                                              │
+│ VALIDACIONES:                                                                │
+│ 1. Campo no vacío                                                           │
+│ 2. Formato MM/YY con barra diagonal                                         │
+│ 3. Mes válido (01-12)                                                       │
+│ 4. Año válido                                                               │
+│ 5. Fecha no expirada                                                        │
+│ 6. Conversión automática YY → YYYY                                          │
+│                                                                              │
+│ EJEMPLOS:                                                                    │
+│ ✓ "12/25" → Diciembre 2025 (VÁLIDO)                                         │
+│ ✓ "06/26" → Junio 2026 (VÁLIDO)                                             │
+│ ✗ "13/25" → Mes inválido                                                    │
+│ ✗ "01/24" → Expirado (si estamos en 2026)                                   │
+│ ✗ "12-25" → Formato incorrecto                                              │
+│                                                                              │
+│ MENSAJES DE ERROR:                                                          │
+│ - "La fecha de expiración es requerida."                                    │
+│ - "Formato inválido. Use MM/YY"                                             │
+│ - "Mes inválido. Debe estar entre 01 y 12."                                 │
+│ - "Año inválido."                                                           │
+│ - "La tarjeta ha expirado."                                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ VALIDADOR DE NOMBRE DEL TITULAR                                             │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ validateCardHolderName(String? value)                                    │
+│                                                                              │
+│ VALIDACIONES:                                                                │
+│ 1. Campo no vacío                                                           │
+│ 2. Mínimo 2 caracteres                                                      │
+│ 3. Solo letras y espacios                                                   │
+│ 4. Acepta acentos y ñ (español)                                             │
+│                                                                              │
+│ EJEMPLOS:                                                                    │
+│ ✓ "JUAN PEREZ"                                                              │
+│ ✓ "María González"                                                          │
+│ ✓ "José Ñúñez"                                                              │
+│ ✗ "Juan123"                                                                 │
+│ ✗ "J"                                                                       │
+│                                                                              │
+│ MENSAJES DE ERROR:                                                          │
+│ - "El nombre del titular es requerido."                                     │
+│ - "El nombre debe tener al menos 2 caracteres."                             │
+│ - "El nombre debe contener solo letras."                                    │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ VALIDADOR GENÉRICO DE NÚMEROS                                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ validateNumericOnly(String? fieldName, String? value)                    │
+│                                                                              │
+│ VALIDACIONES:                                                                │
+│ 1. Campo no vacío                                                           │
+│ 2. Solo números                                                             │
+│                                                                              │
+│ USO:                                                                         │
+│ TValidator.validateNumericOnly('Código Postal', value)                      │
+│                                                                              │
+│ MENSAJES DE ERROR:                                                          │
+│ - "{fieldName} es requerido."                                               │
+│ - "{fieldName} debe contener solo números."                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎨 INPUT FORMATTERS IMPLEMENTADOS (card_input_formatters.dart):
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ FORMATEADOR DE NÚMERO DE TARJETA                                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ CardNumberInputFormatter                                                 │
+│                                                                              │
+│ FUNCIONALIDAD:                                                               │
+│ - Elimina automáticamente caracteres no numéricos                           │
+│ - Agrega espacios cada 4 dígitos                                            │
+│ - Limita a 19 dígitos máximo                                                │
+│ - Actualiza el cursor al final                                              │
+│                                                                              │
+│ TRANSFORMACIÓN EN TIEMPO REAL:                                              │
+│ Usuario escribe: "4242424242424242"                                         │
+│ Resultado:       "4242 4242 4242 4242"                                      │
+│                                                                              │
+│ USO EN FORMULARIO:                                                          │
+│ TextFormField(                                                               │
+│   inputFormatters: [CardNumberInputFormatter()],                            │
+│   keyboardType: TextInputType.number,                                       │
+│ )                                                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ FORMATEADOR DE FECHA DE EXPIRACIÓN                                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ ExpiryDateInputFormatter                                                 │
+│                                                                              │
+│ FUNCIONALIDAD:                                                               │
+│ - Elimina automáticamente caracteres no numéricos                           │
+│ - Agrega barra diagonal (/) después del mes                                 │
+│ - Limita a 4 dígitos (MMYY)                                                 │
+│ - Formato automático MM/YY                                                  │
+│                                                                              │
+│ TRANSFORMACIÓN EN TIEMPO REAL:                                              │
+│ Usuario escribe: "1225"                                                     │
+│ Resultado:       "12/25"                                                    │
+│                                                                              │
+│ Usuario escribe: "1"                                                        │
+│ Resultado:       "1"                                                        │
+│                                                                              │
+│ Usuario escribe: "12"                                                       │
+│ Resultado:       "12/"                                                      │
+│                                                                              │
+│ USO EN FORMULARIO:                                                          │
+│ TextFormField(                                                               │
+│   inputFormatters: [ExpiryDateInputFormatter()],                            │
+│   keyboardType: TextInputType.number,                                       │
+│ )                                                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ FORMATEADOR DE CVV                                                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ CVVInputFormatter                                                        │
+│                                                                              │
+│ FUNCIONALIDAD:                                                               │
+│ - Elimina automáticamente caracteres no numéricos                           │
+│ - Limita a 3 o 4 dígitos (configurable)                                     │
+│ - Por defecto: 4 dígitos (soporta AmEx)                                     │
+│                                                                              │
+│ TRANSFORMACIÓN EN TIEMPO REAL:                                              │
+│ Usuario escribe: "123456"                                                   │
+│ Resultado:       "1234" (limitado a maxLength)                              │
+│                                                                              │
+│ USO EN FORMULARIO:                                                          │
+│ // Para Visa, MC, Discover (3 dígitos)                                      │
+│ TextFormField(                                                               │
+│   inputFormatters: [CVVInputFormatter(maxLength: 3)],                       │
+│   keyboardType: TextInputType.number,                                       │
+│ )                                                                            │
+│                                                                              │
+│ // Para American Express (4 dígitos)                                        │
+│ TextFormField(                                                               │
+│   inputFormatters: [CVVInputFormatter(maxLength: 4)],                       │
+│   keyboardType: TextInputType.number,                                       │
+│ )                                                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ FORMATEADOR DE NOMBRE DEL TITULAR                                           │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ CardHolderNameInputFormatter                                             │
+│                                                                              │
+│ FUNCIONALIDAD:                                                               │
+│ - Elimina números y caracteres especiales                                   │
+│ - Mantiene letras (con acentos) y espacios                                  │
+│ - Convierte automáticamente a MAYÚSCULAS                                    │
+│                                                                              │
+│ TRANSFORMACIÓN EN TIEMPO REAL:                                              │
+│ Usuario escribe: "juan perez 123"                                           │
+│ Resultado:       "JUAN PEREZ "                                              │
+│                                                                              │
+│ Usuario escribe: "maría garcía"                                             │
+│ Resultado:       "MARÍA GARCÍA"                                             │
+│                                                                              │
+│ USO EN FORMULARIO:                                                          │
+│ TextFormField(                                                               │
+│   inputFormatters: [CardHolderNameInputFormatter()],                        │
+│   keyboardType: TextInputType.name,                                         │
+│   textCapitalization: TextCapitalization.characters,                        │
+│ )                                                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ FORMATEADOR GENÉRICO DE SOLO NÚMEROS                                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ NumericOnlyInputFormatter                                                │
+│                                                                              │
+│ FUNCIONALIDAD:                                                               │
+│ - Elimina automáticamente caracteres no numéricos                           │
+│ - Límite de longitud opcional                                               │
+│ - Reutilizable para múltiples campos                                        │
+│                                                                              │
+│ USO EN FORMULARIO:                                                          │
+│ // Sin límite de longitud                                                   │
+│ TextFormField(                                                               │
+│   inputFormatters: [NumericOnlyInputFormatter()],                           │
+│ )                                                                            │
+│                                                                              │
+│ // Con límite de 6 dígitos                                                  │
+│ TextFormField(                                                               │
+│   inputFormatters: [NumericOnlyInputFormatter(maxLength: 6)],               │
+│ )                                                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+💡 EJEMPLO DE USO COMPLETO EN FORMULARIO:
+
+```dart
+import 'package:tienda_ropa/utils/validators/validation.dart';
+import 'package:tienda_ropa/utils/formatters/card_input_formatters.dart';
+
+// Campo de Número de Tarjeta
+TextFormField(
+  controller: controller.cardNumber,
+  validator: TValidator.validateCardNumber,
+  inputFormatters: [CardNumberInputFormatter()],
+  keyboardType: TextInputType.number,
+  decoration: const InputDecoration(
+    labelText: 'Número de Tarjeta',
+    hintText: '4242 4242 4242 4242',
+  ),
+  onChanged: (value) => controller.onCardNumberChanged(value),
+)
+
+// Campo de Fecha de Expiración
+TextFormField(
+  controller: controller.expiryDate,
+  validator: TValidator.validateExpiryDate,
+  inputFormatters: [ExpiryDateInputFormatter()],
+  keyboardType: TextInputType.number,
+  decoration: const InputDecoration(
+    labelText: 'Fecha de Expiración',
+    hintText: 'MM/YY',
+  ),
+)
+
+// Campo de CVV
+TextFormField(
+  controller: controller.cvv,
+  validator: TValidator.validateCVV,
+  inputFormatters: [CVVInputFormatter(maxLength: 3)],
+  keyboardType: TextInputType.number,
+  obscureText: true,
+  decoration: const InputDecoration(
+    labelText: 'CVV',
+    hintText: '123',
+  ),
+)
+
+// Campo de Nombre del Titular
+TextFormField(
+  controller: controller.cardHolderName,
+  validator: TValidator.validateCardHolderName,
+  inputFormatters: [CardHolderNameInputFormatter()],
+  keyboardType: TextInputType.name,
+  decoration: const InputDecoration(
+    labelText: 'Nombre del Titular',
+    hintText: 'JUAN PEREZ',
+  ),
+)
+```
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ VERIFICACIONES REALIZADAS:
+
+✓ flutter analyze: PASSED (No issues found)
+✓ Compilación: OK
+✓ Validadores probados lógicamente: OK
+✓ Formatters implementados correctamente: OK
+✓ Compatibilidad con diferentes tipos de tarjetas: OK
+✓ Soporte para español (acentos, ñ): OK
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📊 ESTADO DEL PROYECTO:
+
+COMPLETADAS:
+✅ FASE 1: Modelo de Datos (PaymentMethodModel)
+✅ FASE 2: Repositorio (PaymentMethodRepository)
+✅ FASE 3: Controlador (PaymentMethodController)
+✅ FASE 4: Validadores y Utilidades ◄─── ESTAMOS AQUÍ
+
+PENDIENTES:
+⏳ FASE 5: Widgets de Interfaz
+⏳ FASE 6: Pantallas
+⏳ FASE 7: Integración
+⏳ FASE 8: Rutas
+⏳ FASE 9: Pruebas y Refinamiento
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎯 PRÓXIMO PASO:
+
+FASE 5: WIDGETS DE INTERFAZ
+└─ Crear widgets reutilizables para métodos de pago
+   ├─ SinglePaymentMethod (widget de tarjeta en lista)
+   ├─ PaymentMethodTile (tile seleccionable)
+   └─ CardPreview (vista previa de tarjeta - opcional)
+
+═══════════════════════════════════════════════════════════════════════════════
+

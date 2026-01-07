@@ -1,0 +1,373 @@
+═══════════════════════════════════════════════════════════════════════
+   ESTRUCTURA FIREBASE - SISTEMA DE RESEÑAS Y CALIFICACIONES
+═══════════════════════════════════════════════════════════════════════
+
+📅 Fecha: 2026-01-05
+🔥 Firebase Project: tienda_ropa
+
+════════════════════════════════════════════════════════════════════════
+1. ESTRUCTURA DE COLECCIONES
+════════════════════════════════════════════════════════════════════════
+
+Products (Collection)
+│
+├── {productId} (Document)
+│   ├── SKU: string
+│   ├── Title: string
+│   ├── Stock: number
+│   ├── Price: number
+│   ├── SalePrice: number
+│   ├── Thumbnail: string
+│   ├── Images: array
+│   ├── IsFeatured: boolean
+│   ├── CategoryId: string
+│   ├── Brand: map
+│   ├── Description: string
+│   ├── ProductType: string
+│   ├── ProductAttributes: array
+│   ├── ProductVariations: array
+│   │
+│   ├── ⭐ AverageRating: number (0.0 - 5.0)
+│   ├── ⭐ ReviewsCount: number
+│   │
+│   └── Reviews (SubCollection) ← NUEVO
+│       │
+│       ├── {reviewId} (Document)
+│       │   ├── Id: string
+│       │   ├── ProductId: string
+│       │   ├── UserId: string
+│       │   ├── UserName: string
+│       │   ├── UserProfileImage: string
+│       │   ├── Rating: number (1.0 - 5.0)
+│       │   ├── Comment: string
+│       │   ├── CreatedAt: timestamp
+│       │   └── UpdatedAt: timestamp (nullable)
+│       │
+│       ├── {reviewId} (Document)
+│       │   └── ... (mismos campos)
+│       │
+│       └── ...
+
+════════════════════════════════════════════════════════════════════════
+2. DETALLE DE CAMPOS - PRODUCTOS
+════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ CAMPOS EXISTENTES (Sin cambios)                                     │
+└─────────────────────────────────────────────────────────────────────┘
+SKU                : string          - Código del producto
+Title              : string          - Nombre del producto
+Stock              : number          - Cantidad disponible
+Price              : number          - Precio original
+SalePrice          : number          - Precio de oferta
+Thumbnail          : string (URL)    - Imagen principal
+Images             : array<string>   - Lista de imágenes
+IsFeatured         : boolean         - Producto destacado
+CategoryId         : string          - ID de categoría
+Brand              : map             - Información de marca
+Description        : string          - Descripción del producto
+ProductType        : string          - Tipo (single/variable)
+ProductAttributes  : array<map>      - Atributos (color, talla, etc.)
+ProductVariations  : array<map>      - Variaciones del producto
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ CAMPOS NUEVOS - SISTEMA DE RESEÑAS                                  │
+└─────────────────────────────────────────────────────────────────────┘
+⭐ AverageRating   : number (double) - Rating promedio (0.0 - 5.0)
+   • Valor por defecto: 0.0
+   • Se calcula automáticamente
+   • Se actualiza con cada nueva reseña
+   • Formato: 1 decimal (ej: 4.5)
+
+⭐ ReviewsCount    : number (int)    - Contador de reseñas
+   • Valor por defecto: 0
+   • Se incrementa al agregar reseña
+   • Se decrementa al eliminar reseña
+   • Se actualiza automáticamente
+
+════════════════════════════════════════════════════════════════════════
+3. DETALLE DE CAMPOS - RESEÑAS
+════════════════════════════════════════════════════════════════════════
+
+Path: Products/{productId}/Reviews/{reviewId}
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ CAMPOS DE LA RESEÑA                                                  │
+└─────────────────────────────────────────────────────────────────────┘
+Id                 : string          - ID único de la reseña
+                                      (timestamp en milisegundos)
+
+ProductId          : string          - ID del producto reseñado
+                                      (referencia al documento padre)
+
+UserId             : string          - ID del usuario que reseña
+                                      (de Users collection)
+
+UserName           : string          - Nombre completo del usuario
+                                      (firstName + lastName)
+
+UserProfileImage   : string (URL)    - Foto de perfil del usuario
+                                      (URL de Firebase Storage)
+
+Rating             : number (double) - Calificación (1.0 - 5.0)
+                                      • Valores válidos: 1.0, 2.0, 3.0, 4.0, 5.0
+                                      • No permite medias estrellas
+
+Comment            : string          - Texto de la reseña
+                                      • Mínimo: 10 caracteres
+                                      • Máximo: 500 caracteres
+                                      • Requerido
+
+CreatedAt          : timestamp       - Fecha de creación
+                                      • Formato: Firestore Timestamp
+                                      • Automático al crear
+
+UpdatedAt          : timestamp       - Fecha de última edición
+                                      • Nullable
+                                      • Solo si fue editada
+
+════════════════════════════════════════════════════════════════════════
+4. EJEMPLO DE DOCUMENTO - PRODUCTO CON RESEÑAS
+════════════════════════════════════════════════════════════════════════
+
+Products/PbP8ylu0Ri1f9A8owkqq
+{
+  "Title": "Nike SB",
+  "Price": 60,
+  "SalePrice": 40,
+  "Stock": 50,
+  "Thumbnail": "https://...",
+  "CategoryId": "sports123",
+  "Brand": {
+    "Id": "nike001",
+    "Name": "Nike",
+    "Image": "https://..."
+  },
+  "Description": "La mejor camiseta para skateboard...",
+
+  // CAMPOS NUEVOS
+  "AverageRating": 4.5,
+  "ReviewsCount": 12,
+
+  // ... otros campos ...
+}
+
+────────────────────────────────────────────────────────────────────────
+
+Products/PbP8ylu0Ri1f9A8owkqq/Reviews/1735864820000
+{
+  "Id": "1735864820000",
+  "ProductId": "PbP8ylu0Ri1f9A8owkqq",
+  "UserId": "user123abc",
+  "UserName": "Juan Pérez",
+  "UserProfileImage": "https://firebasestorage.../profile.jpg",
+  "Rating": 5.0,
+  "Comment": "Excelente producto, muy cómodo y de buena calidad...",
+  "CreatedAt": Timestamp(2025, 1, 3, 14, 30, 20),
+  "UpdatedAt": null
+}
+
+Products/PbP8ylu0Ri1f9A8owkqq/Reviews/1735868420000
+{
+  "Id": "1735868420000",
+  "ProductId": "PbP8ylu0Ri1f9A8owkqq",
+  "UserId": "user456def",
+  "UserName": "María García",
+  "UserProfileImage": "https://firebasestorage.../maria.jpg",
+  "Rating": 4.0,
+  "Comment": "Muy bueno, aunque esperaba que fuera un poco más grande...",
+  "CreatedAt": Timestamp(2025, 1, 4, 10, 15, 40),
+  "UpdatedAt": Timestamp(2025, 1, 4, 16, 20, 10)
+}
+
+════════════════════════════════════════════════════════════════════════
+5. ÍNDICES COMPUESTOS REQUERIDOS
+════════════════════════════════════════════════════════════════════════
+
+⚠️ IMPORTANTE: Configurar los siguientes índices en Firebase Console
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ ÍNDICE 1: Reseñas por Usuario (getUserReviews)                      │
+└─────────────────────────────────────────────────────────────────────┘
+Collection Group: Reviews
+Fields:
+  ├── UserId        : Ascending
+  └── CreatedAt     : Descending
+
+Ruta para crear: Firebase Console → Firestore → Índices
+URL: https://console.firebase.google.com/project/[PROJECT_ID]/firestore/indexes
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ ÍNDICE 2: Reseñas de Producto por Fecha (getProductReviews)         │
+└─────────────────────────────────────────────────────────────────────┘
+Collection: Reviews (dentro de Products)
+Fields:
+  └── CreatedAt     : Descending
+
+⚠️ Nota: Este índice se creará automáticamente cuando ejecutes la primera
+        consulta que lo requiera. Firebase mostrará un enlace en la consola.
+
+════════════════════════════════════════════════════════════════════════
+6. REGLAS DE SEGURIDAD SUGERIDAS
+════════════════════════════════════════════════════════════════════════
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Reglas para Productos
+    match /Products/{productId} {
+      // Permitir lectura a todos
+      allow read: if true;
+
+      // Solo admin puede escribir productos
+      allow write: if request.auth != null &&
+                     get(/databases/$(database)/documents/Users/$(request.auth.uid))
+                       .data.Role == 'Admin';
+
+      // Reglas para Reseñas (subcollection)
+      match /Reviews/{reviewId} {
+        // Permitir lectura a todos
+        allow read: if true;
+
+        // Permitir crear solo a usuarios autenticados
+        allow create: if request.auth != null &&
+                        request.resource.data.UserId == request.auth.uid;
+
+        // Permitir actualizar/eliminar solo al propietario
+        allow update, delete: if request.auth != null &&
+                                 resource.data.UserId == request.auth.uid;
+      }
+    }
+  }
+}
+
+════════════════════════════════════════════════════════════════════════
+7. FLUJO DE DATOS - AGREGAR RESEÑA
+════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ PASO 1: Usuario crea reseña                                         │
+└─────────────────────────────────────────────────────────────────────┘
+→ ReviewController.saveReview()
+  ├─ Valida rating (1-5)
+  ├─ Valida comentario (10-500 chars)
+  └─ Crea ReviewModel
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ PASO 2: Guardar en Firebase                                         │
+└─────────────────────────────────────────────────────────────────────┘
+→ ReviewRepository.addReview()
+  ├─ Guarda en: Products/{productId}/Reviews/{reviewId}
+  └─ Llama a _updateProductRatingStats()
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ PASO 3: Actualizar estadísticas                                     │
+└─────────────────────────────────────────────────────────────────────┘
+→ ReviewRepository._updateProductRatingStats()
+  ├─ calculateAverageRating() → calcula promedio
+  ├─ getReviewsCount() → cuenta total
+  └─ Actualiza Products/{productId}:
+      ├─ AverageRating = nuevo promedio
+      └─ ReviewsCount = nuevo contador
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ PASO 4: UI se actualiza automáticamente                             │
+└─────────────────────────────────────────────────────────────────────┘
+→ GetX observables (Obx) detectan cambios
+  ├─ TRatingAndShare → muestra nuevo rating
+  ├─ Sección Recomendaciones → muestra nuevo contador
+  └─ ProductReviewsScreen → muestra nueva lista
+
+════════════════════════════════════════════════════════════════════════
+8. CONSULTAS PRINCIPALES
+════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ OBTENER RESEÑAS DE UN PRODUCTO                                      │
+└─────────────────────────────────────────────────────────────────────┘
+Path: Products/{productId}/Reviews
+Orden: CreatedAt DESC
+Implementación: ReviewRepository.getProductReviews()
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ OBTENER RESEÑAS DE UN USUARIO                                       │
+└─────────────────────────────────────────────────────────────────────┘
+Collection Group: Reviews
+Where: UserId == {userId}
+Orden: CreatedAt DESC
+Implementación: ReviewRepository.getUserReviews()
+⚠️ Requiere: Índice compuesto
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ VERIFICAR SI USUARIO YA RESEÑÓ                                      │
+└─────────────────────────────────────────────────────────────────────┘
+Path: Products/{productId}/Reviews
+Where: UserId == {userId}
+Limit: 1
+Implementación: ReviewRepository.hasUserReviewed()
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ OBTENER ESTADÍSTICAS DE PRODUCTO                                    │
+└─────────────────────────────────────────────────────────────────────┘
+Path: Products/{productId}
+Campos: AverageRating, ReviewsCount
+Implementación: ReviewRepository.loadProductRatingStats()
+
+════════════════════════════════════════════════════════════════════════
+9. MANTENIMIENTO Y CONSIDERACIONES
+════════════════════════════════════════════════════════════════════════
+
+✅ VENTAJAS DEL DISEÑO ACTUAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Escalabilidad: Subcollection permite millones de reseñas por producto
+• Performance: AverageRating y ReviewsCount pre-calculados (no calcula cada vez)
+• Organización: Reseñas agrupadas con su producto
+• Queries eficientes: Índices optimizados
+• Actualizaciones automáticas: Stats se recalculan en cada cambio
+
+⚠️ CONSIDERACIONES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Backup: Considerar exportar reseñas periódicamente
+• Moderación: Implementar sistema para reportar reseñas inapropiadas
+• Validación: Solo usuarios que compraron pueden reseñar (TODO)
+• Límites: Firestore tiene límite de 1 write/sec por documento
+  (si hay muchas reseñas simultáneas, considerar batch writes)
+
+🔄 MIGRACIÓN DE PRODUCTOS EXISTENTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Los productos existentes sin campos de reseñas funcionarán correctamente:
+• ProductModel usa valores por defecto (0.0, 0)
+• No requiere migración manual
+• Los campos se agregarán automáticamente al crear primera reseña
+
+════════════════════════════════════════════════════════════════════════
+10. MONITOREO Y ANALÍTICAS
+════════════════════════════════════════════════════════════════════════
+
+MÉTRICAS RECOMENDADAS PARA FIREBASE ANALYTICS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• review_created       - Cuando se crea una reseña
+• review_updated       - Cuando se edita una reseña
+• review_deleted       - Cuando se elimina una reseña
+• review_screen_viewed - Cuando se ve pantalla de reseñas
+• avg_rating_changed   - Cuando cambia el rating de un producto
+
+QUERIES ÚTILES PARA MONITOREO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Productos mejor calificados:
+   WHERE AverageRating >= 4.5 ORDER BY ReviewsCount DESC
+
+2. Productos con más reseñas:
+   ORDER BY ReviewsCount DESC LIMIT 10
+
+3. Productos sin reseñas:
+   WHERE ReviewsCount == 0
+
+════════════════════════════════════════════════════════════════════════
+FIN DEL DOCUMENTO - ESTRUCTURA FIREBASE
+════════════════════════════════════════════════════════════════════════
+
+Última actualización: 2026-01-05
+Versión: 1.0
+

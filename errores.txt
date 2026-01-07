@@ -1,0 +1,25 @@
+✅ SOLUCIONADO - Problema con lista de direcciones no actualizada
+
+PROBLEMA:
+Cuando se creaba una nueva dirección, no aparecía en la lista del modal de selección de direcciones hasta que se cerraba y volvía a abrir el modal.
+
+CAUSA:
+1. El FutureBuilder en selectNewAddressPopup no tenía un mecanismo para reconstruirse cuando se creaba una nueva dirección
+2. El botón en add_new_address.dart estaba navegando de forma duplicada (tanto en el botón como en el método addNewAddress)
+3. No se estaba esperando el resultado de addNewAddress() antes de navegar
+
+SOLUCIÓN IMPLEMENTADA:
+1. ✅ Envuelto el FutureBuilder en un Obx para escuchar cambios en refreshData
+2. ✅ Agregado key al FutureBuilder: key: Key(refreshData.value.toString())
+3. ✅ Modificado el botón "Agregar nueva direccion" para que sea async y haga toggle de refreshData al regresar
+4. ✅ Eliminado la navegación duplicada en add_new_address.dart
+5. ✅ Limpiado imports no utilizados
+
+ARCHIVOS MODIFICADOS:
+- lib/features/personalization/controllers/address_controller.dart
+- lib/features/personalization/screens/address/add_new_address.dart
+
+RESULTADO:
+Ahora cuando se crea una nueva dirección, se actualiza inmediatamente la lista en el modal de selección sin necesidad de cerrarlo y volverlo a abrir.
+
+

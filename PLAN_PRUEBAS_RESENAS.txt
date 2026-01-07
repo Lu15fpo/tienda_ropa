@@ -1,0 +1,706 @@
+═══════════════════════════════════════════════════════════════════════
+   PLAN DE PRUEBAS - SISTEMA DE RESEÑAS Y CALIFICACIONES
+═══════════════════════════════════════════════════════════════════════
+
+📅 Fecha: 2026-01-05
+📱 Versión: 1.0
+
+════════════════════════════════════════════════════════════════════════
+ANTES DE EMPEZAR - PREPARACIÓN
+════════════════════════════════════════════════════════════════════════
+
+☑️ CHECKLIST PREVIO:
+
+1. [ ] Verificar que no hay errores de compilación
+   Comando: Revisar panel "Problems" en IDE
+   Resultado esperado: 0 errores
+
+2. [ ] Firebase configurado correctamente
+   - [ ] google-services.json en android/app/
+   - [ ] Proyecto Firebase activo
+   - [ ] Firestore Database habilitado
+
+3. [ ] Usuario de prueba creado
+   - Email: test@test.com (o el que prefieras)
+   - Contraseña configurada
+   - Usuario autenticado en Firebase
+
+4. [ ] Al menos 1 producto existente en Firebase
+   - Ir a Firebase Console → Firestore → Products
+   - Verificar que existe al menos 1 producto
+
+════════════════════════════════════════════════════════════════════════
+FASE 1: PRUEBAS DE NAVEGACIÓN Y UI
+════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 1.1: Visualizar Rating en Detalle de Producto                  │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Ejecutar la app: flutter run
+2. Iniciar sesión con tu usuario
+3. Navegar a: Tienda → Seleccionar cualquier producto
+4. Observar el widget TRatingAndShare (estrella amarilla + rating)
+
+RESULTADO ESPERADO:
+✅ Debe mostrar: "0.0 (0)" (si no hay reseñas)
+✅ El widget es clickeable (efecto ripple al tocar)
+✅ Botón compartir funciona
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 1.2: Sección Recomendaciones                                   │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. En la misma pantalla de detalle del producto
+2. Scroll hacia abajo hasta "Recomendaciones"
+
+RESULTADO ESPERADO:
+✅ Debe mostrar: "Recomendaciones (0)"
+✅ Botón de flecha a la derecha visible
+✅ Divider arriba de la sección
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 1.3: Navegar a Pantalla de Reseñas (Opción 1 - Rating)        │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Hacer clic en el rating "0.0 (0)"
+
+RESULTADO ESPERADO:
+✅ Navega a ProductReviewsScreen
+✅ Muestra "Recomendaciones y Calificación" en AppBar
+✅ Muestra mensaje "No hay reseñas todavía"
+✅ Icono de mensaje grande visible
+✅ FloatingActionButton "Agregar Reseña" visible
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 1.4: Navegar a Pantalla de Reseñas (Opción 2 - Flecha)        │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Volver a detalle del producto
+2. Hacer clic en la flecha de "Recomendaciones"
+
+RESULTADO ESPERADO:
+✅ Navega a ProductReviewsScreen (igual que test 1.3)
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+════════════════════════════════════════════════════════════════════════
+FASE 2: CREAR PRIMERA RESEÑA
+════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 2.1: Abrir Pantalla Agregar Reseña                             │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. En ProductReviewsScreen
+2. Hacer clic en FAB "Agregar Reseña"
+
+RESULTADO ESPERADO:
+✅ Navega a AddReviewScreen
+✅ Título: "Agregar Reseña"
+✅ Card de producto visible con imagen, título, marca, precio
+✅ 5 estrellas sin selección (grises)
+✅ Campo de comentario vacío
+✅ Contador: "0/500 caracteres (mínimo 10)"
+✅ Botón "Publicar Reseña" visible
+✅ Botón "Cancelar" visible
+✅ NO hay botón "Eliminar Reseña"
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 2.2: Validación - Rating No Seleccionado                       │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Escribir comentario: "Esta es una prueba de validación"
+2. NO seleccionar estrellas (dejar en 0)
+3. Hacer clic en "Publicar Reseña"
+
+RESULTADO ESPERADO:
+✅ SnackBar de error: "Rating inválido"
+✅ Mensaje: "Por favor selecciona una calificación entre 1 y 5 estrellas"
+✅ NO se guarda la reseña
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 2.3: Validación - Comentario Vacío                             │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Seleccionar 5 estrellas
+2. Dejar comentario vacío
+3. Hacer clic en "Publicar Reseña"
+
+RESULTADO ESPERADO:
+✅ SnackBar de error: "Comentario requerido"
+✅ Mensaje: "Por favor escribe un comentario sobre el producto"
+✅ NO se guarda la reseña
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 2.4: Validación - Comentario Muy Corto                         │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Seleccionar 4 estrellas
+2. Escribir comentario: "Bueno" (menos de 10 caracteres)
+3. Hacer clic en "Publicar Reseña"
+
+RESULTADO ESPERADO:
+✅ SnackBar de error: "Comentario muy corto"
+✅ Mensaje: "El comentario debe tener al menos 10 caracteres"
+✅ NO se guarda la reseña
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 2.5: Crear Reseña Exitosamente                                 │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Seleccionar 5 estrellas
+2. Observar descripción del rating
+
+RESULTADO ESPERADO PARCIAL:
+✅ Muestra "Excelente" en color verde
+
+3. Escribir comentario: "Excelente producto, muy buena calidad y llegó rápido. Lo recomiendo totalmente!"
+4. Observar contador de caracteres
+
+RESULTADO ESPERADO PARCIAL:
+✅ Contador se actualiza en tiempo real
+✅ Muestra número correcto de caracteres
+
+5. Hacer clic en "Publicar Reseña"
+
+RESULTADO ESPERADO FINAL:
+✅ Botón muestra loading indicator
+✅ SnackBar de éxito: "¡Éxito!"
+✅ Mensaje: "Tu reseña ha sido publicada exitosamente"
+✅ Navega automáticamente a ProductReviewsScreen
+✅ La pantalla ProductReviewsScreen se actualiza y muestra la nueva reseña
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 2.6: Verificar Reseña en Firebase                              │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Ir a Firebase Console → Firestore
+2. Navegar a: Products → {productId} → Reviews
+3. Verificar que existe 1 documento de reseña
+
+RESULTADO ESPERADO:
+✅ Documento existe con campos:
+   - Id (timestamp en milisegundos)
+   - ProductId (ID del producto)
+   - UserId (tu user ID)
+   - UserName (tu nombre completo)
+   - UserProfileImage (URL o vacío)
+   - Rating: 5.0
+   - Comment (el texto que escribiste)
+   - CreatedAt (timestamp)
+   - UpdatedAt: null
+
+4. Navegar a: Products → {productId}
+5. Verificar campos actualizados
+
+RESULTADO ESPERADO:
+✅ AverageRating: 5.0
+✅ ReviewsCount: 1
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+════════════════════════════════════════════════════════════════════════
+FASE 3: VISUALIZAR RESEÑAS
+════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 3.1: Ver Reseña en ProductReviewsScreen                        │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. En ProductReviewsScreen (después de crear reseña)
+2. Observar la pantalla
+
+RESULTADO ESPERADO:
+✅ Rating promedio muestra: "5.0"
+✅ Contador muestra: "1 reseña"
+✅ TRatingBarIndicator muestra 5 estrellas
+✅ Barra de "5 estrellas" al 100%
+✅ Otras barras (4,3,2,1) al 0%
+✅ UserReviewCard visible con:
+   - Tu foto de perfil (o icono placeholder)
+   - Tu nombre
+   - 5 estrellas amarillas
+   - Fecha: "Hace X minutos"
+   - Tu comentario completo
+✅ FAB ahora dice "Editar Reseña"
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 3.2: Ver Rating Actualizado en Detalle del Producto            │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Volver a la pantalla de detalle del producto
+2. Observar TRatingAndShare
+
+RESULTADO ESPERADO:
+✅ Muestra: "5.0 (1)" en lugar de "0.0 (0)"
+
+3. Scroll hasta "Recomendaciones"
+
+RESULTADO ESPERADO:
+✅ Muestra: "Recomendaciones (1)"
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+════════════════════════════════════════════════════════════════════════
+FASE 4: EDITAR RESEÑA
+════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 4.1: Abrir Pantalla Editar Reseña                              │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. En ProductReviewsScreen
+2. Hacer clic en FAB "Editar Reseña"
+
+RESULTADO ESPERADO:
+✅ Navega a AddReviewScreen
+✅ Título: "Editar Reseña" (NO "Agregar")
+✅ Estrellas pre-seleccionadas: 5
+✅ Comentario cargado con el texto anterior
+✅ Contador muestra el número correcto de caracteres
+✅ Botón dice "Actualizar Reseña" (NO "Publicar")
+✅ Botón "Eliminar Reseña" VISIBLE (en rojo)
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 4.2: Editar Reseña Exitosamente                                │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Cambiar rating a 4 estrellas
+2. Observar descripción
+
+RESULTADO ESPERADO:
+✅ Muestra "Muy Bueno" (color verde claro)
+
+3. Modificar comentario: "Muy buen producto, aunque tiene pequeños detalles mejorables."
+4. Hacer clic en "Actualizar Reseña"
+
+RESULTADO ESPERADO:
+✅ Loading indicator
+✅ SnackBar de éxito: "¡Actualizado!"
+✅ Mensaje: "Tu reseña ha sido actualizada exitosamente"
+✅ Navega a ProductReviewsScreen
+✅ Reseña actualizada visible
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 4.3: Verificar Actualización en Firebase                       │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Ir a Firebase Console → Products → {productId} → Reviews → {reviewId}
+
+RESULTADO ESPERADO:
+✅ Rating: 4.0 (actualizado)
+✅ Comment: texto nuevo
+✅ UpdatedAt: timestamp actual (ya NO es null)
+
+2. Ir a Products → {productId}
+
+RESULTADO ESPERADO:
+✅ AverageRating: 4.0 (actualizado)
+✅ ReviewsCount: 1 (sin cambios)
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 4.4: Ver Indicador "Editado" en UI                             │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. En ProductReviewsScreen
+2. Observar UserReviewCard
+
+RESULTADO ESPERADO:
+✅ Muestra texto "Editado" en gris cursiva debajo del comentario
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+════════════════════════════════════════════════════════════════════════
+FASE 5: MÚLTIPLES RESEÑAS
+════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 5.1: Crear Cuenta de Segundo Usuario                           │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Cerrar sesión en la app
+2. Crear nuevo usuario: test2@test.com
+3. Completar perfil (nombre, etc.)
+4. Navegar al mismo producto que el Test anterior
+
+RESULTADO ESPERADO:
+✅ Usuario creado exitosamente
+✅ Producto visible
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 5.2: Segunda Reseña - Rating Diferente                         │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Ir a ProductReviewsScreen
+2. Observar que hay 1 reseña existente (del usuario anterior)
+3. FAB dice "Agregar Reseña" (NO "Editar")
+4. Crear nueva reseña:
+   - Rating: 3 estrellas
+   - Comentario: "Es correcto, pero esperaba un poco más por el precio."
+5. Publicar
+
+RESULTADO ESPERADO:
+✅ Reseña guardada exitosamente
+✅ Ahora hay 2 reseñas visibles
+✅ Rating promedio actualizado: "3.5" (promedio de 4 y 3)
+✅ Contador: "2 reseñas"
+✅ Distribución de ratings:
+   - 5 estrellas: 0%
+   - 4 estrellas: 50%
+   - 3 estrellas: 50%
+   - 2 estrellas: 0%
+   - 1 estrella: 0%
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 5.3: Tercera Reseña - Rating Bajo                              │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Cerrar sesión y crear tercer usuario: test3@test.com
+2. Navegar al mismo producto
+3. Crear reseña:
+   - Rating: 2 estrellas
+   - Comentario: "No me gustó mucho, la calidad no es la esperada."
+4. Publicar
+
+RESULTADO ESPERADO:
+✅ Reseña guardada
+✅ Rating promedio: "3.0" (promedio de 4, 3, 2)
+✅ Contador: "3 reseñas"
+✅ Descripción del promedio: "Bueno" (color naranja)
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+════════════════════════════════════════════════════════════════════════
+FASE 6: ELIMINAR RESEÑA
+════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 6.1: Eliminar Reseña con Confirmación                          │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Como tercer usuario (test3@test.com)
+2. En ProductReviewsScreen, FAB "Editar Reseña"
+3. Scroll hacia abajo hasta botón "Eliminar Reseña" (rojo)
+4. Hacer clic en "Eliminar Reseña"
+
+RESULTADO ESPERADO:
+✅ Aparece diálogo de confirmación
+✅ Título: "Eliminar Reseña"
+✅ Mensaje: "¿Estás seguro de que deseas eliminar tu reseña? Esta acción no se puede deshacer."
+✅ Botones: "Cancelar" y "Eliminar" (rojo)
+
+5. Hacer clic en "Cancelar"
+
+RESULTADO ESPERADO:
+✅ Diálogo se cierra
+✅ Permanece en AddReviewScreen
+✅ Reseña NO eliminada
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 6.2: Confirmar Eliminación                                     │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Hacer clic nuevamente en "Eliminar Reseña"
+2. Ahora hacer clic en "Eliminar"
+
+RESULTADO ESPERADO:
+✅ SnackBar de éxito: "Eliminado"
+✅ Mensaje: "Tu reseña ha sido eliminada"
+✅ Navega a ProductReviewsScreen
+✅ Ahora solo hay 2 reseñas
+✅ Rating promedio: "3.5" (promedio de 4 y 3)
+✅ Contador: "2 reseñas"
+✅ FAB dice "Agregar Reseña" (NO "Editar")
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 6.3: Verificar Eliminación en Firebase                         │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Ir a Firebase Console → Products → {productId} → Reviews
+
+RESULTADO ESPERADO:
+✅ Solo 2 documentos de reseñas (la tercera eliminada)
+
+2. Ir a Products → {productId}
+
+RESULTADO ESPERADO:
+✅ AverageRating: 3.5
+✅ ReviewsCount: 2
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+════════════════════════════════════════════════════════════════════════
+FASE 7: PRUEBAS DE EDGE CASES
+════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 7.1: Producto Sin Reseñas                                      │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Navegar a un producto diferente (que no tenga reseñas)
+2. Observar TRatingAndShare
+
+RESULTADO ESPERADO:
+✅ Muestra: "0.0 (0)"
+
+3. Ir a ProductReviewsScreen
+
+RESULTADO ESPERADO:
+✅ Rating promedio: "0.0"
+✅ Mensaje: "Sin reseñas aún"
+✅ Todas las barras al 0%
+✅ Mensaje "No hay reseñas todavía"
+✅ FAB "Agregar Reseña"
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 7.2: Comentario Máximo (500 caracteres)                        │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Agregar reseña a cualquier producto
+2. Escribir comentario de exactamente 500 caracteres
+3. Intentar escribir más
+
+RESULTADO ESPERADO:
+✅ NO permite escribir más de 500 caracteres
+✅ Contador muestra: "500/500 caracteres (mínimo 10)"
+✅ Se guarda correctamente
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 7.3: Foto de Perfil Sin URL                                    │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Asegurar que el usuario no tiene foto de perfil
+2. Crear reseña
+3. Ver reseña en ProductReviewsScreen
+
+RESULTADO ESPERADO:
+✅ Muestra icono de persona (placeholder)
+✅ NO muestra error ni imagen rota
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 7.4: Formateo de Fechas                                        │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Crear reseña nueva
+2. Observar fecha inmediatamente
+
+RESULTADO ESPERADO:
+✅ Muestra: "Hace X minutos" o "Hace X horas"
+
+3. Esperar 1 día y verificar
+
+RESULTADO ESPERADO:
+✅ Muestra: "Ayer" o "Hace 1 día"
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+════════════════════════════════════════════════════════════════════════
+FASE 8: PRUEBAS DE PERFORMANCE Y UX
+════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 8.1: Tiempo de Carga                                           │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Navegar a ProductReviewsScreen de producto con varias reseñas
+2. Observar tiempo de carga
+
+RESULTADO ESPERADO:
+✅ Loading indicator visible brevemente
+✅ Carga en menos de 2 segundos
+✅ UI responsive durante la carga
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Tiempo de carga: _______ segundos
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 8.2: Actualización Reactiva                                    │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Abrir ProductReviewsScreen
+2. Crear nueva reseña
+3. Observar actualización de UI
+
+RESULTADO ESPERADO:
+✅ Rating promedio se actualiza automáticamente
+✅ Contador se actualiza automáticamente
+✅ Nueva reseña aparece en la lista
+✅ NO requiere refresh manual
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 8.3: Botón de Compartir                                        │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. En detalle del producto
+2. Hacer clic en botón de compartir (TRatingAndShare)
+
+RESULTADO ESPERADO:
+✅ Abre diálogo de compartir del sistema
+✅ Incluye información del producto
+✅ NO causa errores
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+════════════════════════════════════════════════════════════════════════
+FASE 9: PRUEBAS EN DIFERENTES DISPOSITIVOS
+════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 9.1: Modo Oscuro                                               │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Activar modo oscuro en el dispositivo
+2. Navegar por todas las pantallas de reseñas
+
+RESULTADO ESPERADO:
+✅ Todos los widgets se ven correctamente
+✅ Colores adecuados para modo oscuro
+✅ Texto legible
+✅ Bordes y divisores visibles
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ TEST 9.2: Diferentes Tamaños de Pantalla                            │
+└─────────────────────────────────────────────────────────────────────┘
+PASOS:
+1. Probar en teléfono pequeño (si es posible)
+2. Probar en tablet (si es posible)
+
+RESULTADO ESPERADO:
+✅ Diseño responsive
+✅ Textos no cortados
+✅ Botones accesibles
+✅ Imágenes escaladas correctamente
+
+RESULTADO ACTUAL: [ PASS / FAIL ]
+Notas: _______________________________________________________________
+
+════════════════════════════════════════════════════════════════════════
+RESUMEN DE PRUEBAS
+════════════════════════════════════════════════════════════════════════
+
+Total de Tests: 25
+
+Tests PASS: _____ / 25
+Tests FAIL: _____ / 25
+
+Tasa de Éxito: _____ %
+
+════════════════════════════════════════════════════════════════════════
+PROBLEMAS ENCONTRADOS Y SOLUCIONES
+════════════════════════════════════════════════════════════════════════
+
+PROBLEMA #1:
+Descripción: ________________________________________________________
+Severidad: [ CRÍTICO / ALTO / MEDIO / BAJO ]
+Solución: ___________________________________________________________
+Estado: [ PENDIENTE / RESUELTO ]
+
+PROBLEMA #2:
+Descripción: ________________________________________________________
+Severidad: [ CRÍTICO / ALTO / MEDIO / BAJO ]
+Solución: ___________________________________________________________
+Estado: [ PENDIENTE / RESUELTO ]
+
+PROBLEMA #3:
+Descripción: ________________________________________________________
+Severidad: [ CRÍTICO / ALTO / MEDIO / BAJO ]
+Solución: ___________________________________________________________
+Estado: [ PENDIENTE / RESUELTO ]
+
+════════════════════════════════════════════════════════════════════════
+MEJORAS SUGERIDAS (OPCIONAL)
+════════════════════════════════════════════════════════════════════════
+
+MEJORA #1:
+Descripción: ________________________________________________________
+Prioridad: [ ALTA / MEDIA / BAJA ]
+
+MEJORA #2:
+Descripción: ________________________________________________________
+Prioridad: [ ALTA / MEDIA / BAJA ]
+
+════════════════════════════════════════════════════════════════════════
+CONCLUSIÓN
+════════════════════════════════════════════════════════════════════════
+
+El sistema de reseñas está: [ LISTO PARA PRODUCCIÓN / REQUIERE AJUSTES ]
+
+Firma: ___________________________  Fecha: _______________
+
+════════════════════════════════════════════════════════════════════════
+FIN DEL PLAN DE PRUEBAS
+════════════════════════════════════════════════════════════════════════
+
