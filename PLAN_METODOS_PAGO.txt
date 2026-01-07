@@ -229,17 +229,29 @@ ACTUALMENTE TENEMOS:
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ FASE 6: PANTALLAS                                                           │
 └─────────────────────────────────────────────────────────────────────────────┘
-[ ] PASO 6.1: Crear PaymentMethodsScreen (Lista)
+[✓] PASO 6.1: Crear PaymentMethodsScreen (Lista)
     Ubicación: lib/features/shop/screens/payment_methods/payment_methods.dart
-    - Listar métodos guardados
-    - Botón flotante para agregar
-    - Opciones de editar/eliminar
+    - ✅ Listar métodos guardados con FutureBuilder
+    - ✅ Botón flotante para agregar
+    - ✅ Opciones de editar/eliminar
+    - ✅ Indicador visual de predeterminado
+    - ✅ Actualización reactiva con Obx
+    - ✅ Integración con SinglePaymentMethod widget
 
-[ ] PASO 6.2: Crear AddPaymentMethodScreen (Formulario)
+[✓] PASO 6.2: Crear AddPaymentMethodScreen (Formulario)
     Ubicación: lib/features/shop/screens/payment_methods/add_payment_method.dart
-    - Formulario completo
-    - Validaciones en tiempo real
-    - Vista previa de tarjeta
+    - ✅ Vista previa de tarjeta en tiempo real con CardPreview
+    - ✅ Formulario completo con validaciones
+    - ✅ Campo de nombre del titular
+    - ✅ Campo de número de tarjeta con formateo automático
+    - ✅ Campos de expiración y CVV en fila
+    - ✅ Toggle para método predeterminado
+    - ✅ Información de seguridad visual
+    - ✅ Detección automática de tipo de tarjeta
+    - ✅ Input formatters integrados
+    - ✅ Validadores integrados
+
+    COMPLETADO: 07/01/2026 ✅
 
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ FASE 7: INTEGRACIÓN                                                         │

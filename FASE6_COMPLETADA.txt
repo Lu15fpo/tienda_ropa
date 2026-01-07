@@ -1,0 +1,407 @@
+═══════════════════════════════════════════════════════════════════════════════
+  FASE 6 COMPLETADA - PANTALLAS
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ FECHA DE COMPLETACIÓN: 07/01/2026
+📍 ARCHIVOS CREADOS:
+   - lib/features/shop/screens/payment_methods/payment_methods.dart
+   - lib/features/shop/screens/payment_methods/add_payment_method.dart
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📱 PANTALLAS IMPLEMENTADAS:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 1. PaymentMethodsScreen - Lista de Métodos de Pago                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ UBICACIÓN:                                                               │
+│    lib/features/shop/screens/payment_methods/payment_methods.dart          │
+│                                                                              │
+│ ✅ PROPÓSITO:                                                               │
+│    Pantalla principal para gestionar todos los métodos de pago del usuario. │
+│    Muestra una lista de tarjetas guardadas con opciones de gestión.        │
+│                                                                              │
+│ ✅ CARACTERÍSTICAS:                                                         │
+│    • AppBar con título "Métodos de Pago"                                   │
+│    • FutureBuilder con actualización reactiva (Obx)                        │
+│    • Key dinámica para refrescar al cambiar refreshData                    │
+│    • Lista de métodos usando SinglePaymentMethod widget                     │
+│    • Manejo de estados: loading, error, sin datos                          │
+│    • FloatingActionButton para agregar nuevo método                         │
+│    • Tap para establecer como predeterminado                                │
+│    • Botón de editar (placeholder para desarrollo futuro)                   │
+│    • Botón de eliminar con confirmación                                     │
+│                                                                              │
+│ ✅ ESTRUCTURA VISUAL:                                                       │
+│    ╔═══════════════════════════════════════════════════╗                   │
+│    ║  ← Métodos de Pago                                ║                   │
+│    ╠═══════════════════════════════════════════════════╣                   │
+│    ║                                                    ║                   │
+│    ║  ┌────────────────────────────────────────────┐  ║                   │
+│    ║  │ [Visa] [✓ Predeterminado]      [✏️] [🗑️]  │  ║                   │
+│    ║  │ •••• •••• •••• 4242                       │  ║                   │
+│    ║  │ 👤 JUAN PEREZ                             │  ║                   │
+│    ║  │ 📅 Expira: 12/25                          │  ║                   │
+│    ║  └────────────────────────────────────────────┘  ║                   │
+│    ║                                                    ║                   │
+│    ║  ┌────────────────────────────────────────────┐  ║                   │
+│    ║  │ [MasterCard]                    [✏️] [🗑️]  │  ║                   │
+│    ║  │ •••• •••• •••• 5678                       │  ║                   │
+│    ║  │ 👤 MARIA GARCIA                           │  ║                   │
+│    ║  │ 📅 Expira: 06/27                          │  ║                   │
+│    ║  └────────────────────────────────────────────┘  ║                   │
+│    ║                                                    ║                   │
+│    ║                                              [+]   ║ ← FAB             │
+│    ╚═══════════════════════════════════════════════════╝                   │
+│                                                                              │
+│ ✅ FLUJO DE INTERACCIÓN:                                                   │
+│    1. Usuario abre la pantalla                                              │
+│    2. FutureBuilder carga métodos de Firebase                              │
+│    3. Muestra lista con SinglePaymentMethod widgets                         │
+│    4. Usuario puede:                                                        │
+│       a) Tap en tarjeta → Establecer como predeterminado                   │
+│       b) Botón editar → Mostrar mensaje (futuro desarrollo)                │
+│       c) Botón eliminar → Confirmar y eliminar                             │
+│       d) Botón + → Ir a AddPaymentMethodScreen                             │
+│                                                                              │
+│ ✅ ACTUALIZACIÓN REACTIVA:                                                 │
+│    • Usa Obx para escuchar cambios en refreshData                          │
+│    • Key del FutureBuilder cambia cuando refreshData.toggle()              │
+│    • Al agregar/eliminar método, se refresca automáticamente               │
+│                                                                              │
+│ ✅ MANEJO DE ESTADOS:                                                      │
+│    • Loading: Muestra CircularProgressIndicator                             │
+│    • Error: Muestra mensaje de error                                       │
+│    • Sin datos: Muestra mensaje "No hay métodos de pago"                   │
+│    • Con datos: Muestra lista de métodos                                   │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 2. AddPaymentMethodScreen - Formulario de Agregar Método                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ ✅ UBICACIÓN:                                                               │
+│    lib/features/shop/screens/payment_methods/add_payment_method.dart       │
+│                                                                              │
+│ ✅ PROPÓSITO:                                                               │
+│    Pantalla para agregar un nuevo método de pago con vista previa de        │
+│    tarjeta en tiempo real y formulario con validaciones completas.         │
+│                                                                              │
+│ ✅ CARACTERÍSTICAS:                                                         │
+│    • AppBar con botón de retroceso                                         │
+│    • CardPreview que se actualiza en tiempo real                           │
+│    • Formulario con Form key para validaciones                             │
+│    • 4 campos principales (nombre, número, expiración, CVV)                │
+│    • Input formatters automáticos en cada campo                            │
+│    • Validadores integrados                                                │
+│    • CheckboxListTile para método predeterminado                           │
+│    • Container con información de seguridad                                 │
+│    • Botón de guardar que ejecuta addNewPaymentMethod()                    │
+│                                                                              │
+│ ✅ ESTRUCTURA VISUAL:                                                       │
+│    ╔═══════════════════════════════════════════════════╗                   │
+│    ║  ← Agregar Método de Pago                         ║                   │
+│    ╠═══════════════════════════════════════════════════╣                   │
+│    ║                                                    ║                   │
+│    ║  ╔══════════════════════════════════════════╗    ║                   │
+│    ║  ║ [Chip]                       [VISA Logo] ║    ║ ← CardPreview     │
+│    ║  ║                                           ║    ║                   │
+│    ║  ║        4242 4242 4242 4242               ║    ║                   │
+│    ║  ║                                           ║    ║                   │
+│    ║  ║  JUAN PEREZ              12/25           ║    ║                   │
+│    ║  ╚══════════════════════════════════════════╝    ║                   │
+│    ║                                                    ║                   │
+│    ║  ┌────────────────────────────────────────────┐  ║                   │
+│    ║  │ 👤 Nombre del Titular                     │  ║                   │
+│    ║  │ JUAN PEREZ                                 │  ║                   │
+│    ║  └────────────────────────────────────────────┘  ║                   │
+│    ║                                                    ║                   │
+│    ║  ┌────────────────────────────────────────────┐  ║                   │
+│    ║  │ 💳 Número de Tarjeta                      │  ║                   │
+│    ║  │ 4242 4242 4242 4242                        │  ║                   │
+│    ║  └────────────────────────────────────────────┘  ║                   │
+│    ║                                                    ║                   │
+│    ║  ┌──────────────────────┐ ┌─────────────────┐   ║                   │
+│    ║  │ 📅 Expiración        │ │ 🛡️ CVV          │   ║                   │
+│    ║  │ 12/25                │ │ •••             │   ║                   │
+│    ║  └──────────────────────┘ └─────────────────┘   ║                   │
+│    ║                                                    ║                   │
+│    ║  ☑️ Establecer como método predeterminado        ║                   │
+│    ║                                                    ║                   │
+│    ║  ┌────────────────────────────────────────────┐  ║                   │
+│    ║  │ 🛡️ Información segura                     │  ║                   │
+│    ║  │ Tu información está protegida...           │  ║                   │
+│    ║  └────────────────────────────────────────────┘  ║                   │
+│    ║                                                    ║                   │
+│    ║  [  Guardar Método de Pago  ]                    ║                   │
+│    ║                                                    ║                   │
+│    ╚═══════════════════════════════════════════════════╝                   │
+│                                                                              │
+│ ✅ CAMPOS DEL FORMULARIO:                                                  │
+│                                                                              │
+│    1️⃣ NOMBRE DEL TITULAR                                                   │
+│       • TextFormField con CardHolderNameInputFormatter                      │
+│       • Convierte a mayúsculas automáticamente                              │
+│       • Validador: TValidator.validateCardHolderName                        │
+│       • Icono: Iconsax.user                                                 │
+│       • Placeholder: "JUAN PEREZ"                                           │
+│                                                                              │
+│    2️⃣ NÚMERO DE TARJETA                                                    │
+│       • TextFormField con CardNumberInputFormatter                          │
+│       • Espacios automáticos cada 4 dígitos                                 │
+│       • Validador: TValidator.validateCardNumber (Luhn)                     │
+│       • Icono: Iconsax.card                                                 │
+│       • Placeholder: "4242 4242 4242 4242"                                  │
+│       • onChanged: Detecta tipo de tarjeta automáticamente                  │
+│                                                                              │
+│    3️⃣ FECHA DE EXPIRACIÓN                                                  │
+│       • TextFormField con ExpiryDateInputFormatter                          │
+│       • Formato MM/YY automático                                            │
+│       • Validador: TValidator.validateExpiryDate                            │
+│       • Icono: Iconsax.calendar                                             │
+│       • Placeholder: "MM/YY"                                                │
+│       • En Row con CVV (50% del ancho)                                      │
+│                                                                              │
+│    4️⃣ CVV                                                                  │
+│       • TextFormField con CVVInputFormatter(maxLength: 3)                   │
+│       • obscureText: true (ocultar dígitos)                                 │
+│       • Validador: TValidator.validateCVV                                   │
+│       • Icono: Iconsax.shield_tick                                          │
+│       • Placeholder: "123"                                                  │
+│       • En Row con Expiración (50% del ancho)                               │
+│                                                                              │
+│    5️⃣ MÉTODO PREDETERMINADO                                                │
+│       • CheckboxListTile reactivo con Obx                                   │
+│       • Vinculado a controller.isDefault.value                              │
+│       • Sin padding (contentPadding: EdgeInsets.zero)                       │
+│                                                                              │
+│ ✅ INFORMACIÓN DE SEGURIDAD:                                               │
+│    • Container con fondo azul claro                                         │
+│    • Borde azul semi-transparente                                           │
+│    • Icono de escudo (Iconsax.shield_tick)                                  │
+│    • Título: "Información segura"                                           │
+│    • Mensaje: "Tu información está protegida. Solo guardamos los           │
+│      últimos 4 dígitos de tu tarjeta."                                      │
+│                                                                              │
+│ ✅ VISTA PREVIA EN TIEMPO REAL:                                            │
+│    • CardPreview envuelto en Obx                                            │
+│    • Se actualiza automáticamente cuando el usuario escribe                │
+│    • Muestra:                                                               │
+│      - Número formateado con espacios                                       │
+│      - Nombre en mayúsculas                                                 │
+│      - Fecha de expiración                                                  │
+│      - Tipo de tarjeta detectado                                            │
+│      - Gradiente según tipo de tarjeta                                      │
+│                                                                              │
+│ ✅ FLUJO DE GUARDADO:                                                      │
+│    1. Usuario llena el formulario                                           │
+│    2. CardPreview se actualiza en tiempo real                              │
+│    3. Tipo de tarjeta se detecta automáticamente                            │
+│    4. Usuario marca/desmarca "predeterminado"                               │
+│    5. Usuario pulsa "Guardar Método de Pago"                               │
+│    6. Se ejecuta controller.addNewPaymentMethod()                           │
+│    7. Validaciones:                                                         │
+│       a) Conexión a internet                                                │
+│       b) Validación del formulario                                          │
+│       c) Validación de tipo de tarjeta                                      │
+│    8. Se guarda en Firebase (solo últimos 4 dígitos)                       │
+│    9. Se muestra mensaje de éxito                                           │
+│    10. Se limpia el formulario                                              │
+│    11. Se cierra la pantalla                                                │
+│    12. Se actualiza la lista en PaymentMethodsScreen                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔄 FLUJO COMPLETO DE USUARIO:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ESCENARIO 1: Agregar Primera Tarjeta                                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ 1. Usuario abre PaymentMethodsScreen                                        │
+│    └─ Muestra mensaje "No hay métodos de pago"                             │
+│                                                                              │
+│ 2. Usuario toca el botón flotante [+]                                       │
+│    └─ Navega a AddPaymentMethodScreen                                       │
+│                                                                              │
+│ 3. Usuario llena el formulario:                                             │
+│    ├─ Nombre: "JUAN PEREZ"                                                  │
+│    ├─ Número: "4242424242424242" → se formatea a "4242 4242 4242 4242"     │
+│    │  └─ CardPreview se actualiza mostrando Visa (azul)                     │
+│    ├─ Expiración: "1225" → se formatea a "12/25"                            │
+│    ├─ CVV: "123"                                                            │
+│    └─ Marca checkbox "Predeterminado"                                       │
+│                                                                              │
+│ 4. Usuario toca "Guardar Método de Pago"                                   │
+│    ├─ Muestra loader "Agregando método de pago..."                         │
+│    ├─ Valida conexión a internet                                            │
+│    ├─ Valida formulario con Luhn algorithm                                  │
+│    ├─ Detecta tipo: Visa                                                    │
+│    ├─ Extrae últimos 4 dígitos: "4242"                                      │
+│    ├─ Guarda en Firebase                                                    │
+│    └─ Muestra "¡Éxito! Tu método de pago fue agregado correctamente."      │
+│                                                                              │
+│ 5. Regresa a PaymentMethodsScreen                                           │
+│    └─ Muestra la tarjeta recién agregada con badge "Predeterminado"        │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ESCENARIO 2: Agregar Segunda Tarjeta                                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ 1. Usuario abre PaymentMethodsScreen                                        │
+│    └─ Muestra tarjeta Visa existente con badge "Predeterminado"            │
+│                                                                              │
+│ 2. Usuario toca el botón flotante [+]                                       │
+│                                                                              │
+│ 3. Usuario llena el formulario:                                             │
+│    ├─ Nombre: "MARIA GARCIA"                                                │
+│    ├─ Número: "5555555555554444" → formatea y detecta MasterCard (rojo)    │
+│    ├─ Expiración: "06/27"                                                   │
+│    ├─ CVV: "456"                                                            │
+│    └─ NO marca checkbox (no será predeterminado)                            │
+│                                                                              │
+│ 4. Usuario guarda                                                           │
+│    └─ Se agrega pero Visa sigue como predeterminado                         │
+│                                                                              │
+│ 5. En PaymentMethodsScreen:                                                 │
+│    ├─ Visa con badge "Predeterminado"                                       │
+│    └─ MasterCard sin badge                                                  │
+│                                                                              │
+│ 6. Usuario toca en MasterCard                                               │
+│    └─ Se ejecuta setAsDefault()                                             │
+│    └─ MasterCard ahora tiene el badge "Predeterminado"                      │
+│    └─ Visa pierde el badge                                                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ESCENARIO 3: Eliminar Tarjeta                                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ 1. Usuario abre PaymentMethodsScreen                                        │
+│    └─ Muestra 2 tarjetas                                                    │
+│                                                                              │
+│ 2. Usuario toca icono de eliminar [🗑️] en MasterCard                       │
+│    └─ Muestra diálogo "¿Eliminar método de pago?"                          │
+│    └─ "Esta acción no se puede deshacer."                                   │
+│    └─ Botones: [Cancelar] [Eliminar]                                        │
+│                                                                              │
+│ 3. Usuario confirma "Eliminar"                                              │
+│    ├─ Muestra loader "Eliminando método de pago..."                        │
+│    ├─ Elimina de Firebase                                                   │
+│    ├─ Si era predeterminado, carga el nuevo predeterminado                  │
+│    └─ Muestra "Eliminado - El método de pago fue eliminado correctamente." │
+│                                                                              │
+│ 4. Lista se actualiza automáticamente                                       │
+│    └─ Solo muestra Visa                                                    │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+💡 DETALLES TÉCNICOS:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PaymentMethodsScreen                                                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Imports:                                                                     │
+│ ✓ flutter/material.dart                                                     │
+│ ✓ get/get.dart                                                              │
+│ ✓ common/widgets/appbar/appbar.dart                                         │
+│ ✓ features/shop/controllers/payment_method_controller.dart                  │
+│ ✓ features/shop/screens/payment_methods/add_payment_method.dart             │
+│ ✓ features/shop/screens/payment_methods/widgets/single_payment_method.dart  │
+│ ✓ utils/constants/colors.dart                                               │
+│ ✓ utils/constants/sizes.dart                                                │
+│ ✓ utils/helpers/cloud_helper_functions.dart                                 │
+│                                                                              │
+│ Widget Type: StatelessWidget                                                │
+│ Controller: PaymentMethodController.instance                                │
+│ Update Mechanism: Obx + Key(refreshData.value.toString())                   │
+│ List Widget: ListView.builder con shrinkWrap                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ AddPaymentMethodScreen                                                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Imports:                                                                     │
+│ ✓ flutter/material.dart                                                     │
+│ ✓ get/get.dart                                                              │
+│ ✓ iconsax/iconsax.dart                                                      │
+│ ✓ common/widgets/appbar/appbar.dart                                         │
+│ ✓ common/widgets/payment/card_preview.dart                                  │
+│ ✓ features/shop/controllers/payment_method_controller.dart                  │
+│ ✓ utils/constants/sizes.dart                                                │
+│ ✓ utils/formatters/card_input_formatters.dart                               │
+│ ✓ utils/validators/validation.dart                                          │
+│                                                                              │
+│ Widget Type: StatelessWidget                                                │
+│ Controller: PaymentMethodController.instance                                │
+│ Form Key: controller.paymentMethodFormKey                                   │
+│ ScrollView: SingleChildScrollView                                           │
+│                                                                              │
+│ Reactive Widgets:                                                            │
+│ • CardPreview (Obx)                                                          │
+│ • CheckboxListTile (Obx)                                                     │
+│                                                                              │
+│ Formatters Used:                                                             │
+│ • CardHolderNameInputFormatter()                                             │
+│ • CardNumberInputFormatter()                                                 │
+│ • ExpiryDateInputFormatter()                                                 │
+│ • CVVInputFormatter(maxLength: 3)                                            │
+│                                                                              │
+│ Validators Used:                                                             │
+│ • TValidator.validateCardHolderName                                          │
+│ • TValidator.validateCardNumber (Luhn)                                       │
+│ • TValidator.validateExpiryDate                                              │
+│ • TValidator.validateCVV                                                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ VERIFICACIONES REALIZADAS:
+
+✓ flutter analyze: PASSED (No issues found)
+✓ Compilación: OK
+✓ Imports correctos: OK
+✓ Navegación entre pantallas: OK
+✓ Integración con widgets: OK
+✓ Integración con controlador: OK
+✓ Formulario funcional: OK
+✓ Vista previa reactiva: OK
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📊 ESTADO DEL PROYECTO:
+
+COMPLETADAS:
+✅ FASE 1: Modelo de Datos (PaymentMethodModel)
+✅ FASE 2: Repositorio (PaymentMethodRepository)
+✅ FASE 3: Controlador (PaymentMethodController)
+✅ FASE 4: Validadores y Utilidades
+✅ FASE 5: Widgets de Interfaz
+✅ FASE 6: Pantallas ◄─── ESTAMOS AQUÍ
+
+PENDIENTES:
+⏳ FASE 7: Integración (CheckoutController, Settings)
+⏳ FASE 8: Rutas
+⏳ FASE 9: Pruebas y Refinamiento
+
+PROGRESO: 66% COMPLETADO 🎉🎉
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎯 PRÓXIMO PASO:
+
+FASE 7: INTEGRACIÓN
+└─ Integrar el sistema de métodos de pago con el resto de la app
+   ├─ Modificar CheckoutController
+   │  └─ Cargar métodos del usuario desde Firebase
+   │  └─ Permitir selección entre métodos guardados
+   │
+   ├─ Modificar BillingPaymentSection
+   │  └─ Mostrar método guardado
+   │  └─ Modal con métodos del usuario (no hardcodeados)
+   │
+   └─ Agregar opción en SettingsScreen
+      └─ Cambiar "Cuenta Bancaria" por "Mis Métodos de Pago"
+      └─ Navegar a PaymentMethodsScreen
+
+═══════════════════════════════════════════════════════════════════════════════
+
