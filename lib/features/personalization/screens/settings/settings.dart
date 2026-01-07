@@ -6,6 +6,7 @@ import 'package:tienda_ropa/common/widgets/custom_shapes/containers/primary_head
 import 'package:tienda_ropa/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:tienda_ropa/common/widgets/texts/section_heading.dart';
 import 'package:tienda_ropa/features/shop/screens/order/order.dart';
+import 'package:tienda_ropa/features/shop/screens/payment_methods/payment_methods.dart';
 import 'package:tienda_ropa/utils/constants/colors.dart';
 
 import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
@@ -63,10 +64,12 @@ class SettingsScreen extends StatelessWidget {
                       subTitle: 'Progreso y pedidios completados',
                       onTap: () => Get.to(() => const OrderScreen())
                   ),
-                  const TSettingsMenuTile(
-                      icon: Iconsax.bank,
-                      title: 'Cuenta Bancaria',
-                      subTitle: 'Retirar saldo a cuenta bancaria'),
+                  TSettingsMenuTile(
+                      icon: Iconsax.card,
+                      title: 'Mis Métodos de Pago',
+                      subTitle: 'Administrar tarjetas y métodos de pago',
+                      onTap: () => Get.to(() => const PaymentMethodsScreen())
+                  ),
                   const TSettingsMenuTile(
                       icon: Iconsax.discount_shape,
                       title: 'Mis cupones',

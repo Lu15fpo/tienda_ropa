@@ -256,17 +256,33 @@ ACTUALMENTE TENEMOS:
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ FASE 7: INTEGRACIÓN                                                         │
 └─────────────────────────────────────────────────────────────────────────────┘
-[ ] PASO 7.1: Modificar CheckoutController
-    - Cargar métodos del usuario desde Firebase
-    - Permitir selección entre métodos guardados
+[✓] PASO 7.1: Modificar CheckoutController
+    Ubicación: lib/features/shop/controllers/product/checkout_controller.dart
+    - ✅ Eliminar métodos de pago hardcodeados
+    - ✅ Cargar métodos del usuario desde Firebase
+    - ✅ Implementar loadDefaultPaymentMethod()
+    - ✅ Implementar getAllUserPaymentMethods()
+    - ✅ Modal actualizado con métodos guardados
+    - ✅ Botón para agregar nuevo método desde modal
+    - ✅ Actualización reactiva con refreshData
 
-[ ] PASO 7.2: Modificar BillingPaymentSection
-    - Mostrar método guardado
-    - Modal con métodos del usuario
+[✓] PASO 7.2: Modificar BillingPaymentSection
+    Ubicación: lib/features/shop/screens/checkout/widgets/billing_payment_section.dart
+    - ✅ Mostrar datos del método guardado (tarjeta enmascarada)
+    - ✅ Mostrar tipo de tarjeta y titular
+    - ✅ Compatibilidad con sistema antiguo (fallback)
+    - ✅ Mensaje cuando no hay método seleccionado
+    - ✅ Diseño responsive y adaptativo
 
-[ ] PASO 7.3: Agregar opción en SettingsScreen
-    - Cambiar "Cuenta Bancaria" por "Mis Métodos de Pago"
-    - Navegar a PaymentMethodsScreen
+[✓] PASO 7.3: Agregar opción en SettingsScreen
+    Ubicación: lib/features/personalization/screens/settings/settings.dart
+    - ✅ Reemplazar "Cuenta Bancaria" por "Mis Métodos de Pago"
+    - ✅ Icono actualizado (Iconsax.card)
+    - ✅ Navegación a PaymentMethodsScreen
+    - ✅ Subtítulo descriptivo
+    - ✅ Import agregado correctamente
+
+    COMPLETADO: 07/01/2026 ✅
 
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ FASE 8: RUTAS                                                               │
