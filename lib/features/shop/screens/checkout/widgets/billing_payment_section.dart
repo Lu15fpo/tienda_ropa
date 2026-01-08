@@ -41,20 +41,15 @@ class TBillingPaymentSection extends StatelessWidget {
             if (method.cardHolderName != null && method.cardHolderName!.isNotEmpty) {
               return Row(
                 children: [
-                  /// Badge del tipo de tarjeta
+                  /// Icono del tipo de tarjeta
                   TRoundedContainer(
                     width: 60,
                     height: 35,
                     backgroundColor: dark ? TColors.light : TColors.white,
                     padding: const EdgeInsets.all(TSizes.sm),
-                    child: Center(
-                      child: Text(
-                        method.cardType ?? 'Card',
-                        style: const TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                    child: Image(
+                      image: AssetImage(method.cardTypeImage),
+                      fit: BoxFit.contain,
                     ),
                   ),
                   const SizedBox(width: TSizes.spaceBtwItems),

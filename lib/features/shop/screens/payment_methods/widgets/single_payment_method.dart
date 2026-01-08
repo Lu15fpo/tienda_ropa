@@ -53,18 +53,17 @@ class SinglePaymentMethod extends StatelessWidget {
                   children: [
                     /// Icono de tipo de tarjeta
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: TSizes.sm,
-                        vertical: TSizes.xs,
-                      ),
+                      width: 60,
+                      height: 35,
+                      padding: const EdgeInsets.all(TSizes.sm),
                       decoration: BoxDecoration(
-                        color: dark ? TColors.dark : TColors.light,
+                        color: dark ? TColors.light : TColors.white,
                         borderRadius: BorderRadius.circular(TSizes.sm),
                         border: Border.all(color: TColors.grey),
                       ),
-                      child: Text(
-                        paymentMethod.cardType ?? 'Card',
-                        style: Theme.of(context).textTheme.labelLarge,
+                      child: Image(
+                        image: AssetImage(paymentMethod.cardTypeImage),
+                        fit: BoxFit.contain,
                       ),
                     ),
                     const SizedBox(width: TSizes.spaceBtwItems),

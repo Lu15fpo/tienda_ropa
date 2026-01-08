@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tienda_ropa/utils/constants/image_strings.dart';
 
 class PaymentMethodModel {
   String id;
@@ -48,16 +49,16 @@ class PaymentMethodModel {
     // Sino, usar cardType para determinar la imagen
     switch (cardType?.toLowerCase() ?? '') {
       case 'visa':
-        return 'assets/icons/payment_methods/visa.png';
+        return TImages.visa;
       case 'mastercard':
-        return 'assets/icons/payment_methods/master-card.png';
+        return TImages.masterCard;
       case 'amex':
       case 'american express':
-        return 'assets/icons/payment_methods/american-express.png';
+        return TImages.applepay; // Usando apple pay como placeholder para AmEx si no hay icono específico
       case 'discover':
-        return 'assets/icons/payment_methods/discover.png';
+        return TImages.creditCard; // Usando creditCard como placeholder para Discover
       default:
-        return 'assets/icons/payment_methods/credit-card.png';
+        return TImages.creditCard;
     }
   }
 

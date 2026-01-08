@@ -106,18 +106,15 @@ class CheckoutController extends GetxController {
                             leading: Container(
                               width: 60,
                               height: 40,
+                              padding: const EdgeInsets.all(TSizes.xs),
                               decoration: BoxDecoration(
+                                color: Colors.white,
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(TSizes.sm),
                               ),
-                              child: Center(
-                                child: Text(
-                                  method.cardType ?? '',
-                                  style: const TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                              child: Image(
+                                image: AssetImage(method.cardTypeImage),
+                                fit: BoxFit.contain,
                               ),
                             ),
                             title: Text(method.maskedCardNumber),
