@@ -100,28 +100,30 @@ class CheckoutController extends GetxController {
                         itemCount: paymentMethods.length,
                         itemBuilder: (_, index) {
                           final method = paymentMethods[index];
-                          return ListTile(
-                            contentPadding: const EdgeInsets.all(0),
-                            onTap: () => selectPaymentMethodItem(method),
-                            leading: Container(
-                              width: 60,
-                              height: 40,
-                              padding: const EdgeInsets.all(TSizes.xs),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(TSizes.sm),
+                          return Obx(
+                            () => ListTile(
+                              contentPadding: const EdgeInsets.all(0),
+                              onTap: () => selectPaymentMethodItem(method),
+                              leading: Container(
+                                width: 60,
+                                height: 40,
+                                padding: const EdgeInsets.all(TSizes.xs),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(TSizes.sm),
+                                ),
+                                child: Image(
+                                  image: AssetImage(method.cardTypeImage),
+                                  fit: BoxFit.contain,
+                                ),
                               ),
-                              child: Image(
-                                image: AssetImage(method.cardTypeImage),
-                                fit: BoxFit.contain,
-                              ),
+                              title: Text(method.maskedCardNumber),
+                              subtitle: Text(method.cardHolderName ?? ''),
+                              trailing: selectedPaymentMethod.value.id == method.id
+                                  ? const Icon(Icons.check_circle, color: Colors.green)
+                                  : null,
                             ),
-                            title: Text(method.maskedCardNumber),
-                            subtitle: Text(method.cardHolderName ?? ''),
-                            trailing: method.isDefault
-                                ? const Icon(Icons.check_circle, color: Colors.green)
-                                : null,
                           );
                         },
                       );
