@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tienda_ropa/common/widgets/success_screen/success_screen.dart';
+import 'package:tienda_ropa/data/services/facturacion_service.dart';
 import 'package:tienda_ropa/features/shop/controllers/product/cart_controller.dart';
 import 'package:tienda_ropa/features/shop/controllers/product/checkout_controller.dart';
 import 'package:tienda_ropa/features/shop/models/payment_method_model.dart';
@@ -15,6 +16,7 @@ import '../../../../data/repositories/product_repository.dart';
 import '../../../../navigation_menu.dart';
 import '../../../../utils/helpers/pricing_calculator.dart';
 import '../../../personalization/controllers/address_controller.dart';
+import '../../../personalization/screens/address/widgets/single_address.dart';
 import '../../models/order_model.dart';
 
 class OrderController extends GetxController {
@@ -25,6 +27,7 @@ class OrderController extends GetxController {
   final addressController = AddressController.instance;
   final checkoutController = CheckoutController.instance;
   final orderRepository = Get.put(OrderRepository());
+  final facturacionService = FacturacionService.instance;
 
   /// Obtener historial de pedido de usuarios
   Future<List<OrderModel>> fetchUserOrders() async {
@@ -66,7 +69,7 @@ class OrderController extends GetxController {
       }
 
       // Empezar Carga
-      TFullScreenLoader.openLoadingDialog('Procesando Orden', TImages.pencilAnimation);
+      TFullScreenLoader.openLoadingDialog('Procesando Pedido y Factura...', TImages.pencilAnimation);
 
       // Obtener ID de autentificacion de usuario
       final userId = AuthenticationRepository.instance.authUser.uid;
@@ -107,8 +110,9 @@ class OrderController extends GetxController {
         discount: discount,
       );
 
-      // Guardar pedido en Firestore
-      await orderRepository.saveOrder(order, userId);
+      // Guardar pedido en Firestore y obtener el ID real
+      final realOrderId = await orderRepository.saveOrder(order, userId);
+      print('✅ [OrderController] Pedido guardado con ID: $realOrderId');
 
       // Actualizar stock de productos en Firebase
       try {
@@ -138,6 +142,20 @@ class OrderController extends GetxController {
       // Actualizar estado del carrito
       cartController.clearCart();
 
+      // ✅ GENERAR FACTURA ELECTRÓNICA SRI AUTOMÁTICAMENTE
+      print('📄 [OrderController] Generando factura electrónica SRI...');
+      try {
+        // Usar el ID REAL de Firestore, no el de UniqueKey
+        await facturacionService.generarFactura(realOrderId, userId, showLoader: false);
+        print('✅ [OrderController] Factura generada exitosamente');
+      } catch (e) {
+        print('⚠️ [OrderController] Error al generar factura (no crítico): $e');
+        // No bloqueamos el flujo si falla la factura
+      }
+
+      // Cerrar loader del pedido
+      TFullScreenLoader.stopLoading();
+
       // Mostrar pantalla de confirmacion
       Get.off(() => SuccessScreen(
         image: TImages.orderCompletedAnimation,
@@ -147,6 +165,148 @@ class OrderController extends GetxController {
       ));
     } catch (e) {
       TLoaders.errorSnackBar(title: 'Oh Vaya!', message: e.toString());
+    }
+  }
+
+  /// Anular pedido (Cambiar estado a cancelado)
+  Future<void> cancelOrder(String orderId) async {
+    try {
+      // Mostrar confirmación
+      Get.defaultDialog(
+        title: '¿Anular Pedido?',
+        middleText: 'Esta acción cambiará el estado del pedido a "Cancelado". ¿Deseas continuar?',
+        textConfirm: 'Sí, Anular',
+        textCancel: 'No',
+        confirmTextColor: Colors.white,
+        buttonColor: Colors.red,
+        onConfirm: () async {
+          // Cerrar diálogo
+          Get.back();
+
+          // Mostrar loader
+          TFullScreenLoader.openLoadingDialog(
+            'Anulando pedido...',
+            TImages.docerAnimation,
+          );
+
+          // Actualizar estado en Firebase
+          await orderRepository.updateOrderStatus(orderId, OrderStatus.cancelled);
+
+          // Ocultar loader
+          TFullScreenLoader.stopLoading();
+
+          // Mensaje de éxito
+          TLoaders.successSnackBar(
+            title: 'Pedido Anulado',
+            message: 'El pedido ha sido cancelado exitosamente.',
+          );
+
+          // Regresar a la pantalla anterior
+          Get.back();
+        },
+      );
+    } catch (e) {
+      TFullScreenLoader.stopLoading();
+      TLoaders.errorSnackBar(
+        title: 'Error',
+        message: e.toString(),
+      );
+    }
+  }
+
+  /// Cambiar dirección de envío del pedido
+  Future<void> changeOrderAddress(OrderModel order) async {
+    try {
+      // Obtener direcciones del usuario
+      final addresses = await addressController.getAllUserAddresses();
+
+      if (addresses.isEmpty) {
+        TLoaders.warningSnackBar(
+          title: 'Sin Direcciones',
+          message: 'Por favor agrega una dirección de envío primero.',
+        );
+        return;
+      }
+
+      // Mostrar modal con lista de direcciones
+      Get.bottomSheet(
+        Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: Get.isDarkMode ? Colors.grey[900] : Colors.white,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Seleccionar Nueva Dirección',
+                style: Get.textTheme.headlineSmall,
+              ),
+              const SizedBox(height: 16),
+              Flexible(
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: addresses.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 16),
+                  itemBuilder: (_, index) {
+                    final address = addresses[index];
+                    return TSingleAddress(
+                      address: address,
+                      onTap: () async {
+                        // Cerrar modal
+                        Get.back();
+
+                        // Confirmar cambio
+                        Get.defaultDialog(
+                          title: '¿Cambiar Dirección?',
+                          middleText: '¿Deseas cambiar la dirección de envío a "${address.name}"?',
+                          textConfirm: 'Sí, Cambiar',
+                          textCancel: 'Cancelar',
+                          confirmTextColor: Colors.white,
+                          onConfirm: () async {
+                            // Cerrar diálogo
+                            Get.back();
+
+                            // Mostrar loader
+                            TFullScreenLoader.openLoadingDialog(
+                              'Actualizando dirección...',
+                              TImages.docerAnimation,
+                            );
+
+                            // Actualizar dirección en Firebase
+                            await orderRepository.updateOrderAddress(order.id, address);
+
+                            // Ocultar loader
+                            TFullScreenLoader.stopLoading();
+
+                            // Mensaje de éxito
+                            TLoaders.successSnackBar(
+                              title: 'Dirección Actualizada',
+                              message: 'La dirección de envío ha sido cambiada exitosamente.',
+                            );
+
+                            // Regresar a la pantalla anterior
+                            Get.back();
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        isDismissible: true,
+        enableDrag: true,
+      );
+    } catch (e) {
+      TLoaders.errorSnackBar(
+        title: 'Error',
+        message: e.toString(),
+      );
     }
   }
 }

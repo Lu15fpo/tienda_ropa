@@ -451,6 +451,105 @@ class PaymentMethodController extends GetxController {
     paymentMethodFormKey.currentState?.reset();
   }
 
+  /// Inicializar formulario con datos existentes para edición
+  void initializeEditForm(PaymentMethodModel method) {
+    cardHolderName.text = method.cardHolderName ?? '';
+    // No ponemos el número completo, solo mostramos enmascarado
+    cardNumber.text = '';
+    expiryDate.text = method.expiryDate ?? '';
+    cvv.text = '';
+    detectedCardType.value = method.cardType ?? '';
+    isDefault.value = method.isDefault;
+  }
+
+  /// Actualizar un método de pago existente desde el formulario de edición
+  Future<void> updatePaymentMethodFromForm(String paymentMethodId) async {
+    try {
+      // Empezar Carga
+      TFullScreenLoader.openLoadingDialog(
+        'Actualizando método de pago...',
+        TImages.docerAnimation,
+      );
+
+      // Revisar la conexión a internet
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        TFullScreenLoader.stopLoading();
+        return;
+      }
+
+      // Validar formulario
+      if (!paymentMethodFormKey.currentState!.validate()) {
+        TFullScreenLoader.stopLoading();
+        return;
+      }
+
+      // Validar fecha de expiración
+      if (!validateExpiryDate(expiryDate.text)) {
+        TFullScreenLoader.stopLoading();
+        TLoaders.errorSnackBar(
+          title: 'Fecha inválida',
+          message: 'La fecha de expiración no es válida o ya expiró.',
+        );
+        return;
+      }
+
+      // Obtener el método de pago actual de Firebase para mantener los datos que no cambian
+      final currentMethod = await paymentMethodRepository.getPaymentMethodById(paymentMethodId);
+      if (currentMethod == null) {
+        TFullScreenLoader.stopLoading();
+        TLoaders.errorSnackBar(
+          title: 'Error',
+          message: 'No se pudo encontrar el método de pago.',
+        );
+        return;
+      }
+
+      // Crear el método de pago actualizado (mantenemos los datos que no cambian)
+      final updatedMethod = PaymentMethodModel(
+        id: paymentMethodId,
+        cardHolderName: cardHolderName.text.trim().toUpperCase(),
+        cardNumberLast4: currentMethod.cardNumberLast4, // Mantener sin cambios
+        cardType: currentMethod.cardType, // Mantener sin cambios
+        expiryDate: expiryDate.text.trim(),
+        isDefault: isDefault.value,
+        createdAt: currentMethod.createdAt, // Mantener fecha de creación
+      );
+
+      // Actualizar en Firebase
+      await paymentMethodRepository.updatePaymentMethod(updatedMethod);
+
+      // Si se marcó como predeterminado, actualizar el seleccionado
+      if (isDefault.value) {
+        selectedPaymentMethod.value = updatedMethod;
+      }
+
+      // Eliminar Carga
+      TFullScreenLoader.stopLoading();
+
+      // Mensaje de confirmación
+      TLoaders.successSnackBar(
+        title: '¡Actualizado!',
+        message: 'Tu método de pago fue actualizado correctamente.',
+      );
+
+      // Actualizar datos
+      refreshData.toggle();
+
+      // Reiniciar campos
+      resetFormFields();
+
+      // Regresar a la pantalla anterior
+      Get.back();
+    } catch (e) {
+      TFullScreenLoader.stopLoading();
+      TLoaders.errorSnackBar(
+        title: 'Error',
+        message: e.toString(),
+      );
+    }
+  }
+
   /// Validar número de tarjeta usando algoritmo de Luhn
   bool validateCardNumber(String cardNumber) {
     final cleanNumber = cardNumber.replaceAll(RegExp(r'[\s-]'), '');

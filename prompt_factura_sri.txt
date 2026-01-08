@@ -1,0 +1,115 @@
+*** CONTEXTO TÉCNICO PARA IMPLEMENTACIÓN FACTURACIÓN ELECTRÓNICA SRI ECUADOR ***
+
+ROL: Desarrollador Backend Senior (Node.js/Firebase).
+OBJETIVO: Implementar facturación electrónica "Offline" para Ecuador.
+STACK: Flutter (Frontend) -> Firestore (DB) -> Firebase Cloud Functions (Backend Node.js).
+
+--- 1. RESPUESTAS A TUS PREGUNTAS DE ARQUITECTURA ---
+
+BACKEND SELECCIONADO: Firebase Cloud Functions (Node.js).
+MOTIVO: Seguridad (el certificado .p12 y la firma deben ocurrir en servidor, nunca en el cliente Flutter).
+FLUJO:
+1. Flutter crea documento en colección 'facturas_por_emitir'.
+2. Cloud Function (onCrreate) se dispara.
+3. Node.js genera XML, firma, envía a SOAP SRI, recibe respuesta.
+4. Node.js actualiza documento Firestore con estado (AUTORIZADO/RECHAZADO) y URL del PDF.
+EMAIL: Usaremos 'nodemailer' en la Cloud Function.
+
+--- 2. DOCUMENTACIÓN TÉCNICA EXACTA DEL SRI (AMBIENTE PRUEBAS) ---
+
+A. WSDL (ENDPOINTS SOAP):
+- Recepción (Validación y Recepción):
+  URL: https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl
+- Autorización (Consulta de estado):
+  URL: https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl
+
+B. VERSIÓN DEL ESQUEMA XML (XSD):
+- Versión: 2.1.0 (Formato Factura).
+- Codificación: UTF-8.
+
+C. ALGORITMO CLAVE DE ACCESO (49 DÍGITOS):
+Formato: [Fecha 8][TipoComprobante 2][RUC 13][Ambiente 1][Serie 6][Secuencial 9][CodigoNumerico 8][TipoEmision 1][DigitoVerificador 1]
+- Fecha: ddmmaaaa
+- TipoComprobante: "01" (Factura)
+- RUC: 1234567890001
+- Ambiente: "1" (Pruebas)
+- Serie: "001001" (Establecimiento + Punto Emisión)
+- Secuencial: 000000001 (9 dígitos)
+- CodigoNumerico: 12345678 (8 dígitos aleatorios)
+- TipoEmision: "1" (Normal)
+- DigitoVerificador: Algoritmo Módulo 11 (Suma ponderada base 7).
+
+D. FIRMA ELECTRÓNICA:
+- Estándar: XAdES-BES (Xml Advanced Electronic Signatures).
+- Librería recomendada Node.js: 'xml-crypto' o 'xadesjs'.
+- Requisito: El archivo .p12 debe desencriptarse y usarse para firmar el nodo <factura>.
+
+--- 3. ESTRUCTURA DEL XML (TAGS OBLIGATORIOS) ---
+
+Raíz: <factura id="comprobante" version="1.0.0">
+  <infoTributaria>
+    <ambiente>1</ambiente>
+    <tipoEmision>1</tipoEmision>
+    <razonSocial>TU RAZON SOCIAL</razonSocial>
+    <ruc>TU RUC</ruc>
+    <claveAcceso>[GENERADA AUTOMATICAMENTE]</claveAcceso>
+    <codDoc>01</codDoc> (01=Factura)
+    <estab>001</estab>
+    <ptoEmi>001</ptoEmi>
+    <secuencial>000000001</secuencial>
+    <dirMatriz>DIRECCION MATRIZ</dirMatriz>
+  </infoTributaria>
+  <infoFactura>
+    <fechaEmision>dd/mm/aaaa</fechaEmision>
+    <dirEstablecimiento>DIRECCION SUCURSAL</dirEstablecimiento>
+    <obligadoContabilidad>NO</obligadoContabilidad>
+    <tipoIdentificacionComprador>05</tipoIdentificacionComprador> (05=Cedula, 04=RUC, 07=Final)
+    <razonSocialComprador>NOMBRE CLIENTE</razonSocialComprador>
+    <identificacionComprador>CEDULA CLIENTE</identificacionComprador>
+    <totalSinImpuestos>100.00</totalSinImpuestos>
+    <totalDescuento>0.00</totalDescuento>
+    <totalImpuestos>
+      <totalImpuesto>
+        <codigo>2</codigo> (2=IVA)
+        <codigoPorcentaje>4</codigoPorcentaje> (0=0%, 2=12%, 4=15%)
+        <baseImponible>100.00</baseImponible>
+        <valor>15.00</valor>
+      </totalImpuesto>
+    </totalImpuestos>
+    <importeTotal>115.00</importeTotal>
+    <moneda>DOLAR</moneda>
+    <pagos>
+       <pago>
+          <formaPago>01</formaPago> (01=Sin sistema financiero, 19=Tarjeta, 20=Otros)
+          <total>115.00</total>
+       </pago>
+    </pagos>
+  </infoFactura>
+  <detalles>
+    <detalle>
+      <codigoPrincipal>PROD001</codigoPrincipal>
+      <descripcion>Nombre Producto</descripcion>
+      <cantidad>1.00</cantidad>
+      <precioUnitario>100.00</precioUnitario>
+      <descuento>0.00</descuento>
+      <precioTotalSinImpuesto>100.00</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo> (IVA)
+          <codigoPorcentaje>4</codigoPorcentaje> (15%)
+          <tarifa>15</tarifa>
+          <baseImponible>100.00</baseImponible>
+          <valor>15.00</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+  </detalles>
+</factura>
+
+--- 4. INSTRUCCIÓN PARA COPILOT ---
+Usa esta información técnica para generar el código de la Cloud Function.
+Usa variables de entorno para: RUC, CONTRASEÑA_P12, PATH_P12.
+No hardcodees credenciales reales.
+Genera primero la función auxiliar para calcular el Módulo 11 (Dígito Verificador).
+
+Aquí tienes la documentación técnica exacta y el stack que vamos a usar. Por favor, lee esto y comencemos creando la Cloud Function en Node.js para generar la Clave de Acceso de 49 dígitos con el algoritmo Módulo 11.

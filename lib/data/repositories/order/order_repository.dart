@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
+import '../../../features/personalization/models/address_model.dart';
 import '../../../features/shop/models/order_model.dart';
+import '../../../utils/constants/enums.dart';
 import '../authentication/authentication_repository.dart';
 
 class OrderRepository extends GetxController {
@@ -63,11 +65,50 @@ class OrderRepository extends GetxController {
   }
 
   /// Almacenar nuevo pedido de usuario
-  Future<void> saveOrder(OrderModel order, String userId) async {
+  Future<String> saveOrder(OrderModel order, String userId) async {
     try {
-      await _db.collection('Users').doc(userId).collection('Orders').add(order.toJson());
+      final docRef = await _db.collection('Users').doc(userId).collection('Orders').add(order.toJson());
+      return docRef.id; // Retornar el ID generado por Firestore
     } catch (e) {
       throw 'Algo salio mal guardando el pedido. Intentelo de nuevo en unos minutos.';
+    }
+  }
+
+  /// Actualizar estado del pedido
+  Future<void> updateOrderStatus(String orderId, OrderStatus newStatus) async {
+    try {
+      final userId = AuthenticationRepository.instance.authUser.uid;
+      if (userId.isEmpty) {
+        throw 'No se pudo encontrar información del usuario.';
+      }
+
+      await _db
+          .collection('Users')
+          .doc(userId)
+          .collection('Orders')
+          .doc(orderId)
+          .update({'status': newStatus.name});
+    } catch (e) {
+      throw 'Algo salió mal al actualizar el estado del pedido. Intente de nuevo.';
+    }
+  }
+
+  /// Actualizar dirección de envío del pedido
+  Future<void> updateOrderAddress(String orderId, AddressModel newAddress) async {
+    try {
+      final userId = AuthenticationRepository.instance.authUser.uid;
+      if (userId.isEmpty) {
+        throw 'No se pudo encontrar información del usuario.';
+      }
+
+      await _db
+          .collection('Users')
+          .doc(userId)
+          .collection('Orders')
+          .doc(orderId)
+          .update({'address': newAddress.toJson()});
+    } catch (e) {
+      throw 'Algo salió mal al actualizar la dirección. Intente de nuevo.';
     }
   }
 }

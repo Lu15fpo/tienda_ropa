@@ -48,7 +48,7 @@ class OrderModel {
     return {
       'id' : id,
       'userId' : userId,
-      'status' : status.toString(),
+      'status' : status.name,
       'totalAmount' : totalAmount,
       'orderDate' : orderDate,
       'paymentMethod' : paymentMethod,

@@ -1,0 +1,159 @@
+═══════════════════════════════════════════════════════════════════════════════
+  INSTRUCCIONES PARA PROBAR CLOUD FUNCTIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+PREPARACIÓN (SOLO UNA VEZ):
+───────────────────────────────────────────────────────────────────────────────
+
+1. Descargar Service Account Key de Firebase:
+
+   a) Ve a: https://console.firebase.google.com/project/ecommerceapp-5f46c/settings/serviceaccounts/adminsdk
+
+   b) Haz clic en "Generate new private key"
+
+   c) Confirma haciendo clic en "Generate key"
+
+   d) Guarda el archivo descargado como:
+      C:\Users\lu15p\StudioProjects\tienda_ropa\functions\serviceAccountKey.json
+
+   e) IMPORTANTE: Este archivo NO se debe subir a Git (ya está en .gitignore)
+
+
+2. Ejecutar el script de prueba:
+
+   cd C:\Users\lu15p\StudioProjects\tienda_ropa
+   node test_cloud_functions.js
+
+   Esto creará:
+   - Un pedido de prueba en Firestore
+   - El documento de secuenciales si no existe
+   - Te mostrará las opciones para probar la función
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  MÉTODOS DE PRUEBA
+═══════════════════════════════════════════════════════════════════════════════
+
+MÉTODO 1: Firebase Console (MÁS FÁCIL) ✅ RECOMENDADO
+───────────────────────────────────────────────────────────────────────────────
+
+1. Ve a Firebase Console Functions:
+   https://console.firebase.google.com/project/ecommerceapp-5f46c/functions
+
+2. Busca la función "generarFactura"
+
+3. Haz clic en los 3 puntos (...) → "Test function"
+
+4. En el panel de prueba, pega este JSON:
+   {
+     "orderId": "EL_ID_QUE_TE_DIO_EL_SCRIPT"
+   }
+
+5. Haz clic en "Test the function"
+
+6. Observa los logs para ver si funcionó correctamente
+
+
+MÉTODO 2: Firebase CLI (Terminal)
+───────────────────────────────────────────────────────────────────────────────
+
+1. Abre PowerShell en el proyecto:
+   cd C:\Users\lu15p\StudioProjects\tienda_ropa
+
+2. Inicia Firebase Shell:
+   firebase functions:shell
+
+3. Ejecuta la función:
+   generarFactura({orderId: "EL_ID_DEL_PEDIDO"})
+
+4. Observa el resultado en la consola
+
+
+MÉTODO 3: Emulador Local (Para desarrollo)
+───────────────────────────────────────────────────────────────────────────────
+
+1. Inicia los emuladores:
+   firebase emulators:start
+
+2. Ve a: http://localhost:4000
+
+3. Navega a Functions y ejecuta pruebas
+
+
+MÉTODO 4: Postman o similar (API REST)
+───────────────────────────────────────────────────────────────────────────────
+
+1. Obtén el token de autenticación de Firebase
+
+2. Haz una petición POST a la URL de la función
+
+3. Incluye el token en los headers
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  VERIFICAR RESULTADOS
+═══════════════════════════════════════════════════════════════════════════════
+
+Después de ejecutar la prueba, verifica en Firebase Console:
+
+1. LOGS DE LA FUNCIÓN:
+   https://console.firebase.google.com/project/ecommerceapp-5f46c/functions/logs
+
+   Aquí verás:
+   - Si la función se ejecutó
+   - Errores (si los hay)
+   - El proceso de generación de factura
+
+2. FIRESTORE - COLECCIÓN "Facturas":
+   https://console.firebase.google.com/project/ecommerceapp-5f46c/firestore
+
+   Debe aparecer:
+   - Un documento con la clave de acceso
+   - El XML firmado
+   - La respuesta del SRI
+
+3. FIRESTORE - PEDIDO ACTUALIZADO:
+   Verifica que el pedido tenga:
+   - facturaGenerada: true
+   - facturaId: "la_clave_de_acceso"
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  PROBLEMAS COMUNES
+═══════════════════════════════════════════════════════════════════════════════
+
+ERROR: "No implementation found for method"
+   → La función no está desplegada correctamente
+   → Ejecuta: firebase deploy --only functions
+
+ERROR: "Secret CERTIFICADO_PASSWORD not found"
+   → El secret no está configurado
+   → Ejecuta: firebase functions:secrets:set CERTIFICADO_PASSWORD
+
+ERROR: "Certificate not found in Storage"
+   → El archivo .p12 no está en Firebase Storage
+   → Sube el certificado a Storage/certificates/
+
+ERROR: Timeout
+   → La función tardó más de 60 segundos
+   → Aumenta el timeout en la configuración de la función
+
+ERROR: "Permission denied"
+   → Los permisos de Firestore no permiten la operación
+   → Revisa las reglas de seguridad
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  PRÓXIMOS PASOS DESPUÉS DE PROBAR
+═══════════════════════════════════════════════════════════════════════════════
+
+Una vez que las pruebas sean exitosas:
+
+1. ✅ Verificar que la factura se generó en Firestore
+2. ✅ Verificar que el XML esté bien formado
+3. ✅ Verificar que el SRI respondió (en ambiente de pruebas)
+4. ✅ Revisar los logs para detectar errores
+5. → Continuar con FASE 3: Integración con Flutter
+
+═══════════════════════════════════════════════════════════════════════════════
+

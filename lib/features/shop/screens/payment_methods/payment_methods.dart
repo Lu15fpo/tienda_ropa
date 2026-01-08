@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:tienda_ropa/common/widgets/appbar/appbar.dart';
 import 'package:tienda_ropa/features/shop/controllers/payment_method_controller.dart';
 import 'package:tienda_ropa/features/shop/screens/payment_methods/add_payment_method.dart';
+import 'package:tienda_ropa/features/shop/screens/payment_methods/edit_payment_method.dart';
 import 'package:tienda_ropa/features/shop/screens/payment_methods/widgets/single_payment_method.dart';
 import 'package:tienda_ropa/utils/constants/colors.dart';
 import 'package:tienda_ropa/utils/constants/sizes.dart';
@@ -51,14 +52,7 @@ class PaymentMethodsScreen extends StatelessWidget {
                     return SinglePaymentMethod(
                       paymentMethod: method,
                       onTap: () => controller.setAsDefault(method),
-                      onEdit: () {
-                        // TODO: Implementar pantalla de edición
-                        Get.snackbar(
-                          'Editar',
-                          'Funcionalidad de edición en desarrollo',
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
-                      },
+                      onEdit: () => Get.to(() => EditPaymentMethodScreen(paymentMethod: method)),
                       onDelete: () => controller.removePaymentMethod(method.id),
                     );
                   },

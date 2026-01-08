@@ -1,0 +1,1588 @@
+[
+  {
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "authenticationInfo": {
+        "principalEmail": "service-246112394482@gcf-admin-robot.iam.gserviceaccount.com"
+      },
+      "requestMetadata": {
+        "requestAttributes": {
+          "time": "2026-01-08T21:13:44.688338Z",
+          "auth": {}
+        },
+        "destinationAttributes": {}
+      },
+      "serviceName": "run.googleapis.com",
+      "methodName": "google.cloud.serverless.internal.InternalServices.ReplaceInternalService",
+      "authorizationInfo": [
+        {
+          "resource": "namespaces/ecommerceapp-5f46c/services/generarfactura",
+          "permission": "run.services.update",
+          "granted": true,
+          "resourceAttributes": {},
+          "permissionType": "ADMIN_WRITE"
+        },
+        {
+          "resource": "namespaces/ecommerceapp-5f46c/services/generarfactura",
+          "permission": "run.services.update",
+          "granted": true,
+          "resourceAttributes": {
+            "service": "run.googleapis.com/",
+            "name": "namespaces/ecommerceapp-5f46c/services/generarfactura",
+            "type": "run.googleapis.com/Service"
+          },
+          "permissionType": "ADMIN_WRITE"
+        }
+      ],
+      "resourceName": "namespaces/ecommerceapp-5f46c/services/generarfactura",
+      "resourceLocation": {
+        "currentLocations": [
+          "us-central1"
+        ]
+      }
+    },
+    "insertId": "-d9pd0kd5wog",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "",
+        "revision_name": "",
+        "location": "us-central1",
+        "service_name": "generarfactura"
+      }
+    },
+    "timestamp": "2026-01-08T21:13:44.545066Z",
+    "severity": "NOTICE",
+    "logName": "projects/ecommerceapp-5f46c/logs/cloudaudit.googleapis.com%2Factivity",
+    "receiveTimestamp": "2026-01-08T21:13:44.884886034Z"
+  },
+  {
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "authenticationInfo": {
+        "principalEmail": "Palaciosluisfer@gmail.com",
+        "principalSubject": "user:Palaciosluisfer@gmail.com",
+        "oauthInfo": {
+          "oauthClientId": "563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com"
+        }
+      },
+      "requestMetadata": {
+        "callerIp": "157.100.139.91",
+        "callerSuppliedUserAgent": "FirebaseCLI/15.2.0,gzip(gfe),gzip(gfe)",
+        "requestAttributes": {
+          "time": "2026-01-08T21:13:44.344638060Z",
+          "auth": {}
+        },
+        "destinationAttributes": {}
+      },
+      "serviceName": "cloudfunctions.googleapis.com",
+      "methodName": "google.cloud.functions.v2.FunctionService.UpdateFunction",
+      "authorizationInfo": [
+        {
+          "resource": "projects/ecommerceapp-5f46c/locations/us-central1/functions/generarFactura",
+          "permission": "cloudfunctions.functions.update",
+          "granted": true,
+          "resourceAttributes": {
+            "service": "cloudfunctions.googleapis.com",
+            "name": "projects/ecommerceapp-5f46c/locations/us-central1/functions/generarFactura",
+            "type": "cloudfunctions.googleapis.com/Function"
+          },
+          "permissionType": "ADMIN_WRITE"
+        }
+      ],
+      "resourceName": "projects/ecommerceapp-5f46c/locations/us-central1/functions/generarFactura",
+      "request": {
+        "update_mask": {
+          "paths": [
+            "name",
+            "build_config.runtime",
+            "build_config.entry_point",
+            "build_config.source.storage_source.bucket",
+            "build_config.source.storage_source.object",
+            "build_config.environment_variables",
+            "build_config.source_token",
+            "service_config.environment_variables",
+            "service_config.secret_environment_variables",
+            "service_config.ingress_settings",
+            "service_config.timeout_seconds",
+            "service_config.service_account_email",
+            "service_config.available_memory",
+            "service_config.min_instance_count",
+            "service_config.max_instance_count",
+            "service_config.max_instance_request_concurrency",
+            "service_config.available_cpu",
+            "service_config.vpc_connector",
+            "service_config.vpc_connector_egress_settings",
+            "labels"
+          ]
+        },
+        "function": {
+          "name": "projects/ecommerceapp-5f46c/locations/us-central1/functions/generarFactura",
+          "service_config": {
+            "secret_environment_variables": [
+              {
+                "key": "CERTIFICADO_PASSWORD",
+                "version": "1",
+                "project_id": "ecommerceapp-5f46c",
+                "secret": "CERTIFICADO_PASSWORD"
+              }
+            ],
+            "max_instance_request_concurrency": 80,
+            "available_memory": "256Mi",
+            "available_cpu": "1",
+            "max_instance_count": 5
+          },
+          "build_config": {
+            "entry_point": "generarFactura",
+            "source": {},
+            "runtime": "nodejs24"
+          },
+          "labels": {
+            "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+            "deployment-callable": "true",
+            "deployment-tool": "cli-firebase"
+          }
+        },
+        "@type": "type.googleapis.com/google.cloud.functions.v2.UpdateFunctionRequest"
+      },
+      "response": {
+        "@type": "type.googleapis.com/google.longrunning.Operation"
+      },
+      "resourceLocation": {
+        "currentLocations": [
+          "us-central1"
+        ]
+      }
+    },
+    "insertId": "1fducand8qut",
+    "resource": {
+      "type": "cloud_function",
+      "labels": {
+        "region": "us-central1",
+        "function_name": "generarFactura",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-08T21:13:45.028523981Z",
+    "severity": "NOTICE",
+    "logName": "projects/ecommerceapp-5f46c/logs/cloudaudit.googleapis.com%2Factivity",
+    "operation": {
+      "id": "projects/ecommerceapp-5f46c/locations/us-central1/operations/operation-1767906824344-647e6e242d589-5748f028-2703acec",
+      "producer": "cloudfunctions.googleapis.com",
+      "first": true
+    },
+    "receiveTimestamp": "2026-01-08T21:13:45.357642301Z"
+  },
+  {
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "authenticationInfo": {
+        "principalEmail": "service-246112394482@gcf-admin-robot.iam.gserviceaccount.com"
+      },
+      "requestMetadata": {
+        "requestAttributes": {
+          "time": "2026-01-08T21:14:29.729704Z",
+          "auth": {}
+        },
+        "destinationAttributes": {}
+      },
+      "serviceName": "run.googleapis.com",
+      "methodName": "google.cloud.serverless.internal.InternalServices.ReplaceInternalService",
+      "authorizationInfo": [
+        {
+          "resource": "namespaces/ecommerceapp-5f46c/services/generarfactura",
+          "permission": "run.services.update",
+          "granted": true,
+          "resourceAttributes": {},
+          "permissionType": "ADMIN_WRITE"
+        },
+        {
+          "resource": "namespaces/ecommerceapp-5f46c/services/generarfactura",
+          "permission": "run.services.update",
+          "granted": true,
+          "resourceAttributes": {
+            "service": "run.googleapis.com/",
+            "name": "namespaces/ecommerceapp-5f46c/services/generarfactura",
+            "type": "run.googleapis.com/Service"
+          },
+          "permissionType": "ADMIN_WRITE"
+        }
+      ],
+      "resourceName": "namespaces/ecommerceapp-5f46c/services/generarfactura",
+      "resourceLocation": {
+        "currentLocations": [
+          "us-central1"
+        ]
+      }
+    },
+    "insertId": "lnfdspd5kwa",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfactura",
+        "configuration_name": "",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-08T21:14:29.566114Z",
+    "severity": "NOTICE",
+    "logName": "projects/ecommerceapp-5f46c/logs/cloudaudit.googleapis.com%2Factivity",
+    "receiveTimestamp": "2026-01-08T21:14:29.942459684Z"
+  },
+  {
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "status": {
+        "message": "Ready condition status changed to True for Revision generarfactura-00004-tih."
+      },
+      "serviceName": "run.googleapis.com",
+      "methodName": "/InternalServices.ReplaceInternalService",
+      "resourceName": "namespaces/ecommerceapp-5f46c/revisions/generarfactura-00004-tih",
+      "response": {
+        "metadata": {
+          "name": "generarfactura-00004-tih",
+          "namespace": "246112394482",
+          "selfLink": "/apis/serving.knative.dev/v1/namespaces/246112394482/revisions/generarfactura-00004-tih",
+          "uid": "531c9c96-8699-4b66-a979-f7e82e544716",
+          "resourceVersion": "AAZH5uVNDYE",
+          "generation": 1,
+          "creationTimestamp": "2026-01-08T21:14:29.791029Z",
+          "labels": {
+            "goog-drz-cloudfunctions-location": "us-central1",
+            "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+            "goog-drz-cloudfunctions-id": "generarfactura",
+            "deployment-callable": "true",
+            "serving.knative.dev/configuration": "generarfactura",
+            "serving.knative.dev/configurationGeneration": "4",
+            "serving.knative.dev/service": "generarfactura",
+            "serving.knative.dev/serviceUid": "bb3dc56f-8d7e-4e38-b8c7-625764ca2fc7",
+            "goog-managed-by": "cloudfunctions",
+            "goog-cloudfunctions-runtime": "nodejs24",
+            "cloud.googleapis.com/location": "us-central1",
+            "run.googleapis.com/startupProbeType": "Default"
+          },
+          "annotations": {
+            "autoscaling.knative.dev/maxScale": "5",
+            "run.googleapis.com/client-name": "cli-firebase",
+            "cloudfunctions.googleapis.com/trigger-type": "HTTP_TRIGGER",
+            "run.googleapis.com/secrets": "secret-4b71d1d0-6fab-3fb7-8cb4-e7a170ac5c73:projects/ecommerceapp-5f46c/secrets/CERTIFICADO_PASSWORD",
+            "serving.knative.dev/creator": "service-246112394482@gcf-admin-robot.iam.gserviceaccount.com",
+            "run.googleapis.com/build-source-location": "{\"worker\":\"gs://gcf-v2-sources-246112394482-us-central1/generarFactura/function-source.zip#1767906824967917\"}",
+            "run.googleapis.com/build-id": "{\"worker\":\"e1ea04e5-d6d7-4bce-abc1-fce05459cfa7\"}",
+            "run.googleapis.com/build-function-target": "{\"worker\":\"generarFactura\"}",
+            "run.googleapis.com/operation-id": "1f633f74-a879-41d9-a208-0661b2afe59d",
+            "run.googleapis.com/startup-cpu-boost": "true",
+            "run.googleapis.com/base-images": "{\"worker\":\"us-central1-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24\"}"
+          },
+          "ownerReferences": [
+            {
+              "kind": "Configuration",
+              "name": "generarfactura",
+              "uid": "876ddd0c-cb79-4589-9ef7-d7d82e148c5b",
+              "apiVersion": "serving.knative.dev/v1",
+              "controller": true,
+              "blockOwnerDeletion": true
+            }
+          ]
+        },
+        "apiVersion": "serving.knative.dev/v1",
+        "kind": "Revision",
+        "spec": {
+          "containerConcurrency": 80,
+          "timeoutSeconds": 60,
+          "serviceAccountName": "246112394482-compute@developer.gserviceaccount.com",
+          "containers": [
+            {
+              "name": "worker",
+              "image": "us-central1-docker.pkg.dev/ecommerceapp-5f46c/gcf-artifacts/ecommerceapp--5f46c__us--central1__generar_factura@sha256:9c51e0fe39829cdebc34b729afb27afd094e57bdeadde18d42dd61cf95e5e775",
+              "ports": [
+                {
+                  "name": "http1",
+                  "containerPort": 8080
+                }
+              ],
+              "env": [
+                {
+                  "name": "RUC_EMPRESA",
+                  "value": "1003066535001"
+                },
+                {
+                  "name": "RAZON_SOCIAL",
+                  "value": "PALACIOS OCHOA LUIS FERNANDO"
+                },
+                {
+                  "name": "NOMBRE_COMERCIAL",
+                  "value": "P&P BIENES RAICES"
+                },
+                {
+                  "name": "DIRECCION_MATRIZ",
+                  "value": "IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE"
+                },
+                {
+                  "name": "OBLIGADO_CONTABILIDAD",
+                  "value": "NO"
+                },
+                {
+                  "name": "CONTRIBUYENTE_ESPECIAL",
+                  "value": "000"
+                },
+                {
+                  "name": "FIREBASE_CONFIG",
+                  "value": "{\"projectId\":\"ecommerceapp-5f46c\",\"storageBucket\":\"ecommerceapp-5f46c.firebasestorage.app\"}"
+                },
+                {
+                  "name": "GCLOUD_PROJECT",
+                  "value": "ecommerceapp-5f46c"
+                },
+                {
+                  "name": "EVENTARC_CLOUD_EVENT_SOURCE",
+                  "value": "projects/ecommerceapp-5f46c/locations/us-central1/services/generarFactura"
+                },
+                {
+                  "name": "FUNCTION_TARGET",
+                  "value": "generarFactura"
+                },
+                {
+                  "name": "LOG_EXECUTION_ID",
+                  "value": "true"
+                },
+                {
+                  "name": "CERTIFICADO_PASSWORD",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "1",
+                      "name": "secret-4b71d1d0-6fab-3fb7-8cb4-e7a170ac5c73"
+                    }
+                  }
+                }
+              ],
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "256Mi"
+                }
+              },
+              "startupProbe": {
+                "timeoutSeconds": 240,
+                "periodSeconds": 240,
+                "failureThreshold": 1,
+                "tcpSocket": {
+                  "port": 8080
+                }
+              }
+            }
+          ],
+          "runtimeClassName": "run.googleapis.com/linux-base-image-update"
+        },
+        "status": {
+          "observedGeneration": 1,
+          "conditions": [
+            {
+              "type": "Ready",
+              "status": "True",
+              "lastTransitionTime": "2026-01-08T21:14:35.346305Z"
+            },
+            {
+              "type": "ContainerReady",
+              "status": "True",
+              "message": "Container image import completed in 4.73s.",
+              "lastTransitionTime": "2026-01-08T21:14:35.288419Z"
+            },
+            {
+              "type": "Retry",
+              "status": "True",
+              "reason": "WatchWaiting",
+              "message": "System will retry after 00:05 from lastTransitionTime for attempt 0.",
+              "lastTransitionTime": "2026-01-08T21:14:35.346305Z",
+              "severity": "Info"
+            }
+          ],
+          "logUrl": "https://console.cloud.google.com/logs/viewer?project=ecommerceapp-5f46c&resource=cloud_run_revision/service_name/generarfactura/revision_name/generarfactura-00004-tih&advancedFilter=resource.type%3D%22cloud_run_revision%22%0Aresource.labels.service_name%3D%22generarfactura%22%0Aresource.labels.revision_name%3D%22generarfactura-00004-tih%22",
+          "imageDigest": "us-central1-docker.pkg.dev/ecommerceapp-5f46c/gcf-artifacts/ecommerceapp--5f46c__us--central1__generar_factura@sha256:9c51e0fe39829cdebc34b729afb27afd094e57bdeadde18d42dd61cf95e5e775",
+          "containerStatuses": [
+            {
+              "name": "worker",
+              "imageDigest": "us-central1-docker.pkg.dev/ecommerceapp-5f46c/gcf-artifacts/ecommerceapp--5f46c__us--central1__generar_factura@sha256:9c51e0fe39829cdebc34b729afb27afd094e57bdeadde18d42dd61cf95e5e775"
+            }
+          ]
+        },
+        "@type": "type.googleapis.com/google.cloud.run.v1.Revision"
+      }
+    },
+    "insertId": "god5tve39zw8",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "ecommerceapp-5f46c",
+        "revision_name": "generarfactura-00004-tih",
+        "service_name": "",
+        "location": "us-central1",
+        "configuration_name": "generarfactura"
+      }
+    },
+    "timestamp": "2026-01-08T21:14:35.354894Z",
+    "severity": "INFO",
+    "logName": "projects/ecommerceapp-5f46c/logs/cloudaudit.googleapis.com%2Fsystem_event",
+    "receiveTimestamp": "2026-01-08T21:14:35.968092236Z"
+  },
+  {
+    "textPayload": "Starting new instance. Reason: DEPLOYMENT_ROLLOUT - Instance started due to traffic shifting between revisions due to deployment, traffic split adjustment, or deployment health check.",
+    "insertId": "69601e3d0001280a92497ef3",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "generarfactura",
+        "service_name": "generarfactura",
+        "revision_name": "generarfactura-00004-tih",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-08T21:14:37.075786Z",
+    "severity": "INFO",
+    "labels": {
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "scaling_reason": "DEPLOYMENT_ROLLOUT",
+      "deployment-callable": "true",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-managed-by": "cloudfunctions"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fvarlog%2Fsystem",
+    "receiveTimestamp": "2026-01-08T21:14:37.080205475Z"
+  },
+  {
+    "textPayload": "Default STARTUP TCP probe succeeded after 1 attempt for container \"worker\" on port 8080.",
+    "insertId": "69601e41000235bb82ba2d50",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "configuration_name": "generarfactura",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfactura",
+        "revision_name": "generarfactura-00004-tih"
+      }
+    },
+    "timestamp": "2026-01-08T21:14:41.144827Z",
+    "severity": "INFO",
+    "labels": {
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "deployment-callable": "true",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fvarlog%2Fsystem",
+    "receiveTimestamp": "2026-01-08T21:14:41.413030271Z"
+  },
+  {
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "status": {
+        "message": "Ready condition status changed to True for Revision generarfactura-00004-tih with message: Deploying revision succeeded in 11.43s."
+      },
+      "serviceName": "run.googleapis.com",
+      "methodName": "/InternalServices.ReplaceInternalService",
+      "resourceName": "namespaces/ecommerceapp-5f46c/revisions/generarfactura-00004-tih",
+      "response": {
+        "metadata": {
+          "name": "generarfactura-00004-tih",
+          "namespace": "246112394482",
+          "selfLink": "/apis/serving.knative.dev/v1/namespaces/246112394482/revisions/generarfactura-00004-tih",
+          "uid": "531c9c96-8699-4b66-a979-f7e82e544716",
+          "resourceVersion": "AAZH5uWmvto",
+          "generation": 1,
+          "creationTimestamp": "2026-01-08T21:14:29.791029Z",
+          "labels": {
+            "goog-drz-cloudfunctions-location": "us-central1",
+            "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+            "goog-drz-cloudfunctions-id": "generarfactura",
+            "deployment-callable": "true",
+            "serving.knative.dev/configuration": "generarfactura",
+            "serving.knative.dev/configurationGeneration": "4",
+            "serving.knative.dev/service": "generarfactura",
+            "serving.knative.dev/serviceUid": "bb3dc56f-8d7e-4e38-b8c7-625764ca2fc7",
+            "goog-managed-by": "cloudfunctions",
+            "goog-cloudfunctions-runtime": "nodejs24",
+            "cloud.googleapis.com/location": "us-central1",
+            "serving.knative.dev/route": "generarfactura",
+            "run.googleapis.com/startupProbeType": "Default"
+          },
+          "annotations": {
+            "autoscaling.knative.dev/maxScale": "5",
+            "run.googleapis.com/client-name": "cli-firebase",
+            "cloudfunctions.googleapis.com/trigger-type": "HTTP_TRIGGER",
+            "run.googleapis.com/secrets": "secret-4b71d1d0-6fab-3fb7-8cb4-e7a170ac5c73:projects/ecommerceapp-5f46c/secrets/CERTIFICADO_PASSWORD",
+            "serving.knative.dev/creator": "service-246112394482@gcf-admin-robot.iam.gserviceaccount.com",
+            "run.googleapis.com/build-source-location": "{\"worker\":\"gs://gcf-v2-sources-246112394482-us-central1/generarFactura/function-source.zip#1767906824967917\"}",
+            "run.googleapis.com/build-id": "{\"worker\":\"e1ea04e5-d6d7-4bce-abc1-fce05459cfa7\"}",
+            "run.googleapis.com/build-function-target": "{\"worker\":\"generarFactura\"}",
+            "run.googleapis.com/operation-id": "1f633f74-a879-41d9-a208-0661b2afe59d",
+            "run.googleapis.com/startup-cpu-boost": "true",
+            "run.googleapis.com/base-images": "{\"worker\":\"us-central1-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24\"}"
+          },
+          "ownerReferences": [
+            {
+              "kind": "Configuration",
+              "name": "generarfactura",
+              "uid": "876ddd0c-cb79-4589-9ef7-d7d82e148c5b",
+              "apiVersion": "serving.knative.dev/v1",
+              "controller": true,
+              "blockOwnerDeletion": true
+            }
+          ]
+        },
+        "apiVersion": "serving.knative.dev/v1",
+        "kind": "Revision",
+        "spec": {
+          "containerConcurrency": 80,
+          "timeoutSeconds": 60,
+          "serviceAccountName": "246112394482-compute@developer.gserviceaccount.com",
+          "containers": [
+            {
+              "name": "worker",
+              "image": "us-central1-docker.pkg.dev/ecommerceapp-5f46c/gcf-artifacts/ecommerceapp--5f46c__us--central1__generar_factura@sha256:9c51e0fe39829cdebc34b729afb27afd094e57bdeadde18d42dd61cf95e5e775",
+              "ports": [
+                {
+                  "name": "http1",
+                  "containerPort": 8080
+                }
+              ],
+              "env": [
+                {
+                  "name": "RUC_EMPRESA",
+                  "value": "1003066535001"
+                },
+                {
+                  "name": "RAZON_SOCIAL",
+                  "value": "PALACIOS OCHOA LUIS FERNANDO"
+                },
+                {
+                  "name": "NOMBRE_COMERCIAL",
+                  "value": "P&P BIENES RAICES"
+                },
+                {
+                  "name": "DIRECCION_MATRIZ",
+                  "value": "IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE"
+                },
+                {
+                  "name": "OBLIGADO_CONTABILIDAD",
+                  "value": "NO"
+                },
+                {
+                  "name": "CONTRIBUYENTE_ESPECIAL",
+                  "value": "000"
+                },
+                {
+                  "name": "FIREBASE_CONFIG",
+                  "value": "{\"projectId\":\"ecommerceapp-5f46c\",\"storageBucket\":\"ecommerceapp-5f46c.firebasestorage.app\"}"
+                },
+                {
+                  "name": "GCLOUD_PROJECT",
+                  "value": "ecommerceapp-5f46c"
+                },
+                {
+                  "name": "EVENTARC_CLOUD_EVENT_SOURCE",
+                  "value": "projects/ecommerceapp-5f46c/locations/us-central1/services/generarFactura"
+                },
+                {
+                  "name": "FUNCTION_TARGET",
+                  "value": "generarFactura"
+                },
+                {
+                  "name": "LOG_EXECUTION_ID",
+                  "value": "true"
+                },
+                {
+                  "name": "CERTIFICADO_PASSWORD",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "1",
+                      "name": "secret-4b71d1d0-6fab-3fb7-8cb4-e7a170ac5c73"
+                    }
+                  }
+                }
+              ],
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "256Mi"
+                }
+              },
+              "startupProbe": {
+                "timeoutSeconds": 240,
+                "periodSeconds": 240,
+                "failureThreshold": 1,
+                "tcpSocket": {
+                  "port": 8080
+                }
+              }
+            }
+          ],
+          "runtimeClassName": "run.googleapis.com/linux-base-image-update"
+        },
+        "status": {
+          "observedGeneration": 1,
+          "conditions": [
+            {
+              "type": "Ready",
+              "status": "True",
+              "message": "Deploying revision succeeded in 11.43s.",
+              "lastTransitionTime": "2026-01-08T21:14:41.224410Z"
+            },
+            {
+              "type": "ContainerHealthy",
+              "status": "True",
+              "message": "Containers became healthy in 3.4s.",
+              "lastTransitionTime": "2026-01-08T21:14:41.164718Z"
+            },
+            {
+              "type": "ContainerReady",
+              "status": "True",
+              "message": "Container image import completed in 4.73s.",
+              "lastTransitionTime": "2026-01-08T21:14:35.288419Z"
+            },
+            {
+              "type": "ResourcesAvailable",
+              "status": "True",
+              "message": "Provisioning imported containers completed in 1.62s. Checking container health. This will wait for up to 4m for the configured startup probe, including an initial delay of 0s.",
+              "lastTransitionTime": "2026-01-08T21:14:36.905784Z"
+            }
+          ],
+          "logUrl": "https://console.cloud.google.com/logs/viewer?project=ecommerceapp-5f46c&resource=cloud_run_revision/service_name/generarfactura/revision_name/generarfactura-00004-tih&advancedFilter=resource.type%3D%22cloud_run_revision%22%0Aresource.labels.service_name%3D%22generarfactura%22%0Aresource.labels.revision_name%3D%22generarfactura-00004-tih%22",
+          "imageDigest": "us-central1-docker.pkg.dev/ecommerceapp-5f46c/gcf-artifacts/ecommerceapp--5f46c__us--central1__generar_factura@sha256:9c51e0fe39829cdebc34b729afb27afd094e57bdeadde18d42dd61cf95e5e775",
+          "containerStatuses": [
+            {
+              "name": "worker",
+              "imageDigest": "us-central1-docker.pkg.dev/ecommerceapp-5f46c/gcf-artifacts/ecommerceapp--5f46c__us--central1__generar_factura@sha256:9c51e0fe39829cdebc34b729afb27afd094e57bdeadde18d42dd61cf95e5e775"
+            }
+          ]
+        },
+        "@type": "type.googleapis.com/google.cloud.run.v1.Revision"
+      }
+    },
+    "insertId": "-8k2zh2db270",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "revision_name": "generarfactura-00004-tih",
+        "service_name": "generarfactura",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfactura"
+      }
+    },
+    "timestamp": "2026-01-08T21:14:41.240662Z",
+    "severity": "INFO",
+    "logName": "projects/ecommerceapp-5f46c/logs/cloudaudit.googleapis.com%2Fsystem_event",
+    "receiveTimestamp": "2026-01-08T21:14:42.593766550Z"
+  },
+  {
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "status": {
+        "message": "Ready condition status changed to True for Service generarfactura."
+      },
+      "serviceName": "run.googleapis.com",
+      "methodName": "/InternalServices.ReplaceInternalService",
+      "resourceName": "namespaces/ecommerceapp-5f46c/services/generarfactura",
+      "response": {
+        "metadata": {
+          "name": "generarfactura",
+          "namespace": "246112394482",
+          "selfLink": "/apis/serving.knative.dev/v1/namespaces/246112394482/services/generarfactura",
+          "uid": "bb3dc56f-8d7e-4e38-b8c7-625764ca2fc7",
+          "resourceVersion": "AAZH5uYjCak",
+          "generation": 4,
+          "creationTimestamp": "2026-01-08T19:39:35.187348Z",
+          "labels": {
+            "goog-drz-cloudfunctions-location": "us-central1",
+            "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+            "goog-managed-by": "cloudfunctions",
+            "goog-cloudfunctions-runtime": "nodejs24",
+            "cloud.googleapis.com/location": "us-central1",
+            "goog-drz-cloudfunctions-id": "generarfactura",
+            "deployment-callable": "true"
+          },
+          "annotations": {
+            "serving.knative.dev/creator": "service-246112394482@gcf-admin-robot.iam.gserviceaccount.com",
+            "serving.knative.dev/lastModifier": "service-246112394482@gcf-admin-robot.iam.gserviceaccount.com",
+            "run.googleapis.com/custom-audiences": "[\"https://us-central1-ecommerceapp-5f46c.cloudfunctions.net/generarFactura\"]",
+            "run.googleapis.com/client-name": "cli-firebase",
+            "cloudfunctions.googleapis.com/function-id": "generarFactura",
+            "run.googleapis.com/build-source-location": "gs://gcf-v2-sources-246112394482-us-central1/generarFactura/function-source.zip#1767906824967917",
+            "run.googleapis.com/build-environment-variables": "{\"GOOGLE_NODE_RUN_SCRIPTS\":\"\"}",
+            "run.googleapis.com/build-function-target": "generarFactura",
+            "run.googleapis.com/build-service-account": "projects/ecommerceapp-5f46c/serviceAccounts/246112394482-compute@developer.gserviceaccount.com",
+            "run.googleapis.com/build-enable-automatic-updates": "true",
+            "run.googleapis.com/build-base-image": "us-central1-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24",
+            "run.googleapis.com/build-image-uri": "us-central1-docker.pkg.dev/ecommerceapp-5f46c/gcf-artifacts/ecommerceapp--5f46c__us--central1__generar_factura:version_1",
+            "run.googleapis.com/build-name": "projects/246112394482/locations/us-central1/builds/e1ea04e5-d6d7-4bce-abc1-fce05459cfa7",
+            "run.googleapis.com/operation-id": "1f633f74-a879-41d9-a208-0661b2afe59d",
+            "run.googleapis.com/ingress": "all",
+            "run.googleapis.com/ingress-status": "all",
+            "run.googleapis.com/maxScale": "5",
+            "run.googleapis.com/urls": "[\"https://generarfactura-246112394482.us-central1.run.app\",\"https://us-central1-ecommerceapp-5f46c.cloudfunctions.net/generarFactura\",\"https://generarfactura-7jvw3ugneq-uc.a.run.app\"]"
+          }
+        },
+        "apiVersion": "serving.knative.dev/v1",
+        "kind": "Service",
+        "spec": {
+          "template": {
+            "metadata": {
+              "name": "generarfactura-00004-tih",
+              "labels": {
+                "goog-drz-cloudfunctions-location": "us-central1",
+                "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+                "goog-drz-cloudfunctions-id": "generarfactura",
+                "deployment-callable": "true",
+                "run.googleapis.com/startupProbeType": "Default"
+              },
+              "annotations": {
+                "autoscaling.knative.dev/maxScale": "5",
+                "run.googleapis.com/client-name": "cli-firebase",
+                "cloudfunctions.googleapis.com/trigger-type": "HTTP_TRIGGER",
+                "run.googleapis.com/secrets": "secret-4b71d1d0-6fab-3fb7-8cb4-e7a170ac5c73:projects/ecommerceapp-5f46c/secrets/CERTIFICADO_PASSWORD",
+                "run.googleapis.com/base-images": "{\"worker\":\"us-central1-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24\"}",
+                "run.googleapis.com/startup-cpu-boost": "true"
+              }
+            },
+            "spec": {
+              "containerConcurrency": 80,
+              "timeoutSeconds": 60,
+              "serviceAccountName": "246112394482-compute@developer.gserviceaccount.com",
+              "containers": [
+                {
+                  "name": "worker",
+                  "image": "us-central1-docker.pkg.dev/ecommerceapp-5f46c/gcf-artifacts/ecommerceapp--5f46c__us--central1__generar_factura:version_1",
+                  "ports": [
+                    {
+                      "name": "http1",
+                      "containerPort": 8080
+                    }
+                  ],
+                  "env": [
+                    {
+                      "name": "RUC_EMPRESA",
+                      "value": "1003066535001"
+                    },
+                    {
+                      "name": "RAZON_SOCIAL",
+                      "value": "PALACIOS OCHOA LUIS FERNANDO"
+                    },
+                    {
+                      "name": "NOMBRE_COMERCIAL",
+                      "value": "P&P BIENES RAICES"
+                    },
+                    {
+                      "name": "DIRECCION_MATRIZ",
+                      "value": "IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE"
+                    },
+                    {
+                      "name": "OBLIGADO_CONTABILIDAD",
+                      "value": "NO"
+                    },
+                    {
+                      "name": "CONTRIBUYENTE_ESPECIAL",
+                      "value": "000"
+                    },
+                    {
+                      "name": "FIREBASE_CONFIG",
+                      "value": "{\"projectId\":\"ecommerceapp-5f46c\",\"storageBucket\":\"ecommerceapp-5f46c.firebasestorage.app\"}"
+                    },
+                    {
+                      "name": "GCLOUD_PROJECT",
+                      "value": "ecommerceapp-5f46c"
+                    },
+                    {
+                      "name": "EVENTARC_CLOUD_EVENT_SOURCE",
+                      "value": "projects/ecommerceapp-5f46c/locations/us-central1/services/generarFactura"
+                    },
+                    {
+                      "name": "FUNCTION_TARGET",
+                      "value": "generarFactura"
+                    },
+                    {
+                      "name": "LOG_EXECUTION_ID",
+                      "value": "true"
+                    },
+                    {
+                      "name": "CERTIFICADO_PASSWORD",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "1",
+                          "name": "secret-4b71d1d0-6fab-3fb7-8cb4-e7a170ac5c73"
+                        }
+                      }
+                    }
+                  ],
+                  "resources": {
+                    "limits": {
+                      "cpu": "1",
+                      "memory": "256Mi"
+                    }
+                  },
+                  "startupProbe": {
+                    "timeoutSeconds": 240,
+                    "periodSeconds": 240,
+                    "failureThreshold": 1,
+                    "tcpSocket": {
+                      "port": 8080
+                    }
+                  }
+                }
+              ],
+              "runtimeClassName": "run.googleapis.com/linux-base-image-update"
+            }
+          },
+          "traffic": [
+            {
+              "percent": 100,
+              "latestRevision": true
+            }
+          ]
+        },
+        "status": {
+          "observedGeneration": 4,
+          "conditions": [
+            {
+              "type": "Ready",
+              "status": "True",
+              "lastTransitionTime": "2026-01-08T21:14:49.370025Z"
+            },
+            {
+              "type": "ConfigurationsReady",
+              "status": "True",
+              "lastTransitionTime": "2026-01-08T21:14:35.397607Z"
+            },
+            {
+              "type": "RoutesReady",
+              "status": "True",
+              "lastTransitionTime": "2026-01-08T21:14:49.329502Z"
+            }
+          ],
+          "latestReadyRevisionName": "generarfactura-00004-tih",
+          "latestCreatedRevisionName": "generarfactura-00004-tih",
+          "traffic": [
+            {
+              "revisionName": "generarfactura-00004-tih",
+              "percent": 100,
+              "latestRevision": true
+            }
+          ],
+          "url": "https://generarfactura-7jvw3ugneq-uc.a.run.app",
+          "address": {
+            "url": "https://generarfactura-7jvw3ugneq-uc.a.run.app"
+          }
+        },
+        "@type": "type.googleapis.com/google.cloud.run.v1.Service"
+      }
+    },
+    "insertId": "b4buwme3x7po",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "",
+        "service_name": "generarfactura",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1",
+        "configuration_name": ""
+      }
+    },
+    "timestamp": "2026-01-08T21:14:49.388510Z",
+    "severity": "INFO",
+    "logName": "projects/ecommerceapp-5f46c/logs/cloudaudit.googleapis.com%2Fsystem_event",
+    "receiveTimestamp": "2026-01-08T21:14:50.212803133Z"
+  },
+  {
+    "protoPayload": {
+      "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+      "status": {},
+      "authenticationInfo": {
+        "principalEmail": "Palaciosluisfer@gmail.com",
+        "principalSubject": "user:Palaciosluisfer@gmail.com",
+        "oauthInfo": {
+          "oauthClientId": "563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com"
+        }
+      },
+      "requestMetadata": {
+        "requestAttributes": {},
+        "destinationAttributes": {}
+      },
+      "serviceName": "cloudfunctions.googleapis.com",
+      "methodName": "google.cloud.functions.v2.FunctionService.UpdateFunction",
+      "resourceName": "projects/ecommerceapp-5f46c/locations/us-central1/functions/generarFactura",
+      "response": {
+        "satisfiesPzi": true,
+        "labels": {
+          "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+          "deployment-tool": "cli-firebase",
+          "deployment-callable": "true"
+        },
+        "updateTime": "2026-01-08T21:13:45.016577351Z",
+        "state": "ACTIVE",
+        "serviceConfig": {
+          "availableCpu": "1",
+          "timeoutSeconds": 60,
+          "maxInstanceCount": 5,
+          "serviceAccountEmail": "246112394482-compute@developer.gserviceaccount.com",
+          "revision": "generarfactura-00004-tih",
+          "ingressSettings": "ALLOW_ALL",
+          "maxInstanceRequestConcurrency": 80,
+          "secretEnvironmentVariables": [
+            {
+              "version": "1",
+              "projectId": "ecommerceapp-5f46c",
+              "key": "CERTIFICADO_PASSWORD",
+              "secret": "CERTIFICADO_PASSWORD"
+            }
+          ],
+          "availableMemory": "256Mi",
+          "allTrafficOnLatestRevision": true,
+          "uri": "https://generarfactura-7jvw3ugneq-uc.a.run.app"
+        },
+        "environment": "GEN_2",
+        "buildConfig": {
+          "dockerRepository": "projects/ecommerceapp-5f46c/locations/us-central1/repositories/gcf-artifacts",
+          "source": {},
+          "runtime": "nodejs24",
+          "dockerRegistry": "ARTIFACT_REGISTRY",
+          "serviceAccount": "projects/ecommerceapp-5f46c/serviceAccounts/246112394482-compute@developer.gserviceaccount.com",
+          "entryPoint": "generarFactura",
+          "automaticUpdatePolicy": {}
+        },
+        "url": "https://us-central1-ecommerceapp-5f46c.cloudfunctions.net/generarFactura",
+        "name": "projects/ecommerceapp-5f46c/locations/us-central1/functions/generarFactura",
+        "createTime": "2026-01-08T19:38:26.110626705Z",
+        "@type": "type.googleapis.com/google.cloud.functions.v2.Function"
+      },
+      "resourceLocation": {
+        "currentLocations": [
+          "us-central1"
+        ]
+      }
+    },
+    "insertId": "1fducand8qvp",
+    "resource": {
+      "type": "cloud_function",
+      "labels": {
+        "project_id": "ecommerceapp-5f46c",
+        "function_name": "generarFactura",
+        "region": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-08T21:14:49.648940961Z",
+    "severity": "NOTICE",
+    "logName": "projects/ecommerceapp-5f46c/logs/cloudaudit.googleapis.com%2Factivity",
+    "operation": {
+      "id": "projects/ecommerceapp-5f46c/locations/us-central1/operations/operation-1767906824344-647e6e242d589-5748f028-2703acec",
+      "producer": "cloudfunctions.googleapis.com",
+      "last": true
+    },
+    "receiveTimestamp": "2026-01-08T21:14:50.429001062Z"
+  },
+  {
+    "insertId": "69601efb000b80c828769139",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://us-central1-ecommerceapp-5f46c.cloudfunctions.net/generarFactura",
+      "requestSize": "1647",
+      "status": 500,
+      "responseSize": "274",
+      "userAgent": "okhttp/3.12.13",
+      "remoteIp": "2800:bf0:2c46:1064:b75f:bf37:24ea:4171",
+      "serverIp": "2001:4860:4802:36::36",
+      "latency": "1.733000781s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfactura-00004-tih",
+        "configuration_name": "generarfactura",
+        "service_name": "generarfactura",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:46.015516Z",
+    "severity": "ERROR",
+    "labels": {
+      "deployment-callable": "true",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "goog-managed-by": "cloudfunctions"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.758278718Z",
+    "spanId": "e31c28742655ed04",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "Failed to validate AppCheck token. FirebaseAppCheckError: Decoding App Check token failed. Make sure you passed the entire string JWT which represents the Firebase App Check token.\n    at /workspace/node_modules/firebase-admin/lib/app-check/token-verifier.js:79:19\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {\n  errorInfo: {\n    code: 'app-check/invalid-argument',\n    message: 'Decoding App Check token failed. Make sure you passed the entire string JWT which represents the Firebase App Check token.'\n  },\n  codePrefix: 'app-check'\n}",
+    "insertId": "69601efa0001df926ab7d43d",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfactura-00004-tih",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1",
+        "service_name": "generarfactura",
+        "configuration_name": "generarfactura"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:46.122770Z",
+    "severity": "WARNING",
+    "labels": {
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "execution_id": "5y7ykd350ivg",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "deployment-callable": "true",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstderr",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:46.128620003Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "insertId": "69601efa00024eed54d9cc35",
+    "jsonPayload": {
+      "verifications": {
+        "auth": "VALID",
+        "app": "INVALID"
+      },
+      "message": "Callable request verification failed: AppCheck token was rejected."
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfactura-00004-tih",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1",
+        "service_name": "generarfactura",
+        "configuration_name": "generarfactura"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:46.151277Z",
+    "severity": "WARNING",
+    "labels": {
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "execution_id": "5y7ykd350ivg",
+      "firebase-log-type": "callable-request-verification",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "deployment-callable": "true"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstderr",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:46.461236717Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "Allowing request with invalid AppCheck token because enforcement is disabled",
+    "insertId": "69601efa00024f8bd8e461cc",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "revision_name": "generarfactura-00004-tih",
+        "configuration_name": "generarfactura",
+        "service_name": "generarfactura",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:46.151435Z",
+    "severity": "WARNING",
+    "labels": {
+      "deployment-callable": "true",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "execution_id": "5y7ykd350ivg",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "goog-managed-by": "cloudfunctions"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstderr",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:46.461236717Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "📄 [generarFactura] Iniciando para pedido: BwuXeUqg9ooSXo1Vks0V, usuario: VDySQoneyobxkrkbltDakKb0P0x2",
+    "insertId": "69601efa000253097b7f9eab",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfactura",
+        "location": "us-central1",
+        "revision_name": "generarfactura-00004-tih",
+        "service_name": "generarfactura"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:46.152329Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "execution_id": "5y7ykd350ivg",
+      "goog-managed-by": "cloudfunctions",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "deployment-callable": "true"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:46.157282633Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "✅ [generarFactura] Pedido encontrado. Items: 1",
+    "insertId": "69601efa000ed86014c9519d",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfactura-00004-tih",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfactura",
+        "configuration_name": "generarfactura"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:46.972896Z",
+    "severity": "INFO",
+    "labels": {
+      "deployment-callable": "true",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "execution_id": "5y7ykd350ivg",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.155993123Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "🏢 [generarFactura] Configuración empresa:",
+    "insertId": "69601efa000ed8dc324ca4d0",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfactura-00004-tih",
+        "configuration_name": "generarfactura",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfactura"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:46.973020Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-managed-by": "cloudfunctions",
+      "execution_id": "5y7ykd350ivg",
+      "deployment-callable": "true",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.155993123Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "   RUC: 1003066535001",
+    "insertId": "69601efa000ed989aaa4d1b0",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "generarfactura",
+        "service_name": "generarfactura",
+        "location": "us-central1",
+        "revision_name": "generarfactura-00004-tih",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:46.973193Z",
+    "severity": "INFO",
+    "labels": {
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "deployment-callable": "true",
+      "execution_id": "5y7ykd350ivg",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.155993123Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "   Razón Social: PALACIOS OCHOA LUIS FERNANDO",
+    "insertId": "69601efa000eda14974dcaaa",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfactura",
+        "revision_name": "generarfactura-00004-tih",
+        "configuration_name": "generarfactura",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:46.973332Z",
+    "severity": "INFO",
+    "labels": {
+      "execution_id": "5y7ykd350ivg",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "deployment-callable": "true",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-managed-by": "cloudfunctions",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.155993123Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "   Nombre Comercial: P&P BIENES RAICES",
+    "insertId": "69601efa000eda90eb76d76d",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "generarfactura",
+        "revision_name": "generarfactura-00004-tih",
+        "location": "us-central1",
+        "service_name": "generarfactura",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:46.973456Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "execution_id": "5y7ykd350ivg",
+      "goog-managed-by": "cloudfunctions",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "deployment-callable": "true",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.155993123Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "🔢 [generarFactura] Secuencial: 1",
+    "insertId": "69601efb00006031ef66b29b",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "configuration_name": "generarfactura",
+        "revision_name": "generarfactura-00004-tih",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfactura"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:47.024625Z",
+    "severity": "INFO",
+    "labels": {
+      "deployment-callable": "true",
+      "execution_id": "5y7ykd350ivg",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-managed-by": "cloudfunctions"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.155993123Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "📅 [generarFactura] FechaStr: 08012026",
+    "insertId": "69601efb000060aacd2cccba",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "generarfactura",
+        "revision_name": "generarfactura-00004-tih",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfactura"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:47.024746Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "execution_id": "5y7ykd350ivg",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "deployment-callable": "true",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "goog-managed-by": "cloudfunctions",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.155993123Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "🏢 [generarFactura] RUC: 1003066535001",
+    "insertId": "69601efb000061344474207a",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfactura-00004-tih",
+        "configuration_name": "generarfactura",
+        "service_name": "generarfactura",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:47.024884Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "execution_id": "5y7ykd350ivg",
+      "deployment-callable": "true",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "goog-drz-cloudfunctions-id": "generarfactura"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.155993123Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "🌍 [generarFactura] Ambiente: 1",
+    "insertId": "69601efb000061b2557380d0",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "service_name": "generarfactura",
+        "revision_name": "generarfactura-00004-tih",
+        "configuration_name": "generarfactura",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:47.025010Z",
+    "severity": "INFO",
+    "labels": {
+      "deployment-callable": "true",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "execution_id": "5y7ykd350ivg",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.155993123Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "📋 [generarFactura] Tipo Emisión: 1",
+    "insertId": "69601efb00006204f7885dd1",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfactura",
+        "revision_name": "generarfactura-00004-tih",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfactura",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:47.025092Z",
+    "severity": "INFO",
+    "labels": {
+      "execution_id": "5y7ykd350ivg",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "goog-managed-by": "cloudfunctions",
+      "deployment-callable": "true"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.155993123Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "[generarClaveAcceso] Parámetros: fecha=08012026, tipo=01, ruc=1003066535001, ambiente=1, serie=001001, num=1, cod=78883568, emision=1",
+    "insertId": "69601efb000062f61dbcb6de",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfactura",
+        "configuration_name": "generarfactura",
+        "revision_name": "generarfactura-00004-tih",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:47.025334Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "deployment-callable": "true",
+      "goog-managed-by": "cloudfunctions",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "execution_id": "5y7ykd350ivg",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.155993123Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "🔑 [generarFactura] Clave de acceso generada: 0801202601100306653500110010010000000017888356813",
+    "insertId": "69601efb0000635fb063daf8",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfactura",
+        "location": "us-central1",
+        "revision_name": "generarfactura-00004-tih",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfactura"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:47.025439Z",
+    "severity": "INFO",
+    "labels": {
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "execution_id": "5y7ykd350ivg",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "deployment-callable": "true",
+      "goog-drz-cloudfunctions-id": "generarfactura"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.155993123Z",
+    "spanId": "16364999625282022660"
+  },
+  {
+    "textPayload": "Error al enviar al SRI: AxiosError: getaddrinfo ENOTFOUND celospruebas.sri.gob.ec\n    at AxiosError.from (/workspace/node_modules/axios/dist/node/axios.cjs:914:14)\n    at RedirectableRequest.handleRequestError (/workspace/node_modules/axios/dist/node/axios.cjs:3515:25)\n    at RedirectableRequest.emit (node:events:520:35)\n    at RedirectableRequest.emit (node:domain:489:12)\n    at eventHandlers.<computed> (/workspace/node_modules/follow-redirects/index.js:49:24)\n    at ClientRequest.emit (node:events:508:28)\n    at ClientRequest.emit (node:domain:489:12)\n    at emitErrorEvent (node:_http_client:107:11)\n    at TLSSocket.socketErrorListener (node:_http_client:574:5)\n    at TLSSocket.emit (node:events:508:28)\n    at Axios.request (/workspace/node_modules/axios/dist/node/axios.cjs:4731:41)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async enviarSRI (/workspace/index.js:246:31)\n    at async /workspace/index.js:411:26\n    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:513:14 {\n  hostname: 'celospruebas.sri.gob.ec',\n  syscall: 'getaddrinfo',\n  code: 'ENOTFOUND',\n  errno: -3008,\n  config: {\n    transitional: {\n      silentJSONParsing: true,\n      forcedJSONParsing: true,\n      clarifyTimeoutError: false\n    },\n    adapter: [ 'xhr', 'http', 'fetch' ],\n    transformRequest: [ [Function: transformRequest] ],\n    transformResponse: [ [Function: transformResponse] ],\n    timeout: 30000,\n    xsrfCookieName: 'XSRF-TOKEN',\n    xsrfHeaderName: 'X-XSRF-TOKEN',\n    maxContentLength: -1,\n    maxBodyLength: -1,\n    env: { FormData: [Function], Blob: [class Blob] },\n    validateStatus: [Function: validateStatus],\n    headers: Object [AxiosHeaders] {\n      Accept: 'application/json, text/plain, */*',\n      'Content-Type': 'text/xml;charset=UTF-8',\n      SOAPAction: '',\n      'User-Agent': 'axios/1.13.2',\n      'Content-Length': '8535',\n      'Accept-Encoding': 'gzip, compress, deflate, br'\n    },\n    method: 'post',\n    url: 'https://celospruebas.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl',\n    data: '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\\n' +\n      '      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ec=\"http://ec.gob.sri.ws.recepcion\">\\n' +\n      '        <soapenv:Header/>\\n' +\n      '        <soapenv:Body>\\n' +\n      '          <ec:validarComprobante>\\n' +\n      '            <xml>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPGZhY3R1cmEgaWQ9ImNvbXByb2JhbnRlIiB2ZXJzaW9uPSIxLjAuMCI+CiAgPGluZm9UcmlidXRhcmlhPgogICAgPGFtYmllbnRlPjE8L2FtYmllbnRlPgogICAgPHRpcG9FbWlzaW9uPjE8L3RpcG9FbWlzaW9uPgogICAgPHJhem9uU29jaWFsPlBBTEFDSU9TIE9DSE9BIExVSVMgRkVSTkFORE88L3Jhem9uU29jaWFsPgogICAgPG5vbWJyZUNvbWVyY2lhbD5QJmFtcDtQIEJJRU5FUyBSQUlDRVM8L25vbWJyZUNvbWVyY2lhbD4KICAgIDxydWM+MTAwMzA2NjUzNTAwMTwvcnVjPgogICAgPGNsYXZlQWNjZXNvPjA4MDEyMDI2MDExMDAzMDY2NTM1MDAxMTAwMTAwMTAwMDAwMDAwMTc4ODgzNTY4MTM8L2NsYXZlQWNjZXNvPgogICAgPGNvZERvYz4wMTwvY29kRG9jPgogICAgPGVzdGFiPjAwMTwvZXN0YWI+CiAgICA8cHRvRW1pPjAwMTwvcHRvRW1pPgogICAgPHNlY3VlbmNpYWw+MDAwMDAwMDAxPC9zZWN1ZW5jaWFsPgogICAgPGRpck1hdHJpej5JTUJBQlVSQSAvIElCQVJSQSAvIFNBTiBGUkFOQ0lTQ08gLyBTQU5DSEVaIFkgQ0lGVUVOVEVTIDE3LTExMSBZIEFWLiBURU9ET1JPIEdPTUVaIERFIExBIFRPUlJFPC9kaXJNYXRyaXo+CiAgPC9pbmZvVHJpYnV0YXJpYT4KICA8aW5mb0ZhY3R1cmE+CiAgICA8ZmVjaGFFbWlzaW9uPjA4LzAxLzIwMjY8L2ZlY2hhRW1pc2lvbj4KICAgIDxkaXJFc3RhYmxlY2ltaWVudG8+SU1CQUJVUkEgLyBJQkFSUkEgLyBTQU4gRlJBTkNJU0NPIC8gU0FOQ0hFWiBZIENJRlVFTlRFUyAxNy0xMTEgWSBBVi4gVEVPRE9STyBHT01FWiBERSBMQSBUT1JSRTwvZGlyRXN0YWJsZWNpbWllbnRvPgogICAgPG9ibGlnYWRvQ29udGFiaWxpZGFkPk5PPC9vYmxpZ2Fkb0NvbnRhYmlsaWRhZD4KICAgIDx0aXBvSWRlbnRpZmljYWNpb25Db21wcmFkb3I+MDU8L3RpcG9JZGVudGlmaWNhY2lvbkNvbXByYWRvcj4KICAgIDxyYXpvblNvY2lhbENvbXByYWRvcj5DT05TVU1JRE9SIEZJTkFMPC9yYXpvblNvY2lhbENvbXByYWRvcj4KICAgIDxpZGVudGlmaWNhY2lvbkNvbXByYWRvcj5WRHlTUW9uZXlvYnhrcmtibHREYWtLYjBQMHgyPC9pZGVudGlmaWNhY2lvbkNvbXByYWRvcj4KICAgIDx0b3RhbFNpbkltcHVlc3Rvcz4zMC4xMzwvdG90YWxTaW5JbXB1ZXN0b3M+CiAgICA8dG90YWxEZXNjdWVudG8+MC4wMDwvdG90YWxEZXNjdWVudG8+CiAgICA8dG90YWxDb25JbXB1ZXN0b3M+CiAgICAgIDx0b3RhbEltcHVlc3RvPgogICAgICAgIDxjb2RpZ28+MjwvY29kaWdvPgogICAgICAgIDxjb2RpZ29Qb3JjZW50YWplPjI8L2NvZGlnb1BvcmNlbnRhamU+CiAgICAgICAgPGJhc2VJbXBvbmlibGU+MzAuMTM8L2Jhc2VJbXBvbmlibGU+CiAgICAgICAgPHZhbG9yPjMuNjI8L3ZhbG9yPgogICAgICA8L3RvdGFsSW1wdWVzdG8+CiAgICAgIDxkZXRhbGxlPgogICAgICAgIDxjb2RpZ29QcmluY2lwYWw+MUJNM2FFRmI3dGhnTzE3SVNHalk8L2NvZGlnb1ByaW5jaXBhbD4KICAgICAgICA8ZGVzY3JpcGNpb24+cHJ1ZWJhIGRlIGZ1ZWdvPC9kZXNjcmlwY2lvbj4KICAgICAgICA8Y2FudGlkYWQ+MTwvY2FudGlkYWQ+CiAgICAgICAgPHByZWNpb1VuaXRhcmlvPjI1LjAwMDAwMDwvcHJlY2lvVW5pdGFyaW8+CiAgICAgICAgPGRlc2N1ZW50bz4wLjAwPC9kZXNjdWVudG8+CiAgICAgICAgPHByZWNpb1RvdGFsU2luSW1wdWVzdG8+MjUuMDA8L3ByZWNpb1RvdGFsU2luSW1wdWVzdG8+CiAgICAgICAgPGltcHVlc3Rvcz4KICAgICAgICAgIDxpbXB1ZXN0bz4KICAgICAgICAgICAgPGNvZGlnbz4yPC9jb2RpZ28+CiAgICAgICAgICAgIDxjb2RpZ29Qb3JjZW50YWplPjI8L2NvZGlnb1BvcmNlbnRhamU+CiAgICAgICAgICAgIDx0YXJpZmE+MTI8L3RhcmlmYT4KICAgICAgICAgICAgPGJhc2VJbXBvbmlibGU+MjUuMDA8L2Jhc2VJbXBvbmlibGU+CiAgICAgICAgICAgIDx2YWxvcj4zLjAwPC92YWxvcj4KICAgICAgICAgIDwvaW1wdWVzdG8+CiAgICAgICAgPC9pbXB1ZXN0b3M+CiAgICAgIDwvZGV0YWxsZT4KICAgIDwvdG90YWxDb25JbXB1ZXN0b3M+CiAgICA8cHJvcGluYT4wLjAwPC9wcm9waW5hPgogICAgPGltcG9ydGVUb3RhbD4zMy43NTwvaW1wb3J0ZVRvdGFsPgogICAgPG1vbmVkYT5ET0xBUjwvbW9uZWRhPgogIDwvaW5mb0ZhY3R1cmE+CiAgPGRldGFsbGVzLz4KPGRzOlNpZ25hdHVyZSB4bWxuczpkcz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyIgSWQ9IlNpZ25hdHVyZTA4MDEyMDI2MDExMDAzMDY2NTM1MDAxMTAwMTAwMTAwMDAwMDAwMTc4ODgzNTY4MTMiPgogICAgICAgIDxkczpTaWduZWRJbmZvPgogICAgICAgICAgPGRzOkNhbm9uaWNhbGl6YXRpb25NZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy14bWwtYzE0bi0yMDAxMDMxNSIvPgogICAgICAgICAgPGRzOlNpZ25hdHVyZU1ldGhvZCBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvMDkveG1sZHNpZyNyc2Etc2hhMSIvPgogICAgICAgICAgPGRzOlJlZmVyZW5jZSBVUkk9IiNjb21wcm9iYW50ZSI+CiAgICAgICAgICAgIDxkczpUcmFuc2Zvcm1zPgogICAgICAgICAgICAgIDxkczpUcmFuc2Zvcm0gQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjZW52ZWxvcGVkLXNpZ25hdHVyZSIvPgogICAgICAgICAgICA8L2RzOlRyYW5zZm9ybXM+CiAgICAgICAgICAgIDxkczpEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjc2hhMSIvPgogICAgICAgICAgICA8ZHM6RGlnZXN0VmFsdWU+bEc1WGtsSGV5TWprNzZqODBtS25pMmthemo0PTwvZHM6RGlnZXN0VmFsdWU+CiAgICAgICAgICA8L2RzOlJlZmVyZW5jZT4KICAgICAgICA8L2RzOlNpZ25lZEluZm8+CiAgICAgICAgPGRzOlNpZ25hdHVyZVZhbHVlPlVxTXNOWklUOFNqUFNXVDVEUmhhY0Q4ZzJ0anphWlJrd0U1WUJXYmZIS1Q4VXYzaXVHOXdrT09tYVIwUXlpSnFOcUxvaFBicklYNm9YbmJXOWkvN2tNc1B1ejE2ZDhHdkpTa0RFME1kSzRHYzVLQUNZcWJJQWxIeUp2Q3FnKy95c1dDdTExUWsyazA4dzJwSWY4YmFWNFVLVFpmZVZUN04vd0cvb0J6Qk9PNXpQaVp0ekt6VlB6eWNaY0ZMazNHRjB0QlFQa0tLa0Q3czlYWU1aSDFMRm1EbWFDVzcvNjg5ZXdjMDVUWnRUM003TUVHQXlOT1dqQWJqUzF2T1lrMmc2V3hMUXpTWEl3ZHBHQ1Zhb0FEd2NwVDhGa2k3alBzVVRZYXpUUXI0SUF3aHJZM1YyNkE0eFVXVElZOCtyc2FBb0U4ZFpTSmVvZVlZLzlONWR5WmtGZz09PC9kczpTaWduYXR1cmVWYWx1ZT4KICAgICAgICA8ZHM6S2V5SW5mbz4KICAgICAgICAgIDxkczpYNTA5RGF0YT4KICAgICAgICAgICAgPGRzOlg1MDlDZXJ0aWZpY2F0ZT5NSUlIdHpDQ0JwK2dBd0lCQWdJRkFNSUJLY0V3RFFZSktvWklodmNOQVFFTEJRQXdSekVMTUFrR0ExVUVCaE1DUlVNeEd6QVpCZ05WQkFvTUVreGhlbnBoZEdVZ1EybGhMaUJNZEdSaExqRWJNQmtHQTFVRUF3d1NUR0Y2ZW1GMFpTQkZiV2x6YjNJZ1EwRXlNQjRYRFRJMU1EVXhNakl3TkRNeE5Gb1hEVEkyTURVeE1qSXdORE14TkZvd2dad3hDekFKQmdOVkJBWVRBa1ZETVJzd0dRWURWUVFLREJKTVlYcDZZWFJsSUVOcFlTNGdUSFJrWVM0eEhqQWNCZ05WQkFzTUZVVnVkR1VnWkdVZ1EyVnlkR2xtYVdOaFkybHZiakVtTUNRR0ExVUVBd3dkVEZWSlV5QkdSVkpPUVU1RVR5QWdVRUZNUVVOSlQxTWdUME5JVDBFeEtEQW1CZ2txaGtpRzl3MEJDUUVXR1hCaGJHRmphVzl6YkhWcGMyWmxja0JuYldGcGJDNWpiMjB3Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRQ28vcGJJbnM5YjZGWHA2bzg4R05VaThYQkxodmwzZlUyM2JCWmxMWUp4aEsySHE4MVZQd1NvbHRsbUErYjF2dnowUkw2cERaMjVqcDdjOWM2elFVeVhvU2V1OG52Q0dmZ2dwOHNKLzJyeWcxbkZES2FWZkhTd1JVVHlsNFZmdFhNbmNCblVodGhoaHJuN1EvaGZFMUJxVGpGRXUyZmw1ejZidGlDL1gzbVlnSXNQQ0hDVnRoeFBtSnJyQmZrLzZzWEVyLzljMW9seWlzeHAzeXg0WUs5RWJMdkxlNzdhQVN2a1dLZHRxeTI5dXJJRlhhR1lhU0w0dHUwUjlWOUk3azQzVUphVHo0dlVuaUlZbzFndCs0YjlPUzVCR2UrWTc2OGtkVWhwcDhvdnA5eW8zcjJLOXFIQ1Y4ckZOTnJFODRpbjE1MXVDb2QvdW5zcVkyZUxpUksxQWdNQkFBR2pnZ1JTTUlJRVRqQWFCZ29yQmdFRUFZUFBkZ01CQkF3TUNqRXdNRE13TmpZMU16VXdIUVlLS3dZQkJBR0R6M1lEQWdRUERBMU1WVWxUSUVaRlVrNUJUa1JQTUJnR0Npc0dBUVFCZzg5MkF3TUVDZ3dJVUVGTVFVTkpUMU13RlFZS0t3WUJCQUdEejNZREJBUUhEQVZQUTBoUFFUQVdCZ29yQmdFRUFZUFBkZ01IQkFnTUJrbENRVkpTUVRBYUJnb3JCZ0VFQVlQUGRnTUlCQXdNQ2pBNU9EWXhNelEyTkRVd0ZnWUtLd1lCQkFHRHozWURDUVFJREFaSlltRnljbUV3RndZS0t3WUJCQUdEejNZRERBUUpEQWRGUTFWQlJFOVNNQjBHQ2lzR0FRUUJnODkyQXdzRUR3d05NVEF3TXpBMk5qVXpOVEF3TVRBTUJnTlZIUk1CQWY4RUFqQUFNQjBHQTFVZERnUVdCQlJQc0tnTy95NUZmeTZzVkxCSUxwMVE3T2RLYURBZkJnTlZIU01FR0RBV2dCVHRka2l3Q3ZISmhvWU1URVprMGdiNHpOVzlQakFPQmdOVkhROEJBZjhFQkFNQ0JlQXdPZ1lEVlIwZkJETXdNVEF2b0MyZ0s0WXBhSFIwY0RvdlpXNWxlSFF5TG5oNWVpOU1ZWHA2WVhSbFEwRXlMMlZ0YVhOdmNrTkJNaTVqY213d2dnR0VCZ05WSFNBRWdnRjdNSUlCZHpCOEJnb3JCZ0VFQVlQUGRnSUJNRzR3YkFZSUt3WUJCUVVIQWdJd1lCcGVSV3dnY0hKbGMyVnVkR1VnWTJWeWRHbG1hV05oWkc4Z1pYTWdaVzFwZEdsa2J5QmxiaUJpWVhObElHRWdiR0Z6SUhCdmJNT3RkR2xqWVhNZ1pHVWdjMlZuZFhKcFpHRmtJR1JsSUV4aGVucGhkR1VnUTJsaExpQk1kR1JoTGpDQjlnWUpLd1lCQkFHRHozWUNNSUhvTUd3R0NDc0dBUVVGQndJQ01HQWFYa1ZzSUhCeVpYTmxiblJsSUdObGNuUnBabWxqWVdSdklHVnpJR1Z0YVhScFpHOGdaVzRnWW1GelpTQmhJR3hoY3lCd2IyekRyWFJwWTJGeklHUmxJSE5sWjNWeWFXUmhaQ0JrWlNCTVlYcDZZWFJsSUVOcFlTNGdUSFJrWVM0d2VBWUlLd1lCQlFVSEFnSXdiQnBxUld3Z2NISmxjMlZ1ZEdVZ1kyVnlkR2xtYVdOaFpHOGdjM1ZpYjNKa2FXNWhaRzhnWlhNZ1pXMXBkR2xrYnlCbGJpQmlZWE5sSUdFZ2JHRnpJSEJ2Yk1PdGRHbGpZWE1nWkdVZ2MyVm5kWEpwWkdGa0lHUmxJRXhoZW5waGRHVWdRMmxoTGlCTWRHUmhMakNCK3dZRFZSMFJCSUh6TUlId29Cb0dDaXNHQVFRQmc4OTJBd0dnREF3S01UQXdNekEyTmpVek5hQWRCZ29yQmdFRUFZUFBkZ01Db0E4TURVeFZTVk1nUmtWU1RrRk9SRStnR0FZS0t3WUJCQUdEejNZREE2QUtEQWhRUVV4QlEwbFBVNkFWQmdvckJnRUVBWVBQZGdNRW9BY01CVTlEU0U5Qm9CWUdDaXNHQVFRQmc4OTJBd2VnQ0F3R1NVSkJVbEpCb0JvR0Npc0dBUVFCZzg5MkF3aWdEQXdLTURrNE5qRXpORFkwTmFBV0Jnb3JCZ0VFQVlQUGRnTUpvQWdNQmtsaVlYSnlZYUFYQmdvckJnRUVBWVBQZGdNTW9Ba01CMFZEVlVGRVQxS2dIUVlLS3dZQkJBR0R6M1lEQzZBUERBMHhNREF6TURZMk5UTTFNREF4TUR3R0NDc0dBUVVGQndFQkJEQXdMakFzQmdnckJnRUZCUWN3QVlZZ2FIUjBjRG92TDJWdVpYaDBNaTU0ZVhvNk9EYzNOeTloWkhOekwyOWpjM0F3RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUNnZTFKNW5CRTBxc094MENaV29TWHR4ZkVMNGtMd3psM2ppL3BrWmJSbXB0NmZMMmtBb0txUG9IN1dzcklJRE5IMkpobkJLSzlyUkovZUN1MDR1eFMvQlJPUExmendlWnJ2Wmw0Vit5bTRXVjVjZlpWYUFxK21QVHE2bk43azZVLy9CNjVsV2wzcis1NVQybUZoSklrMlZaVkxhUXpTYmNxUVN5VXYwQlQxbUxXTWk1eUtvUTlRTmFRRDF4eDcxM1oxYTFud1JYZGMxNEthN0RCOUFyN3hTbVQzQ1l1RzMrVzhWVjdRejFzSXZjWWtVa0hIT3dQa25lVXZCNnZ3RDF6NDVNTmxKeGZEMWtocnA0NHZxUVlXSTdueGtITnNRK1JvbUZlcG94dDVpUGRyMzY3S0NiQWJQTzJTTU9FZ0hCQVBEUVBIWEVGMFhZYkZxTlhtcnpldz08L2RzOlg1MDlDZXJ0aWZpY2F0ZT4KICAgICAgICAgIDwvZHM6WDUwOURhdGE+CiAgICAgICAgPC9kczpLZXlJbmZvPgogICAgICA8L2RzOlNpZ25hdHVyZT4KICAgICAgPC9mYWN0dXJhPg==</xml>\\n' +\n      '          </ec:validarComprobante>\\n' +\n      '        </soapenv:Body>\\n' +\n      '      </soapenv:Envelope>',\n    allowAbsoluteUrls: true\n  },\n  request: <ref *1> Writable {\n    _events: {\n      close: undefined,\n      error: [Function: handleRequestError],\n      prefinish: undefined,\n      finish: undefined,\n      drain: undefined,\n      response: [Function: handleResponse],\n      socket: [Array],\n      timeout: undefined,\n      abort: undefined\n    },\n    _writableState: WritableState {\n      highWaterMark: 65536,\n      length: 0,\n      corked: 0,\n      onwrite: [Function: bound onwrite],\n      writelen: 0,\n      bufferedIndex: 0,\n      pendingcb: 0,\n      Symbol(kState): 17580812,\n      Symbol(kBufferedValue): null\n    },\n    _maxListeners: undefined,\n    _options: {\n      maxRedirects: 21,\n      maxBodyLength: Infinity,\n      protocol: 'https:',\n      path: '/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl',\n      method: 'POST',\n      headers: [Object: null prototype],\n      agents: [Object],\n      auth: undefined,\n      family: undefined,\n      beforeRedirect: [Function: dispatchBeforeRedirect],\n      beforeRedirects: [Object],\n      http2Options: undefined,\n      hostname: 'celospruebas.sri.gob.ec',\n      port: '',\n      agent: undefined,\n      nativeProtocols: [Object],\n      pathname: '/comprobantes-electronicos-ws/RecepcionComprobantesOffline',\n      search: '?wsdl'\n    },\n    _ended: true,\n    _ending: true,\n    _redirectCount: 0,\n    _redirects: [],\n    _requestBodyLength: 8535,\n    _requestBodyBuffers: [ [Object] ],\n    _eventsCount: 3,\n    _onNativeResponse: [Function (anonymous)],\n    _currentRequest: ClientRequest {\n      _events: [Object: null prototype],\n      _eventsCount: 7,\n      _maxListeners: undefined,\n      outputData: [],\n      outputSize: 0,\n      writable: true,\n      destroyed: false,\n      _last: false,\n      chunkedEncoding: false,\n      shouldKeepAlive: true,\n      maxRequestsOnConnectionReached: false,\n      _defaultKeepAlive: true,\n      useChunkedEncodingByDefault: true,\n      sendDate: false,\n      _removedConnection: false,\n      _removedContLen: false,\n      _removedTE: false,\n      strictContentLength: false,\n      _contentLength: 8535,\n      _hasBody: true,\n      _trailer: '',\n      finished: true,\n      _headerSent: true,\n      _closed: false,\n      _header: 'POST /comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl HTTP/1.1\\r\\n' +\n        'Accept: application/json, text/plain, */*\\r\\n' +\n        'Content-Type: text/xml;charset=UTF-8\\r\\n' +\n        'SOAPAction: \\r\\n' +\n        'User-Agent: axios/1.13.2\\r\\n' +\n        'Content-Length: 8535\\r\\n' +\n        'Accept-Encoding: gzip, compress, deflate, br\\r\\n' +\n        'Host: celospruebas.sri.gob.ec\\r\\n' +\n        'Connection: keep-alive\\r\\n' +\n        '\\r\\n',\n      _keepAliveTimeout: 0,\n      _onPendingData: [Function: nop],\n      agent: [Agent],\n      socketPath: undefined,\n      method: 'POST',\n      maxHeaderSize: undefined,\n      insecureHTTPParser: undefined,\n      joinDuplicateHeaders: undefined,\n      path: '/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl',\n      _ended: false,\n      res: null,\n      aborted: false,\n      timeoutCb: [Function: emitRequestTimeout],\n      upgradeOrConnect: false,\n      parser: null,\n      maxHeadersCount: null,\n      reusedSocket: false,\n      host: 'celospruebas.sri.gob.ec',\n      protocol: 'https:',\n      _redirectable: [Circular *1],\n      Symbol(shapeMode): false,\n      Symbol(kCapture): false,\n      Symbol(kBytesWritten): 0,\n      Symbol(kNeedDrain): false,\n      Symbol(corked): 0,\n      Symbol(kChunkedBuffer): [],\n      Symbol(kChunkedLength): 0,\n      Symbol(kSocket): [TLSSocket],\n      Symbol(kOutHeaders): [Object: null prototype],\n      Symbol(errored): null,\n      Symbol(kHighWaterMark): 65536,\n      Symbol(kRejectNonStandardBodyWrites): false,\n      Symbol(kUniqueHeaders): null\n    },\n    _currentUrl: 'https://celospruebas.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl',\n    _timeout: null,\n    Symbol(shapeMode): true,\n    Symbol(kCapture): false\n  },\n  [cause]: Error: getaddrinfo ENOTFOUND celospruebas.sri.gob.ec\n      at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)\n      at GetAddrInfoReqWrap.callbackTrampoline (node:internal/async_hooks:130:17) {\n    errno: -3008,\n    code: 'ENOTFOUND',\n    syscall: 'getaddrinfo',\n    hostname: 'celospruebas.sri.gob.ec'\n  }\n}",
+    "insertId": "69601efb000b7719bb3205c2",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "configuration_name": "generarfactura",
+        "service_name": "generarfactura",
+        "project_id": "ecommerceapp-5f46c",
+        "revision_name": "generarfactura-00004-tih"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:47.751385Z",
+    "severity": "ERROR",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "execution_id": "5y7ykd350ivg",
+      "deployment-callable": "true",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstderr",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.792664672Z",
+    "spanId": "16364999625282022660",
+    "errorGroups": [
+      {
+        "id": "CNenr4C65erqtwE"
+      }
+    ]
+  },
+  {
+    "textPayload": "Error en generarFactura: HttpsError: Error al comunicarse con el SRI: getaddrinfo ENOTFOUND celospruebas.sri.gob.ec\n    at enviarSRI (/workspace/index.js:285:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async /workspace/index.js:411:26\n    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:513:14 {\n  code: 'internal',\n  details: undefined,\n  httpErrorCode: { canonicalName: 'INTERNAL', status: 500 }\n}",
+    "insertId": "69601efb000b814f3d9f00f0",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfactura-00004-tih",
+        "location": "us-central1",
+        "configuration_name": "generarfactura",
+        "service_name": "generarfactura",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-08T21:17:47.753999Z",
+    "severity": "ERROR",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "generarfactura",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "firebase-functions-hash": "7cd7ff91353b9b147f864d0a9f995b09d9ad634a",
+      "instanceId": "0007e26d68f2bdcc6c60d8e8ff98e95439d40da0cf6183bc0d9197f3eb52c37259114c8763227ee960cfc7f568708b76f18aa10da2d4cbd49d020aa75de59afacc62dc343ed427f4d1392e83645ca3",
+      "deployment-callable": "true",
+      "execution_id": "5y7ykd350ivg"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstderr",
+    "trace": "projects/ecommerceapp-5f46c/traces/266c77bcf8707cea9927dd38503f2e77",
+    "receiveTimestamp": "2026-01-08T21:17:47.792664672Z",
+    "spanId": "16364999625282022660",
+    "errorGroups": [
+      {
+        "id": "CO6TjMTS-8y1gQE"
+      }
+    ]
+  }
+]

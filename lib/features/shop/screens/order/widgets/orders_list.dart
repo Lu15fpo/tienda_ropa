@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tienda_ropa/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:tienda_ropa/common/widgets/loaders/animation_loader.dart';
+import 'package:tienda_ropa/features/shop/screens/order/order_detail.dart';
 import 'package:tienda_ropa/utils/helpers/cloud_helper_functions.dart';
+import 'package:tienda_ropa/utils/helpers/order_status_helper.dart';
 
 import '../../../../../navigation_menu.dart';
 import '../../../../../utils/constants/colors.dart';
@@ -54,8 +56,11 @@ class TOrderListItems extends StatelessWidget {
                   /// -- Row 1
                   Row(
                     children: [
-                      /// 1 - Icono
-                      const Icon(Iconsax.ship),
+                      /// 1 - Icono del estado (dinámico)
+                      Icon(
+                        OrderStatusHelper.getStatusIcon(order.status),
+                        color: OrderStatusHelper.getStatusColor(order.status),
+                      ),
                       const SizedBox(width: TSizes.spaceBtwItems / 2),
 
                       /// 2 - Estado y Fecha
@@ -67,7 +72,10 @@ class TOrderListItems extends StatelessWidget {
                             Text(
                               order.orderStatusText,
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.bodyLarge!.apply(color: TColors.primary, fontWeightDelta: 1),
+                              style: Theme.of(context).textTheme.bodyLarge!.apply(
+                                color: OrderStatusHelper.getStatusColor(order.status),
+                                fontWeightDelta: 1,
+                              ),
                             ),
                             Text(order.formattedOrderDate, style: Theme.of(context).textTheme.headlineSmall),
                           ],
@@ -75,7 +83,10 @@ class TOrderListItems extends StatelessWidget {
                       ),
 
                       /// 3 - Icono
-                      IconButton(onPressed: (){}, icon: const Icon(Iconsax.arrow_right_34, size: TSizes.iconSm)),
+                      IconButton(
+                        onPressed: () => Get.to(() => OrderDetailScreen(order: order)),
+                        icon: const Icon(Iconsax.arrow_right_34, size: TSizes.iconSm),
+                      ),
                     ],
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems),
