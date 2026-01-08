@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tienda_ropa/common/widgets/success_screen/success_screen.dart';
 import 'package:tienda_ropa/features/shop/controllers/product/cart_controller.dart';
 import 'package:tienda_ropa/features/shop/controllers/product/checkout_controller.dart';
+import 'package:tienda_ropa/features/shop/models/payment_method_model.dart';
 import 'package:tienda_ropa/utils/constants/enums.dart';
 import 'package:tienda_ropa/utils/constants/image_strings.dart';
 import 'package:tienda_ropa/utils/popups/full_screen_loader.dart';
@@ -34,6 +35,22 @@ class OrderController extends GetxController {
       TLoaders.warningSnackBar(title: 'Oh Vaya!', message: e.toString());
       return [];
     }
+  }
+
+  /// Formatear método de pago para guardarlo en el pedido
+  String _formatPaymentMethodForOrder(PaymentMethodModel method) {
+    // Si es una tarjeta guardada (tiene cardHolderName)
+    if (method.cardHolderName != null && method.cardHolderName!.isNotEmpty) {
+      return '${method.cardType ?? 'Tarjeta'} **** ${method.cardNumberLast4 ?? '****'}';
+    }
+
+    // Si es un método antiguo (Paypal, Google Pay, etc.)
+    if (method.name.isNotEmpty) {
+      return method.name;
+    }
+
+    // Fallback
+    return 'No especificado';
   }
 
   /// Agregar metodo para procesar el pedido
@@ -79,7 +96,7 @@ class OrderController extends GetxController {
         status: OrderStatus.pending,
         totalAmount: totalAmount,
         orderDate: DateTime.now(),
-        paymentMethod: checkoutController.selectedPaymentMethod.value.name,
+        paymentMethod: _formatPaymentMethodForOrder(checkoutController.selectedPaymentMethod.value),
         address: addressController.selectedAddress.value,
         // Calcular fecha de entrega
         deliveryDate: DateTime.now(),

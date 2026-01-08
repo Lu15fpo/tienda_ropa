@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:tienda_ropa/utils/constants/colors.dart';
 import 'package:tienda_ropa/utils/constants/image_strings.dart';
 import 'package:tienda_ropa/utils/constants/sizes.dart';
@@ -50,13 +51,27 @@ class CardPreview extends StatelessWidget {
                   width: 50,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: Colors.amber.withValues(alpha: 0.7),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFFFFD700), // Oro brillante
+                        Color(0xFFDAA520), // Oro oscuro
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.2),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: const Center(
                     child: Icon(
-                      Icons.credit_card,
-                      color: Colors.white,
+                      Iconsax.simcard,
+                      color: Color(0xFF8B4513), // Color marrón dorado oscuro para contraste
                       size: 24,
                     ),
                   ),
