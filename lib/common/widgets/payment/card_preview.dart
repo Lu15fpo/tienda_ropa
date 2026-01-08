@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tienda_ropa/utils/constants/colors.dart';
+import 'package:tienda_ropa/utils/constants/image_strings.dart';
 import 'package:tienda_ropa/utils/constants/sizes.dart';
 
 /// Widget de vista previa de tarjeta de crédito
@@ -225,51 +226,55 @@ class CardPreview extends StatelessWidget {
 
   /// Construir logo del tipo de tarjeta
   Widget _buildCardTypeLogo(String type) {
-    IconData icon;
-    Color color;
+    String? imagePath;
 
     switch (type.toLowerCase()) {
       case 'visa':
-        icon = Icons.payment;
-        color = Colors.white;
+        imagePath = TImages.visa;
         break;
       case 'mastercard':
-        icon = Icons.credit_card;
-        color = Colors.white;
+        imagePath = TImages.masterCard;
         break;
       case 'american express':
       case 'amex':
-        icon = Icons.credit_card;
-        color = Colors.white;
+        imagePath = TImages.creditCard; // Usar creditCard como fallback para AmEx
         break;
       case 'discover':
-        icon = Icons.credit_card;
-        color = Colors.white;
+        imagePath = TImages.creditCard;
         break;
       default:
-        icon = Icons.credit_card_outlined;
-        color = Colors.white70;
+        imagePath = null;
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Icon(
-          icon,
-          color: color,
-          size: 40,
+    if (imagePath != null) {
+      return Container(
+        width: 60,
+        height: 40,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
         ),
-        if (type.isNotEmpty)
-          Text(
-            type.toUpperCase(),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1,
-            ),
-          ),
-      ],
+        child: Image.asset(
+          imagePath,
+          fit: BoxFit.contain,
+        ),
+      );
+    }
+
+    // Si no hay tipo detectado, mostrar placeholder
+    return Container(
+      width: 60,
+      height: 40,
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.3),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: const Icon(
+        Icons.credit_card_outlined,
+        color: Colors.white70,
+        size: 24,
+      ),
     );
   }
 }

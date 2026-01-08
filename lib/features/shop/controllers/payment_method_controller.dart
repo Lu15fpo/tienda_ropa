@@ -28,6 +28,11 @@ class PaymentMethodController extends GetxController {
   final RxString detectedCardType = ''.obs;
   final RxBool isDefault = false.obs;
 
+  // Variables reactivas para actualizar CardPreview en tiempo real
+  final RxString cardNumberPreview = ''.obs;
+  final RxString cardHolderNamePreview = ''.obs;
+  final RxString expiryDatePreview = ''.obs;
+
   /// Repositorio
   final paymentMethodRepository = Get.put(PaymentMethodRepository());
 
@@ -36,6 +41,11 @@ class PaymentMethodController extends GetxController {
     super.onInit();
     // Cargar el método de pago predeterminado al iniciar
     loadDefaultPaymentMethod();
+
+    // Agregar listeners para actualizar el preview en tiempo real
+    cardNumber.addListener(() => cardNumberPreview.value = cardNumber.text);
+    cardHolderName.addListener(() => cardHolderNamePreview.value = cardHolderName.text);
+    expiryDate.addListener(() => expiryDatePreview.value = expiryDate.text);
   }
 
   /// Cargar método de pago predeterminado

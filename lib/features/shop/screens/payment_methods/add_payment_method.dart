@@ -29,9 +29,9 @@ class AddPaymentMethodScreen extends StatelessWidget {
               /// Vista previa de la tarjeta (se actualiza en tiempo real)
               Obx(
                 () => CardPreview(
-                  cardNumber: controller.cardNumber.text,
-                  cardHolderName: controller.cardHolderName.text,
-                  expiryDate: controller.expiryDate.text,
+                  cardNumber: controller.cardNumberPreview.value,
+                  cardHolderName: controller.cardHolderNamePreview.value,
+                  expiryDate: controller.expiryDatePreview.value,
                   cardType: controller.detectedCardType.value,
                 ),
               ),

@@ -48,15 +48,30 @@ class ExpiryDateInputFormatter extends TextInputFormatter {
     // Limitar a 4 dígitos (MMYY)
     final trimmedText = text.length > 4 ? text.substring(0, 4) : text;
 
-    // Agregar barra diagonal después del mes
+    // Formatear con slash
     String formattedText = trimmedText;
     if (trimmedText.length >= 2) {
       formattedText = '${trimmedText.substring(0, 2)}/${trimmedText.substring(2)}';
     }
 
+    // Calcular la posición del cursor
+    int offset = formattedText.length;
+
+    // Si el usuario está borrando y estamos en el slash, retroceder un carácter más
+    if (newValue.text.length < oldValue.text.length &&
+        oldValue.selection.baseOffset == 3 &&
+        formattedText.length >= 2) {
+      // El usuario borró justo después del slash, borrar también el mes
+      final monthOnly = trimmedText.length > 0 ? trimmedText.substring(0, trimmedText.length) : '';
+      if (monthOnly.length == 2) {
+        formattedText = monthOnly.substring(0, 1);
+        offset = 1;
+      }
+    }
+
     return TextEditingValue(
       text: formattedText,
-      selection: TextSelection.collapsed(offset: formattedText.length),
+      selection: TextSelection.collapsed(offset: offset),
     );
   }
 }
