@@ -166,13 +166,15 @@ function generarClaveAcceso(fecha, tipoComprobante, ruc, ambiente, serie, numero
 }
 
 /**
- * Genera el XML de la factura
+ * 🔧 Genera el XML de la factura según especificación del SRI
+ * Estructura completa con IVA 15%, forma de pago, y datos del comprador
  */
 function generarXMLFactura(datosFactura) {
-  const {claveAcceso, fechaEmision, comprador, items, totales} = datosFactura;
+  const {claveAcceso, fechaEmision, comprador, items, totales, formaPago} = datosFactura;
 
   const root = create({version: "1.0", encoding: "UTF-8"})
       .ele("factura", {id: "comprobante", version: "1.0.0"})
+      // === INFO TRIBUTARIA ===
       .ele("infoTributaria")
       .ele("ambiente").txt(SRI_CONFIG.AMBIENTE).up()
       .ele("tipoEmision").txt(SRI_CONFIG.TIPO_EMISION).up()
@@ -185,7 +187,8 @@ function generarXMLFactura(datosFactura) {
       .ele("ptoEmi").txt(datosFactura.puntoEmision).up()
       .ele("secuencial").txt(datosFactura.secuencial.padStart(9, "0")).up()
       .ele("dirMatriz").txt(EMPRESA_CONFIG.DIRECCION_MATRIZ).up()
-      .up()
+      .up() // Cierra infoTributaria
+      // === INFO FACTURA ===
       .ele("infoFactura")
       .ele("fechaEmision").txt(fechaEmision).up()
       .ele("dirEstablecimiento").txt(EMPRESA_CONFIG.DIRECCION_MATRIZ).up()
@@ -193,45 +196,66 @@ function generarXMLFactura(datosFactura) {
       .ele("tipoIdentificacionComprador").txt(comprador.tipoIdentificacion).up()
       .ele("razonSocialComprador").txt(comprador.razonSocial).up()
       .ele("identificacionComprador").txt(comprador.identificacion).up()
+      .ele("direccionComprador").txt(comprador.direccion).up()
       .ele("totalSinImpuestos").txt(totales.subtotal.toFixed(2)).up()
       .ele("totalDescuento").txt(totales.descuento.toFixed(2)).up()
-      .ele("totalConImpuestos");
-
-  // Agregar impuestos (IVA)
-  root.ele("totalImpuesto")
+      // === TOTAL CON IMPUESTOS ===
+      .ele("totalConImpuestos")
+      .ele("totalImpuesto")
       .ele("codigo").txt("2").up() // 2 = IVA
-      .ele("codigoPorcentaje").txt("2").up() // 2 = 12%
-      .ele("baseImponible").txt(totales.subtotal.toFixed(2)).up()
-      .ele("valor").txt(totales.iva.toFixed(2)).up()
-      .up();
-
-  root.up()
-      .ele("propina").txt("0.00").up()
+      .ele("codigoPorcentaje").txt("4").up() // 4 = 15% IVA
+      .ele("baseImponible").txt(totales.subtotalIva.toFixed(2)).up()
+      .ele("valor").txt(totales.valorIva.toFixed(2)).up()
+      .up() // Cierra totalImpuesto
+      .up() // Cierra totalConImpuestos
       .ele("importeTotal").txt(totales.total.toFixed(2)).up()
       .ele("moneda").txt("DOLAR").up()
-      .up()
-      .ele("detalles");
+      // === PAGOS (obligatorio según SRI) ===
+      .ele("pagos")
+      .ele("pago")
+      .ele("formaPago").txt(formaPago.codigo).up()
+      .ele("total").txt(formaPago.total.toFixed(2)).up()
+      .ele("plazo").txt("0").up() // Pago inmediato
+      .ele("unidadTiempo").txt("dias").up()
+      .up() // Cierra pago
+      .up() // Cierra pagos
+      .ele("valorRetIva").txt("0.00").up()
+      .ele("valorRetRenta").txt("0.00").up()
+      .up(); // ✅ CIERRA infoFactura AQUÍ
 
-  // Agregar items
-  items.forEach((item, index) => {
-    root.ele("detalle")
-        .ele("codigoPrincipal").txt(item.codigo || `PROD${index + 1}`).up()
+  // 🔧 CORRECCIÓN CRÍTICA: detalles e infoAdicional van FUERA de infoFactura
+  // === DETALLES (productos) - FUERA DE infoFactura ===
+  const detallesNode = root.ele("detalles");
+
+  items.forEach((item) => {
+    detallesNode.ele("detalle")
+        .ele("codigoPrincipal").txt(item.codigo || "PROD").up()
         .ele("descripcion").txt(item.descripcion).up()
         .ele("cantidad").txt(item.cantidad.toString()).up()
         .ele("precioUnitario").txt(item.precioUnitario.toFixed(6)).up()
         .ele("descuento").txt(item.descuento.toFixed(2)).up()
         .ele("precioTotalSinImpuesto").txt(item.subtotal.toFixed(2)).up()
+        // === IMPUESTOS DEL ITEM ===
         .ele("impuestos")
         .ele("impuesto")
-        .ele("codigo").txt("2").up() // IVA
-        .ele("codigoPorcentaje").txt("2").up() // 12%
-        .ele("tarifa").txt("12").up()
-        .ele("baseImponible").txt(item.subtotal.toFixed(2)).up()
-        .ele("valor").txt((item.subtotal * 0.12).toFixed(2)).up()
-        .up()
-        .up()
-        .up();
+        .ele("codigo").txt("2").up() // 2 = IVA
+        .ele("codigoPorcentaje").txt("4").up() // 4 = 15%
+        .ele("tarifa").txt("15").up() // Tarifa 15%
+        .ele("baseImponible").txt(item.baseIva.toFixed(2)).up()
+        .ele("valor").txt(item.valorIva.toFixed(2)).up()
+        .up() // Cierra impuesto
+        .up() // Cierra impuestos
+        .up(); // Cierra detalle
   });
+
+  detallesNode.up(); // Cierra detalles
+
+  // === INFO ADICIONAL - FUERA DE infoFactura ===
+  root.ele("infoAdicional")
+      .ele("campoAdicional", {nombre: "Correo"}).txt(comprador.correo).up()
+      .ele("campoAdicional", {nombre: "Teléfono"}).txt(comprador.telefono).up()
+      .up(); // Cierra infoAdicional
+
 
   return root.end({prettyPrint: true});
 }
@@ -564,7 +588,11 @@ async function procesarGeneracionFactura(orderId, userId) {
   // PASO 5: Preparar datos de la factura
   await guardarLogFacturacion('INFO', 'PASO 5: Preparando datos de la factura', null, orderId);
 
-  // 🔧 CORRECCIÓN 1: Usar fechaEcuador para fechaEmision también
+  // 🔧 OBTENER DATOS DEL USUARIO PARA FACTURACIÓN
+  const userDoc = await admin.firestore().collection("Users").doc(userId).get();
+  const userData = userDoc.data();
+
+  // 🔧 Usar fechaEcuador para fechaEmision
   const datosFactura = {
     claveAcceso,
     fechaEmision: `${fechaEcuador.getDate().toString().padStart(2, "0")}/${(fechaEcuador.getMonth() + 1).toString().padStart(2, "0")}/${fechaEcuador.getFullYear()}`,
@@ -572,25 +600,52 @@ async function procesarGeneracionFactura(orderId, userId) {
     puntoEmision: "001",
     secuencial: secuencial.toString(),
     comprador: {
-      // 🔧 CORRECCIÓN 4: Usar identificación de Consumidor Final
-      // El userId de Firebase tiene 28 caracteres, pero el SRI solo acepta máximo 20
-      // TODO: En producción, capturar cédula/RUC del usuario en su perfil
-      tipoIdentificacion: "07", // 07 = Consumidor Final
-      identificacion: "9999999999999", // 13 dígitos - Consumidor Final válido para SRI
-      razonSocial: orderData.address?.name || "CONSUMIDOR FINAL",
+      // 🔧 Usar cédula real del usuario
+      tipoIdentificacion: userData?.Cedula && userData.Cedula.length === 13 ? "04" : userData?.Cedula && userData.Cedula.length === 10 ? "05" : "07", // 04=RUC, 05=Cédula, 07=Consumidor Final
+      identificacion: userData?.Cedula || "9999999999999",
+      razonSocial: `${userData?.FirstName || ""} ${userData?.LastName || ""}`.trim() || "CONSUMIDOR FINAL",
+      direccion: orderData.address?.street || "N/A",
+      telefono: userData?.PhoneNumber || orderData.address?.phoneNumber || "",
+      correo: userData?.Email || "",
     },
-    items: (orderData.items || []).map((item) => ({
-      codigo: item.productId || "PROD",
-      descripcion: item.title || "Producto",
-      cantidad: item.quantity || 1,
-      precioUnitario: item.price || 0,
-      descuento: 0,
-      subtotal: (item.price || 0) * (item.quantity || 1),
-    })),
+    // 🔧 Determinar forma de pago según tipo de tarjeta
+    formaPago: {
+      codigo: orderData.paymentMethod && orderData.paymentMethod.includes("débito") ? "16" : // Tarjeta de débito
+               orderData.paymentMethod && orderData.paymentMethod.includes("crédito") ? "19" : // Tarjeta de crédito
+               "01", // Sin utilización del sistema financiero (por defecto)
+      total: orderData.totalAmount || 0,
+    },
+    items: (orderData.items || []).map((item) => {
+      const precioUnitario = item.price || 0;
+      const cantidad = item.quantity || 1;
+      const descuento = item.discount || 0;
+      const subtotalSinDescuento = precioUnitario * cantidad;
+      const subtotalConDescuento = subtotalSinDescuento - descuento;
+
+      // 🔧 Calcular IVA 15% (código "4" del SRI)
+      const baseImponible = subtotalConDescuento;
+      const valorIva = baseImponible * 0.15;
+
+      return {
+        codigo: item.productId || "PROD",
+        descripcion: item.title || "Producto",
+        cantidad: cantidad,
+        precioUnitario: precioUnitario,
+        descuento: descuento,
+        subtotal: subtotalConDescuento,
+        baseIva: baseImponible,
+        porcentajeIva: "4", // 4 = 15% (IVA actual en Ecuador)
+        valorIva: valorIva,
+        total: baseImponible + valorIva,
+      };
+    }),
     totales: {
-      subtotal: orderData.totalAmount / 1.12, // Sin IVA
-      descuento: 0,
-      iva: orderData.totalAmount - (orderData.totalAmount / 1.12),
+      // 🔧 Calcular correctamente con IVA 15%
+      subtotal: orderData.totalAmount / 1.15, // Sin IVA (base imponible)
+      subtotalIva: orderData.totalAmount / 1.15, // Subtotal con IVA 15%
+      subtotalCero: 0, // Productos con IVA 0%
+      descuento: orderData.discount || 0, // Descuento total (cupones)
+      valorIva: orderData.totalAmount - (orderData.totalAmount / 1.15), // Valor del IVA 15%
       total: orderData.totalAmount,
     },
   };
@@ -599,6 +654,7 @@ async function procesarGeneracionFactura(orderId, userId) {
     compradorIdentificacion: datosFactura.comprador.identificacion,
     compradorNombre: datosFactura.comprador.razonSocial,
     compradorTipo: datosFactura.comprador.tipoIdentificacion,
+    compradorCorreo: datosFactura.comprador.correo,
     itemsCount: datosFactura.items.length,
     total: datosFactura.totales.total,
     fechaEmision: datosFactura.fechaEmision,
@@ -609,8 +665,20 @@ async function procesarGeneracionFactura(orderId, userId) {
 
   const xml = generarXMLFactura(datosFactura);
 
+  // 🔧 DEBUG: Loggear el XML generado para verificar estructura
+  logger.info(`📄 [DEBUG XML] Primeros 2000 caracteres del XML:\n${xml.substring(0, 2000)}`);
+  logger.info(`📄 [DEBUG XML] XML completo length: ${xml.length}`);
+
+  // Buscar específicamente la sección problemática
+  const totalConImpuestosIndex = xml.indexOf('<totalConImpuestos>');
+  if (totalConImpuestosIndex !== -1) {
+    const seccionProblematica = xml.substring(totalConImpuestosIndex, totalConImpuestosIndex + 500);
+    logger.info(`🔍 [DEBUG XML] Sección totalConImpuestos:\n${seccionProblematica}`);
+  }
+
   await guardarLogFacturacion('SUCCESS', 'PASO 6 COMPLETADO: XML generado', {
     xmlLength: xml.length,
+    xmlPreview: xml.substring(0, 1000), // Guardar preview en Firestore
   }, orderId);
   logger.info(`📄 [generarFactura] XML generado correctamente`);
 

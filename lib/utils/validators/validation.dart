@@ -203,6 +203,107 @@ class TValidator {
     return null;
   }
 
+  /// Validar Cédula o RUC ecuatoriano
+  static String? validateCedula(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'La cédula o RUC es requerida.';
+    }
+
+    // Eliminar espacios
+    final cleanValue = value.trim();
+
+    // Verificar que solo contenga números
+    if (!RegExp(r'^\d+$').hasMatch(cleanValue)) {
+      return 'La cédula/RUC debe contener solo números.';
+    }
+
+    // Validar longitud (10 para cédula, 13 para RUC)
+    if (cleanValue.length != 10 && cleanValue.length != 13) {
+      return 'Ingrese 10 dígitos (cédula) o 13 dígitos (RUC).';
+    }
+
+    // Validar cédula (10 dígitos)
+    if (cleanValue.length == 10) {
+      // Los dos primeros dígitos deben estar entre 01 y 24 (provincias del Ecuador)
+      final provincia = int.tryParse(cleanValue.substring(0, 2));
+      if (provincia == null || provincia < 1 || provincia > 24) {
+        return 'Cédula inválida: código de provincia incorrecto.';
+      }
+
+      // El tercer dígito debe ser menor a 6 (para cédulas)
+      final tercerDigito = int.parse(cleanValue[2]);
+      if (tercerDigito >= 6) {
+        return 'Cédula inválida: tercer dígito debe ser menor a 6.';
+      }
+
+      // Algoritmo módulo 10 para validar cédula
+      int suma = 0;
+      for (int i = 0; i < 9; i++) {
+        int digito = int.parse(cleanValue[i]);
+        if (i % 2 == 0) {
+          // Posiciones impares (0, 2, 4, 6, 8)
+          digito *= 2;
+          if (digito > 9) digito -= 9;
+        }
+        suma += digito;
+      }
+
+      final digitoVerificador = int.parse(cleanValue[9]);
+      final modulo = suma % 10;
+      final verificador = modulo == 0 ? 0 : 10 - modulo;
+
+      if (verificador != digitoVerificador) {
+        return 'Cédula inválida: dígito verificador incorrecto.';
+      }
+    }
+
+    // Validar RUC (13 dígitos)
+    if (cleanValue.length == 13) {
+      // Los dos primeros dígitos deben estar entre 01 y 24
+      final provincia = int.tryParse(cleanValue.substring(0, 2));
+      if (provincia == null || provincia < 1 || provincia > 24) {
+        return 'RUC inválido: código de provincia incorrecto.';
+      }
+
+      // El tercer dígito determina el tipo de RUC
+      final tercerDigito = int.parse(cleanValue[2]);
+
+      // Personas naturales (cédula + 001)
+      if (tercerDigito < 6) {
+        // Validar que termine en 001
+        if (!cleanValue.endsWith('001')) {
+          return 'RUC de persona natural debe terminar en 001.';
+        }
+
+        // Validar la cédula (primeros 10 dígitos)
+        final cedula = cleanValue.substring(0, 10);
+        final cedulaValida = validateCedula(cedula);
+        if (cedulaValida != null) {
+          return 'RUC inválido: $cedulaValida';
+        }
+      }
+      // Sociedades privadas o extranjeros (tercer dígito = 9)
+      else if (tercerDigito == 9) {
+        // Los últimos 3 dígitos deben ser 001
+        if (!cleanValue.endsWith('001')) {
+          return 'RUC de sociedad debe terminar en 001.';
+        }
+      }
+      // Instituciones públicas (tercer dígito = 6)
+      else if (tercerDigito == 6) {
+        // Los últimos 4 dígitos deben ser 0001
+        if (!cleanValue.endsWith('0001')) {
+          return 'RUC de institución pública debe terminar en 0001.';
+        }
+      }
+      else {
+        return 'RUC inválido: tercer dígito no válido.';
+      }
+    }
+
+    return null;
+  }
+
 // Add more custom validators as needed for your specific requirements.
 }
 

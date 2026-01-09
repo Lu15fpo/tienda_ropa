@@ -203,4 +203,97 @@ Firebase:
   - Functions Docs: https://firebase.google.com/docs/functions
   - Functions desplegadas: https://console.firebase.google.com/project/ecommerceapp-5f46c/functions
 ===============================================================================
+  ACTUALIZACIONES - ADAPTACIÓN SEGÚN SISTEMA ANTERIOR (09/01/2026)
+===============================================================================
+
+✅ ACTUALIZACIÓN 1: UserModel - Campo Cédula [COMPLETADO]
+   Archivo: lib/features/authentication/models/user_model.dart
+   - Agregado campo "cedula" (String)
+   - Actualizado constructor (opcional, default: '')
+   - Actualizado toJson() incluye 'Cedula'
+   - Actualizado fromSnapshot() lee 'Cedula'
+   - Actualizado empty() con cedula: ''
+
+✅ ACTUALIZACIÓN 2: Cloud Functions - IVA 15% [COMPLETADO]
+   Archivo: functions/index.js
+   - Cambiado código IVA: "2" (12%) → "4" (15%)
+   - Cálculo base imponible: totalAmount / 1.15
+   - Tarifa IVA: 15% (antes 12%)
+   - Actualizado en items y totales
+
+✅ ACTUALIZACIÓN 3: Cloud Functions - Datos Reales del Comprador [COMPLETADO]
+   Archivo: functions/index.js
+   - Obtiene datos del usuario desde Firestore (Users/{userId})
+   - Detección automática tipo de identificación:
+     * 13 dígitos = RUC (código "04")
+     * 10 dígitos = Cédula (código "05")
+     * Sin cédula = Consumidor Final (código "07")
+   - Datos incluidos:
+     * identificacion: userData.Cedula
+     * razonSocial: FirstName + LastName
+     * direccion: orderData.address.street
+     * telefono: PhoneNumber o address.phoneNumber
+     * correo: userData.Email
+
+✅ ACTUALIZACIÓN 4: Cloud Functions - Forma de Pago Dinámica [COMPLETADO]
+   Archivo: functions/index.js
+   - Detecta tipo de tarjeta desde paymentMethod:
+     * Incluye "débito" → código "16" (Tarjeta de débito)
+     * Incluye "crédito" → código "19" (Tarjeta de crédito)
+     * Otro → código "01" (Sin sistema financiero)
+   - Se envía al XML en sección <pagos>
+
+✅ ACTUALIZACIÓN 5: XML - Estructura Completa según SRI [COMPLETADO]
+   Archivo: functions/index.js - función generarXMLFactura()
+   - Reescrita completamente según ficha técnica SRI
+   - Incluye:
+     * <direccionComprador> dentro de <infoFactura>
+     * <pagos> con forma de pago dinámica
+     * <detalles> con IVA 15% por item
+     * <infoAdicional> con correo y teléfono
+   - Estructura validada según XML de sistema anterior
+   - Orden correcto de elementos (crucial para SRI)
+
+ESTRUCTURA DE DATOS (Según JSON del sistema anterior):
+
+dataCliente:
+  - identificacion (cédula/RUC)
+  - nombre (razón social)
+  - direccion
+  - telefono
+  - correo ← IMPORTANTE para envío de factura
+
+detalles (productos):
+  - cantidad
+  - descripcion
+  - precio_unitario
+  - descuento
+  - subtotal (sin IVA)
+  - base_iva
+  - porcentaje_iva: "4" (15%)
+  - valor_iva
+  - total (con IVA)
+
+formasPago:
+  - forma_pago: "16" (débito) / "19" (crédito) / "01" (efectivo)
+  - valor
+  - plazo: "0" (inmediato)
+  - unidad_tiempo: "dias"
+
+totales:
+  - subtotal (sin IVA)
+  - subtotal_iva (base imponible)
+  - subtotal_cero (productos exentos)
+  - total_descuento (cupones)
+  - valor_iva (15%)
+  - total
+
+PRÓXIMOS PASOS PENDIENTES:
+  1. 🧪 Redesplegar funciones con cambios
+  2. 📝 Crear UI para capturar cédula del usuario
+  3. 🧪 Probar facturación con datos reales
+  4. ✅ Validar XML con SRI
+  5. 📧 Implementar envío de factura por email
+===============================================================================
+
 

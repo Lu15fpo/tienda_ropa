@@ -5,6 +5,7 @@ import 'package:tienda_ropa/common/widgets/appbar/appbar.dart';
 import 'package:tienda_ropa/common/widgets/images/t_circular_image.dart';
 import 'package:tienda_ropa/common/widgets/texts/section_heading.dart';
 import 'package:tienda_ropa/features/personalization/screens/profile/widgets/change_name.dart';
+import 'package:tienda_ropa/features/personalization/screens/profile/widgets/change_cedula.dart';
 import 'package:tienda_ropa/features/personalization/screens/profile/widgets/profile_menu.dart';
 import 'package:tienda_ropa/common/widgets/shimmers/shimmer.dart';
 
@@ -69,6 +70,11 @@ class ProfileScreen extends StatelessWidget {
               TProfileMenu(title: 'ID de Usuario', value: controller.user.value.id, icon: Iconsax.copy, onPressed: () {}),
               TProfileMenu(title: 'E-mail', value: controller.user.value.email, onPressed: () {}),
               TProfileMenu(title: 'Numero de telefono', value: controller.user.value.phoneNumber, onPressed: () {}),
+              Obx(() => TProfileMenu(
+                title: 'Cedula/RUC',
+                value: controller.user.value.cedula.isEmpty ? 'Agregar cédula' : controller.user.value.cedula,
+                onPressed: () => Get.to(() => const ChangeCedula())
+              )),
               TProfileMenu(title: 'Genero', value: 'Hombre', onPressed: () {}),
               TProfileMenu(title: 'Fecha de nacimiento', value: '17 Oct, 1997', onPressed: () {}),
               const Divider(),

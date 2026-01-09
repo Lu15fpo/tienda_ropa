@@ -11,6 +11,7 @@ class UserModel {
   String lastName;
   String phoneNumber;
   String profilePicture;
+  String cedula; // Cédula o RUC para facturación electrónica
 
   /// Constructor para UserModel
   UserModel({
@@ -21,6 +22,7 @@ class UserModel {
     required this.lastName,
     required this.phoneNumber,
     required this.profilePicture,
+    this.cedula = '', // Opcional, puede estar vacío inicialmente
   });
 
   /// Funcion de ayuda para obtener el nombre completo del usuario
@@ -51,7 +53,8 @@ class UserModel {
       username: '',
       email: '',
       phoneNumber: '',
-      profilePicture: '');
+      profilePicture: '',
+      cedula: '');
 
   /// Convertir el modelo a una estructura de datos JSON para almacenar en los datos de FIrebase.
   Map<String, dynamic> toJson() {
@@ -62,6 +65,7 @@ class UserModel {
       'Email': email,
       'PhoneNumber': phoneNumber,
       'ProfilePicture': profilePicture,
+      'Cedula': cedula,
     };
   }
 
@@ -77,6 +81,7 @@ class UserModel {
       email: data['Email'] ?? '',
       phoneNumber: data['PhoneNumber'] ?? '',
       profilePicture: data['ProfilePicture'] ?? '',
+      cedula: data['Cedula'] ?? '',
     );
   }
 }
