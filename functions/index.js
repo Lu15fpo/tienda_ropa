@@ -11,6 +11,7 @@ const axios = require("axios");
 const {create} = require("xmlbuilder2");
 const forge = require("node-forge");
 const logger = require("firebase-functions/logger");
+const bwipjs = require("bwip-js");
 
 // Inicializar Firebase Admin
 admin.initializeApp();
@@ -986,3 +987,582 @@ exports.consultarAutorizacion = onCall(async (request) => {
     throw new HttpsError("internal", error.message);
   }
 });
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 📧 SISTEMA DE ENVÍO DE FACTURAS POR EMAIL
+// ═══════════════════════════════════════════════════════════════════════════
+
+const nodemailer = require("nodemailer");
+
+// Configuración del transporter de Gmail
+const emailConfig = {
+  user: process.env.GMAIL_USER,
+  password: process.env.GMAIL_APP_PASSWORD,
+  fromName: process.env.EMAIL_FROM_NAME || "Factura Electrónica",
+};
+
+/**
+ * Crear transporter de nodemailer con Gmail
+ */
+function crearTransporterEmail() {
+  logger.info("📧 [EMAIL] Creando transporter con Gmail...");
+  logger.info(`📧 [EMAIL] Usuario: ${emailConfig.user}`);
+
+  return nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: emailConfig.user,
+      pass: emailConfig.password,
+    },
+  });
+}
+
+/**
+ * 🧪 FUNCIÓN DE PRUEBA: Enviar email básico
+ * Endpoint HTTP para probar el envío de emails
+ */
+
+exports.probarEmail = onRequest({
+  cors: true,
+}, async (req, res) => {
+  try {
+    logger.info("🧪 [TEST EMAIL] Iniciando prueba de envío de email...");
+
+    // Crear transporter
+    const transporter = crearTransporterEmail();
+
+    // Configurar email de prueba
+    const mailOptions = {
+      from: `"${emailConfig.fromName}" <${emailConfig.user}>`,
+      to: emailConfig.user, // Enviar al mismo email de prueba
+      subject: "🧪 Prueba de Email - Sistema de Facturación",
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2 style="color: #007bff;">✅ Prueba de Email Exitosa</h2>
+          <p>Si estás leyendo esto, significa que el sistema de envío de emails está <strong>funcionando correctamente</strong>.</p>
+
+          <div style="background-color: #f8f9fa; padding: 15px; border-left: 4px solid #007bff; margin: 20px 0;">
+            <h3 style="margin-top: 0;">Configuración:</h3>
+            <ul>
+              <li><strong>Remitente:</strong> ${emailConfig.fromName}</li>
+              <li><strong>Email:</strong> ${emailConfig.user}</li>
+              <li><strong>Servicio:</strong> Gmail</li>
+              <li><strong>Estado:</strong> ✅ Operativo</li>
+            </ul>
+          </div>
+
+          <p style="color: #6c757d; font-size: 14px; margin-top: 30px;">
+            Este es un email de prueba generado automáticamente por el sistema de facturación electrónica.
+          </p>
+        </div>
+      `,
+    };
+
+    // Enviar email
+    logger.info("📤 [TEST EMAIL] Enviando email de prueba...");
+    const info = await transporter.sendMail(mailOptions);
+
+    logger.info("✅ [TEST EMAIL] Email enviado exitosamente", {
+      messageId: info.messageId,
+      response: info.response,
+    });
+
+    res.status(200).send({
+      success: true,
+      mensaje: "✅ Email de prueba enviado exitosamente",
+      detalles: {
+        messageId: info.messageId,
+        from: mailOptions.from,
+        to: mailOptions.to,
+        subject: mailOptions.subject,
+      },
+    });
+  } catch (error) {
+    logger.error("❌ [TEST EMAIL] Error al enviar email:", error);
+    res.status(500).send({
+      success: false,
+      error: error.message,
+      stack: error.stack,
+    });
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 📄 GENERACIÓN DE PDF DE FACTURAS
+// ═══════════════════════════════════════════════════════════════════════════
+
+const PDFDocument = require("pdfkit");
+
+/**
+ * Genera PDF profesional según formato oficial del SRI de Ecuador
+ * @param {Object} datosFactura - Datos completos de la factura
+ * @return {Promise<Buffer>} Buffer del PDF generado
+ */
+async function generarPDFFactura(datosFactura) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      logger.info("📄 [PDF] Iniciando generación de PDF formato oficial SRI...");
+
+      const doc = new PDFDocument({
+        size: "A4",
+        margins: {top: 40, bottom: 40, left: 40, right: 40},
+      });
+
+      const chunks = [];
+      doc.on("data", (chunk) => chunks.push(chunk));
+      doc.on("end", () => resolve(Buffer.concat(chunks)));
+      doc.on("error", reject);
+
+      let yPos = 40;
+      const leftBoxX = 40;
+      const leftBoxWidth = 255;
+      const rightBoxX = 305;
+      const rightBoxWidth = 250;
+
+      // ═══════════════════════════════════════════════════════════════════
+      // HEADER: LADO IZQUIERDO (LOGO + DATOS EMPRESA EN RECUADRO)
+      // ═══════════════════════════════════════════════════════════════════
+
+      // Logo de la empresa (centrado) - Logo más grande
+      try {
+        const bucket = admin.storage().bucket();
+        const logoFile = bucket.file("logos/LogoRedondoLightLogin.png");
+        const [logoBuffer] = await logoFile.download();
+
+        // Logo centrado - Aumentado de 80px a 100px
+        const logoWidth = 100;
+        const logoX = leftBoxX + (leftBoxWidth - logoWidth) / 2;
+        doc.image(logoBuffer, logoX, yPos, {width: logoWidth});
+
+        yPos += 110; // Ajustado para el logo más grande
+      } catch (error) {
+        logger.warn("⚠️ [PDF] No se pudo cargar logo:", error.message);
+        // Si falla el logo, mostrar nombre de empresa
+        doc.font("Helvetica-Bold").fontSize(14).fillColor("#000000")
+            .text(EMPRESA_CONFIG.RAZON_SOCIAL, leftBoxX, yPos, {
+              width: leftBoxWidth,
+              align: "center",
+            });
+        yPos += 30;
+      }
+
+      // Recuadro con información de la empresa - ALTURA IGUALADA A 200px
+      doc.roundedRect(leftBoxX, yPos, leftBoxWidth, 200, 5)
+          .stroke("#000000");
+
+      let boxYPos = yPos + 15; // Más espacio superior para centrar mejor
+
+      doc.font("Helvetica-Bold").fontSize(9)
+          .text(EMPRESA_CONFIG.RAZON_SOCIAL, leftBoxX + 10, boxYPos, {width: leftBoxWidth - 20});
+
+      boxYPos += 20; // Más espacio entre elementos
+
+      doc.font("Helvetica").fontSize(8)
+          .text("Dirección Matriz:", leftBoxX + 10, boxYPos);
+
+      boxYPos += 10;
+
+      doc.fontSize(8)
+          .text(EMPRESA_CONFIG.DIRECCION_MATRIZ, leftBoxX + 10, boxYPos, {
+            width: leftBoxWidth - 20,
+          });
+
+      boxYPos += 35; // Más espacio entre secciones
+
+      doc.fontSize(8)
+          .text(`Dirección Sucursal: ${EMPRESA_CONFIG.NOMBRE_COMERCIAL}`, leftBoxX + 10, boxYPos, {
+            width: leftBoxWidth - 20,
+          });
+
+      boxYPos += 20; // Más espacio entre elementos
+
+      doc.fontSize(8)
+          .text(`OBLIGADO A LLEVAR CONTABILIDAD: ${EMPRESA_CONFIG.OBLIGADO_CONTABILIDAD}`, leftBoxX + 10, boxYPos, {
+            width: leftBoxWidth - 20,
+          });
+
+      // ═══════════════════════════════════════════════════════════════════
+      // HEADER: LADO DERECHO (RUC, FACTURA, AUTORIZACIÓN EN RECUADRO)
+      // ═══════════════════════════════════════════════════════════════════
+
+      yPos = 40;
+
+      // Recuadro derecho (bordes redondeados simulados)
+      doc.roundedRect(rightBoxX, yPos, rightBoxWidth, 200, 5)
+          .stroke("#000000");
+
+      boxYPos = yPos + 10;
+
+      // RUC
+      doc.font("Helvetica-Bold").fontSize(11)
+          .text(`R.U.C.: ${EMPRESA_CONFIG.RUC}`, rightBoxX + 10, boxYPos);
+
+      boxYPos += 20;
+
+      // FACTURA (centrado y grande)
+      doc.font("Helvetica-Bold").fontSize(14)
+          .text("FACTURA", rightBoxX + 10, boxYPos, {
+            width: rightBoxWidth - 20,
+            align: "center",
+          });
+
+      boxYPos += 20;
+
+      // Número de factura
+      doc.font("Helvetica").fontSize(10)
+          .text(`No. ${datosFactura.establecimiento}-${datosFactura.puntoEmision}-${String(datosFactura.secuencial).padStart(9, "0")}`, rightBoxX + 10, boxYPos, {
+            width: rightBoxWidth - 20,
+            align: "center",
+          });
+
+      boxYPos += 20;
+
+      // NÚMERO DE AUTORIZACIÓN
+      doc.font("Helvetica-Bold").fontSize(8)
+          .text("NÚMERO DE AUTORIZACIÓN", rightBoxX + 10, boxYPos);
+
+      boxYPos += 10;
+
+      doc.font("Helvetica").fontSize(7)
+          .text(datosFactura.numeroAutorizacion || datosFactura.claveAcceso, rightBoxX + 10, boxYPos, {
+            width: rightBoxWidth - 20,
+          });
+
+      boxYPos += 20;
+
+      // FECHA Y HORA DE AUTORIZACIÓN
+      doc.font("Helvetica-Bold").fontSize(8)
+          .text("FECHA Y HORA DE AUTORIZACIÓN:", rightBoxX + 10, boxYPos);
+
+      boxYPos += 10;
+
+      doc.font("Helvetica").fontSize(8)
+          .text(datosFactura.fechaAutorizacion || datosFactura.fechaEmision, rightBoxX + 10, boxYPos);
+
+      boxYPos += 15;
+
+      // AMBIENTE
+      doc.fontSize(8)
+          .text(`AMBIENTE: ${datosFactura.ambiente === "1" ? "PRUEBAS" : "PRODUCCION"}`, rightBoxX + 10, boxYPos);
+
+      boxYPos += 12;
+
+      // EMISIÓN
+      doc.fontSize(8)
+          .text("EMISIÓN: NORMAL", rightBoxX + 10, boxYPos);
+
+      boxYPos += 15;
+
+      // CLAVE DE ACCESO con código de barras
+      doc.font("Helvetica-Bold").fontSize(8)
+          .text("CLAVE DE ACCESO", rightBoxX + 10, boxYPos);
+
+      boxYPos += 12;
+
+      // Generar código de barras para la clave de acceso
+      try {
+        const barcodeBuffer = await bwipjs.toBuffer({
+          bcid: "code128",
+          text: datosFactura.claveAcceso,
+          scale: 2,
+          height: 6, // Reducido de 8 a 6 para evitar que se monte
+          includetext: false,
+        });
+
+        // Agregar código de barras al PDF (centrado) - Altura reducida
+        const barcodeWidth = 200;
+        const barcodeX = rightBoxX + (rightBoxWidth - barcodeWidth) / 2;
+        doc.image(barcodeBuffer, barcodeX, boxYPos, {width: barcodeWidth, height: 20}); // Reducido de 30 a 20
+
+        boxYPos += 25; // Reducido de 35 a 25
+      } catch (error) {
+        logger.warn("⚠️ [PDF] No se pudo generar código de barras:", error.message);
+      }
+
+      // Clave de acceso en texto (debajo del código de barras)
+      doc.font("Courier").fontSize(7)
+          .text(datosFactura.claveAcceso, rightBoxX + 10, boxYPos, {
+            width: rightBoxWidth - 20,
+            align: "center",
+            lineGap: 2,
+          });
+
+      // ═══════════════════════════════════════════════════════════════════
+      // DATOS DEL CLIENTE (Recuadro completo)
+      // ═══════════════════════════════════════════════════════════════════
+
+      // Ajustar posición para dar más espacio después de los recuadros superiores (ahora de 200px)
+      yPos = 260; // Mantener en 260 ya que ambos recuadros ahora terminan a la misma altura
+
+      // Aumentar altura del recuadro para el nuevo layout
+      doc.rect(40, yPos, 515, 60).stroke("#000000");
+
+      boxYPos = yPos + 10;
+
+      // FILA 1: Razón Social (izquierda) | Identificación (derecha)
+      doc.font("Helvetica-Bold").fontSize(9)
+          .text("Razón Social / Nombres y Apellidos:", 45, boxYPos);
+
+      doc.font("Helvetica-Bold").fontSize(9)
+          .text("Identificación:", 305, boxYPos);
+
+      boxYPos += 12;
+
+      doc.font("Helvetica").fontSize(9)
+          .text(datosFactura.comprador.razonSocial, 45, boxYPos, {width: 250});
+
+      doc.font("Helvetica").fontSize(9)
+          .text(datosFactura.comprador.identificacion, 305, boxYPos);
+
+      boxYPos += 15;
+
+      // Línea divisoria
+      doc.moveTo(45, boxYPos - 3).lineTo(550, boxYPos - 3).stroke("#eeeeee");
+
+      // FILA 2: Dirección (izquierda) | Fecha de Emisión (derecha)
+      doc.font("Helvetica-Bold").fontSize(9)
+          .text("Dirección:", 45, boxYPos);
+
+      doc.font("Helvetica-Bold").fontSize(9)
+          .text("Fecha de Emisión:", 305, boxYPos);
+
+      boxYPos += 12;
+
+      doc.font("Helvetica").fontSize(9)
+          .text(datosFactura.comprador.street || datosFactura.comprador.direccion || "N/A", 45, boxYPos, {width: 250});
+
+      doc.font("Helvetica").fontSize(9)
+          .text(datosFactura.fechaEmision, 305, boxYPos);
+
+      yPos += 70; // Ajustado para el nuevo tamaño del recuadro
+
+      // ═══════════════════════════════════════════════════════════════════
+      // TABLA DE PRODUCTOS (con Cod. Auxiliar)
+      // ═══════════════════════════════════════════════════════════════════
+
+      const tableTop = yPos;
+      // Columnas reajustadas para evitar que se monten sobre los bordes
+      const colCodPrin = 40;
+      const colCodAux = 105;
+      const colCant = 170;
+      const colDesc = 205;        // Reducido de 210 a 205
+      const colPUnit = 385;       // Reducido de 395 a 385
+      const colDescuento = 445;   // Reducido de 460 a 445
+      const colTotal = 495;       // Reducido de 510 a 495 para que no se monte
+
+      // Header de tabla con fondo gris
+      doc.rect(40, tableTop, 515, 18).fillAndStroke("#eeeeee", "#000000");
+
+      doc.font("Helvetica-Bold").fontSize(8).fillColor("#000000")
+          .text("Cod. Principal", colCodPrin + 3, tableTop + 5, {width: 60})
+          .text("Cod. Auxiliar", colCodAux + 3, tableTop + 5, {width: 60})
+          .text("Cant", colCant + 3, tableTop + 5, {width: 32})
+          .text("Descripción", colDesc + 3, tableTop + 5, {width: 175})
+          .text("Precio Unitario", colPUnit + 3, tableTop + 5, {width: 57})
+          .text("Descuento", colDescuento + 3, tableTop + 5, {width: 47})
+          .text("Precio Total", colTotal + 3, tableTop + 5, {width: 55}); // Más espacio para el título
+
+      yPos = tableTop + 18;
+
+      // Filas de productos con altura dinámica
+      doc.font("Helvetica").fontSize(8);
+
+      datosFactura.items.forEach((item, index) => {
+        // Calcular altura necesaria para la descripción con ancho actualizado
+        const descripcionHeight = doc.heightOfString(item.descripcion, {width: 175});
+        const rowHeight = Math.max(18, descripcionHeight + 10); // Mínimo 18, máximo según descripción
+
+        // Bordes de la fila
+        doc.rect(40, yPos, 515, rowHeight).stroke("#000000");
+
+        // Líneas verticales internas
+        doc.moveTo(colCodAux, yPos).lineTo(colCodAux, yPos + rowHeight).stroke("#000000");
+        doc.moveTo(colCant, yPos).lineTo(colCant, yPos + rowHeight).stroke("#000000");
+        doc.moveTo(colDesc, yPos).lineTo(colDesc, yPos + rowHeight).stroke("#000000");
+        doc.moveTo(colPUnit, yPos).lineTo(colPUnit, yPos + rowHeight).stroke("#000000");
+        doc.moveTo(colDescuento, yPos).lineTo(colDescuento, yPos + rowHeight).stroke("#000000");
+        doc.moveTo(colTotal, yPos).lineTo(colTotal, yPos + rowHeight).stroke("#000000");
+
+        // Contenido - centrado verticalmente con anchos ajustados
+        const textYOffset = (rowHeight - 10) / 2;
+
+        doc.text(item.codigo || item.codigoPrincipal || "001", colCodPrin + 3, yPos + textYOffset, {width: 60})
+            .text(item.codigoAuxiliar || "001", colCodAux + 3, yPos + textYOffset, {width: 60})
+            .text(item.cantidad.toFixed(2), colCant + 3, yPos + textYOffset, {width: 32, align: "right"})
+            .text(item.descripcion, colDesc + 3, yPos + 5, {width: 175}) // Ajustado a 175
+            .text(item.precioUnitario.toFixed(2), colPUnit + 3, yPos + textYOffset, {width: 57, align: "right"})
+            .text(item.descuento.toFixed(2), colDescuento + 3, yPos + textYOffset, {width: 47, align: "right"})
+            .text(item.subtotal.toFixed(2), colTotal + 3, yPos + textYOffset, {width: 55, align: "right"}); // Ajustado a 55
+
+        yPos += rowHeight;
+      });
+
+      yPos += 15;
+
+      // ═══════════════════════════════════════════════════════════════════
+      // FOOTER: INFORMACIÓN ADICIONAL (izquierda) + TOTALES (derecha)
+      // ═══════════════════════════════════════════════════════════════════
+
+      const footerLeftX = 40;
+      const footerLeftWidth = 290;
+      const footerRightX = 340;
+      const footerRightWidth = 215;
+
+      // ─────────────────────────────────────────────────────────────────
+      // LADO IZQUIERDO: Información Adicional en recuadro
+      // ─────────────────────────────────────────────────────────────────
+
+      const infoBoxHeight = 70;
+      doc.rect(footerLeftX, yPos, footerLeftWidth, infoBoxHeight).stroke("#000000");
+
+      // Header del recuadro
+      doc.font("Helvetica-Bold").fontSize(9)
+          .text("Información Adicional", footerLeftX + 5, yPos + 5);
+
+      doc.moveTo(footerLeftX, yPos + 18)
+          .lineTo(footerLeftX + footerLeftWidth, yPos + 18)
+          .stroke("#cccccc");
+
+      let infoYPos = yPos + 22;
+
+      doc.font("Helvetica").fontSize(8)
+          .text(`Teléfono: ${datosFactura.comprador.telefono}`, footerLeftX + 5, infoYPos, {width: footerLeftWidth - 10})
+          .text(`Email: ${datosFactura.comprador.correo}`, footerLeftX + 5, infoYPos + 12, {width: footerLeftWidth - 10});
+
+      // Tabla de Forma de Pago
+      let tableFPY = yPos + infoBoxHeight + 10;
+
+      doc.rect(footerLeftX, tableFPY, footerLeftWidth, 18).fillAndStroke("#eeeeee", "#000000");
+
+      doc.font("Helvetica-Bold").fontSize(8).fillColor("#000000")
+          .text("Forma de Pago", footerLeftX + 5, tableFPY + 5, {width: 200})
+          .text("Valor", footerLeftX + 210, tableFPY + 5, {width: 75, align: "right"});
+
+      tableFPY += 18;
+
+      doc.rect(footerLeftX, tableFPY, footerLeftWidth, 18).stroke("#000000");
+
+      const formaPagoTexto = datosFactura.formaPago || "OTROS CON UTILIZACION DEL SISTEMA FINANCIERO";
+
+      doc.font("Helvetica").fontSize(8)
+          .text(formaPagoTexto, footerLeftX + 5, tableFPY + 5, {width: 200})
+          .text(datosFactura.totales.total.toFixed(2), footerLeftX + 210, tableFPY + 5, {width: 75, align: "right"});
+
+      // ─────────────────────────────────────────────────────────────────
+      // LADO DERECHO: Tabla de Totales Detallados
+      // ─────────────────────────────────────────────────────────────────
+
+      const totales = [
+        {label: "SUBTOTAL 15%", value: datosFactura.totales.subtotalIva || datosFactura.totales.subtotal},
+        {label: "SUBTOTAL 0%", value: 0.00},
+        {label: "SUBTOTAL NO OBJETO DE IVA", value: 0.00},
+        {label: "SUBTOTAL EXENTO DE IVA", value: 0.00},
+        {label: "SUBTOTAL SIN IMPUESTOS", value: datosFactura.totales.subtotal},
+        {label: "TOTAL DESCUENTO", value: datosFactura.totales.descuento || 0.00},
+        {label: "ICE", value: 0.00},
+        {label: "IVA 15%", value: datosFactura.totales.valorIva},
+        {label: "PROPINA", value: 0.00},
+        {label: "VALOR TOTAL", value: datosFactura.totales.total, bold: true},
+      ];
+
+      let totalsYPos = yPos;
+
+      totales.forEach((item, index) => {
+        const rowHeight = 16;
+
+        // Borde de la fila
+        doc.rect(footerRightX, totalsYPos, footerRightWidth, rowHeight).stroke("#000000");
+
+        // Línea vertical entre label y value
+        doc.moveTo(footerRightX + 145, totalsYPos)
+            .lineTo(footerRightX + 145, totalsYPos + rowHeight)
+            .stroke("#000000");
+
+        // Contenido
+        if (item.bold) {
+          doc.font("Helvetica-Bold").fontSize(8);
+        } else {
+          doc.font("Helvetica").fontSize(8);
+        }
+
+        doc.text(item.label, footerRightX + 5, totalsYPos + 4, {width: 135})
+            .text(item.value.toFixed(2), footerRightX + 150, totalsYPos + 4, {width: 60, align: "right"});
+
+        totalsYPos += rowHeight;
+      });
+
+      doc.end();
+
+      logger.info("✅ [PDF] PDF generado exitosamente (formato oficial SRI completo)");
+    } catch (error) {
+      logger.error("❌ [PDF] Error al generar PDF:", error);
+      reject(error);
+    }
+  });
+}
+
+/**
+ * 🧪 FUNCIÓN DE PRUEBA: Generar PDF de factura
+ * Endpoint HTTP para probar la generación de PDF
+ */
+exports.probarGenerarPDF = onRequest({
+  cors: true,
+}, async (req, res) => {
+  try {
+    logger.info("🧪 [TEST PDF] Iniciando prueba de generación de PDF...");
+
+    // Datos de ejemplo de una factura
+    const datosFacturaEjemplo = {
+      claveAcceso: "0901202601100306653500110010010000000214719674916",
+      fechaEmision: "09/01/2026",
+      establecimiento: "001",
+      puntoEmision: "001",
+      secuencial: 21,
+      ambiente: "1",
+      fechaAutorizacion: "09/01/2026 12:58:01",
+      comprador: {
+        razonSocial: "Luis Fernando Palacios Ochoa",
+        identificacion: "1003066535001",
+        correo: "palaciosluisfer@gmail.com",
+        telefono: "0986134645",
+      },
+      items: [
+        {
+          cantidad: 1,
+          descripcion: "Pruebas del hogar",
+          precioUnitario: 65.00,
+          descuento: 0.00,
+          subtotal: 65.00,
+        },
+      ],
+      totales: {
+        subtotal: 69.35,
+        valorIva: 10.40,
+        total: 79.75,
+      },
+      formaPago: "Tarjeta de Crédito",
+    };
+
+    // Generar PDF
+    logger.info("📄 [TEST PDF] Generando PDF...");
+    const pdfBuffer = await generarPDFFactura(datosFacturaEjemplo);
+
+    logger.info("✅ [TEST PDF] PDF generado exitosamente");
+    logger.info(`📊 [TEST PDF] Tamaño del PDF: ${pdfBuffer.length} bytes`);
+
+    // Enviar PDF como respuesta para descarga
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", "attachment; filename=factura-prueba.pdf");
+    res.setHeader("Content-Length", pdfBuffer.length);
+    res.send(pdfBuffer);
+  } catch (error) {
+    logger.error("❌ [TEST PDF] Error al generar PDF:", error);
+    res.status(500).send({
+      success: false,
+      error: error.message,
+      stack: error.stack,
+    });
+  }
+});
+
+

@@ -1,222 +1,320 @@
-﻿claveAcceso
-"0901202601100306653500110010010000000214719674916"
-(string)
-
-
-
-comprador
-(map)
-
-
-correo
-"palaciosluisfer@gmail.com"
-(string)
-
-
-direccion
-"N/A"
-(string)
-
-
-identificacion
-"1003066535001"
-(string)
-
-
-razonSocial
-"Luis Fernando Palacios Ochoa"
-(string)
-
-
-telefono
-"0986134645"
-(string)
-
-
-tipoIdentificacion
-"04"
-(string)
-
-
-establecimiento
-"001"
-(string)
-
-
-estado
-"DEVUELTA"
-(string)
-
-
-fechaEmision
-9 de enero de 2026 a las 12:58:01 p.m. UTC-5
-(timestamp)
-
-
-
-mensajesErrorSRI
-(array)
-
-
-
-0
-(map)
-
-
-identificador
-"70"
-(string)
-
-
-informacionAdicional
-"La clave de acceso 0901202601100306653500110010010000000214719674916 esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI"
-(string)
-
-
-mensaje
-"CLAVE DE ACCESO EN PROCESAMIENTO "
-(string)
-
-
-tipo
-"ERROR"
-(string)
-
-
-orderId
-"t9hyjOEpEpWRreqAvDGN"
-(string)
-
-
-puntoEmision
-"001"
-(string)
-
-
-
-respuestaSRI
-(map)
-
-
-autorizacion
-null
-(null)
-
-
-autorizacionParsed
-null
-(null)
-
-
-esValido
-false
-(boolean)
-
-
-estado
-"DEVUELTA"
-(string)
-
-
-
-mensajesError
-(array)
-
-
-
-0
-(map)
-
-
-identificador
-"70"
-(string)
-
-
-informacionAdicional
-"La clave de acceso 0901202601100306653500110010010000000214719674916 esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI"
-(string)
-
-
-mensaje
-"CLAVE DE ACCESO EN PROCESAMIENTO "
-(string)
-
-
-tipo
-"ERROR"
-(string)
-
-
-recepcion
-"<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ns2:validarComprobanteResponse xmlns:ns2="http://ec.gob.sri.ws.recepcion"><RespuestaRecepcionComprobante><estado>DEVUELTA</estado><comprobantes><comprobante><claveAcceso>0901202601100306653500110010010000000214719674916</claveAcceso><mensajes><mensaje><identificador>70</identificador><mensaje>CLAVE DE ACCESO EN PROCESAMIENTO </mensaje><informacionAdicional>La clave de acceso 0901202601100306653500110010010000000214719674916 esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI</informacionAdicional><tipo>ERROR</tipo></mensaje></mensajes></comprobante></comprobantes></RespuestaRecepcionComprobante></ns2:validarComprobanteResponse></soap:Body></soap:Envelope>"
-(string)
-
-
-
-recepcionParsed
-(map)
-
-
-estado
-"DEVUELTA"
-(string)
-
-
-estadoValido
-false
-(boolean)
-
-
-
-mensajes
-(array)
-
-
-
-0
-(map)
-
-
-identificador
-"70"
-(string)
-
-
-informacionAdicional
-"La clave de acceso 0901202601100306653500110010010000000214719674916 esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI"
-(string)
-
-
-mensaje
-"CLAVE DE ACCESO EN PROCESAMIENTO "
-(string)
-
-
-tipo
-"ERROR"
-(string)
-
-
-secuencial
-21
-(number)
-
-
-totalAmount
-79.75
-(number)
-
-
-userId
-"VDySQoneyobxkrkbltDakKb0P0x2"
-(string)
-
-
-xml
-"<?xml version="1.0" encoding="UTF-8"?> <factura id="comprobante" version="1.0.0"> <infoTributaria> <ambiente>1</ambiente> <tipoEmision>1</tipoEmision> <razonSocial>PALACIOS OCHOA LUIS FERNANDO</razonSocial> <nombreComercial>P&amp;P BIENES RAICES</nombreComercial> <ruc>1003066535001</ruc> <claveAcceso>0901202601100306653500110010010000000214719674916</claveAcceso> <codDoc>01</codDoc> <estab>001</estab> <ptoEmi>001</ptoEmi> <secuencial>000000021</secuencial> <dirMatriz>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirMatriz> </infoTributaria> <infoFactura> <fechaEmision>09/01/2026</fechaEmision> <dirEstablecimiento>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirEstablecimiento> <obligadoContabilidad>NO</obligadoContabilidad> <tipoIdentificacionComprador>04</tipoIdentificacionComprador> <razonSocialComprador>Luis Fernando Palacios Ochoa</razonSocialComprador> <identificacionComprador>1003066535001</identificacionComprador> <direccionComprador>N/A</direccionComprador> <totalSinImpuestos>69.35</totalSinImpuestos> <totalDescuento>0.00</totalDescuento> <totalConImpuestos> <totalImpuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <baseImponible>69.35</baseImponible> <valor>10.40</valor> </totalImpuesto> </totalConImpuestos> <importeTotal>79.75</importeTotal> <moneda>DOLAR</moneda> <pagos> <pago> <formaPago>01</formaPago> <total>79.75</total> <plazo>0</plazo> <unidadTiempo>dias</unidadTiempo> </pago> </pagos> <valorRetIva>0.00</valorRetIva> <valorRetRenta>0.00</valorRetRenta> </infoFactura> <detalles> <detalle> <codigoPrincipal>7BFA7cXf2wuknASxHPKX</codigoPrincipal> <descripcion>pruebas del hogar</descripcion> <cantidad>1</cantidad> <precioUnitario>65.000000</precioUnitario> <descuento>0.00</descuento> <precioTotalSinImpuesto>65.00</precioTotalSinImpuesto> <impuestos> <impuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <tarifa>15</tarifa> <baseImponible>65.00</baseImponible> <valor>9.75</valor> </impuesto> </impuestos> </detalle> </detalles> <infoAdicional> <campoAdicional nombre="Correo">palaciosluisfer@gmail.com</campoAdicional> <campoAdicional nombre="Teléfono">0986134645</campoAdicional> </infoAdicional> <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="Signature0901202601100306653500110010010000000214719674916"> <ds:SignedInfo> <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/> <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/> <ds:Reference URI="#comprobante"> <ds:Transforms> <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/> </ds:Transforms> <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/> <ds:DigestValue>2VBrvhPHlSXAcIFpdhCCpmH7XvI=</ds:DigestValue> </ds:Reference> </ds:SignedInfo> <ds:SignatureValue>T6xrWpGdtcf992cEcWg5XXksJst0OpiEYigruaFRjLgRaf+qz60j9YkEdJQYLkRWdtDL3qnrJEMG1pY5Li7YjtwVZml5VoqozM/PKZkLuN78GTXMKQ9CJGbbtG+08WpiRGqThXlgqHtRpALIF9odFhe9hb2jirMjpnC0mD1GSF14oM0p/MXOEOfPlW9w5vhQfjkmURBVdy/1Cxl7cJfmdeqoUS4JO1WgiNry8nF50+kCSqIFYHCieFxSdV8bSR7PnQG96UDKMkbYnomj4AQMoNu+VHLXZjiBywLhdW7KZn2uUBJZcF8ABOPR72izeYt8kSJbwgB96mh0uR4gXkVXUw==</ds:SignatureValue> <ds:KeyInfo> <ds:X509Data> <ds:X509Certificate>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</ds:X509Certificate> </ds:X509Data> </ds:KeyInfo> </ds:Signature> </factura>"
-(string)
-
-
-xmlSinFirmar
-"<?xml version="1.0" encoding="UTF-8"?> <factura id="comprobante" version="1.0.0"> <infoTributaria> <ambiente>1</ambiente> <tipoEmision>1</tipoEmision> <razonSocial>PALACIOS OCHOA LUIS FERNANDO</razonSocial> <nombreComercial>P&amp;P BIENES RAICES</nombreComercial> <ruc>1003066535001</ruc> <claveAcceso>0901202601100306653500110010010000000214719674916</claveAcceso> <codDoc>01</codDoc> <estab>001</estab> <ptoEmi>001</ptoEmi> <secuencial>000000021</secuencial> <dirMatriz>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirMatriz> </infoTributaria> <infoFactura> <fechaEmision>09/01/2026</fechaEmision> <dirEstablecimiento>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirEstablecimiento> <obligadoContabilidad>NO</obligadoContabilidad> <tipoIdentificacionComprador>04</tipoIdentificacionComprador> <razonSocialComprador>Luis Fernando Palacios Ochoa</razonSocialComprador> <identificacionComprador>1003066535001</identificacionComprador> <direccionComprador>N/A</direccionComprador> <totalSinImpuestos>69.35</totalSinImpuestos> <totalDescuento>0.00</totalDescuento> <totalConImpuestos> <totalImpuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <baseImponible>69.35</baseImponible> <valor>10.40</valor> </totalImpuesto> </totalConImpuestos> <importeTotal>79.75</importeTotal> <moneda>DOLAR</moneda> <pagos> <pago> <formaPago>01</formaPago> <total>79.75</total> <plazo>0</plazo> <unidadTiempo>dias</unidadTiempo> </pago> </pagos> <valorRetIva>0.00</valorRetIva> <valorRetRenta>0.00</valorRetRenta> </infoFactura> <detalles> <detalle> <codigoPrincipal>7BFA7cXf2wuknASxHPKX</codigoPrincipal> <descripcion>pruebas del hogar</descripcion> <cantidad>1</cantidad> <precioUnitario>65.000000</precioUnitario> <descuento>0.00</descuento> <precioTotalSinImpuesto>65.00</precioTotalSinImpuesto> <impuestos> <impuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <tarifa>15</tarifa> <baseImponible>65.00</baseImponible> <valor>9.75</valor> </impuesto> </impuestos> </detalle> </detalles> <infoAdicional> <campoAdicional nombre="Correo">palaciosluisfer@gmail.com</campoAdicional> <campoAdicional nombre="Teléfono">0986134645</campoAdicional> </infoAdicional> </factura>"
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura Electrónica</title>
+    <style>
+        /* Estilos generales para simular hoja A4 */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0; /* Fondo gris para ver la hoja */
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+
+        /* Estructura del Encabezado */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .header-left {
+            width: 48%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo-placeholder {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-placeholder h2 {
+            margin: 0;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+
+        .company-info-box {
+            border: 1px solid #000;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .header-right {
+            width: 48%;
+            border: 1px solid #000;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        /* Textos */
+        .label {
+            font-weight: bold;
+        }
+
+        .ruc-number {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .factura-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .auth-number {
+            word-wrap: break-word;
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+
+        /* Datos del Cliente */
+        .client-info {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .info-row {
+            width: 100%;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2px;
+        }
+
+        .info-row span {
+            margin-right: 15px;
+        }
+
+        /* Tabla de Productos */
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .items-table th, .items-table td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .items-table th {
+            background-color: #eee;
+        }
+
+        .text-left { text-align: left !important; }
+        .text-right { text-align: right !important; }
+
+        /* Pie de página (Info Adicional y Totales) */
+        .footer-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .additional-info {
+            width: 55%;
+        }
+
+        .additional-info table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #000;
+            margin-bottom: 15px;
+        }
+
+        .additional-info th, .additional-info td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: left;
+        }
+
+        .totals-section {
+            width: 40%;
+        }
+
+        .totals-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .totals-table td {
+            border: 1px solid #000;
+            padding: 5px;
+        }
+
+        .barcode-section {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo-placeholder">
+                    <h2>PALACIOS OCHOA LUIS FERNANDO</h2>
+                </div>
+
+                <div class="company-info-box">
+                    <p class="label">PALACIOS OCHOA LUIS FERNANDO</p>
+                    <p><span class="label">Dirección Matriz:</span> SANCHEZ Y CIFUENTES 17-111 Y AV. [cite_start]TEODORO GOMEZ DE LA TORRE [cite: 11]</p>
+                    [cite_start]<p><span class="label">Dirección Sucursal:</span> IBARRA [cite: 11]</p>
+                    [cite_start]<p><span class="label">OBLIGADO A LLEVAR CONTABILIDAD:</span> NO [cite: 12]</p>
+                </div>
+            </div>
+
+            <div class="header-right">
+                [cite_start]<div class="ruc-number"><span class="label">R.U.C.:</span> 1003066535001 [cite: 3]</div>
+                <div class="factura-title">FACTURA</div>
+                <div>No. [cite_start]001-002-000000004 [cite: 6]</div>
+                <br>
+                <div class="label">NÚMERO DE AUTORIZACIÓN</div>
+                [cite_start]<div class="auth-number">1811202501100306653500120010020000000041234567814 [cite: 8]</div>
+
+                [cite_start]<p><span class="label">FECHA Y HORA DE AUTORIZACIÓN:</span><br> 2025/11/18 09:02:05 [cite: 10]</p>
+                [cite_start]<p><span class="label">AMBIENTE:</span> PRODUCCION [cite: 10]</p>
+                [cite_start]<p><span class="label">EMISIÓN:</span> NORMAL [cite: 10]</p>
+
+                <div class="label" style="margin-top: 10px;">CLAVE DE ACCESO</div>
+                <div class="auth-number" style="font-size: 10px; letter-spacing: 1px;">
+                    [cite_start]1811202501100306653500120010020000000041234567814 [cite: 8, 19]
+                </div>
+            </div>
+        </div>
+
+        <div class="client-info">
+            <div class="info-row">
+                [cite_start]<span class="label">Razón Social / Nombres y Apellidos:</span> DEBISOFT C.A. [cite: 14]
+            </div>
+            <div class="info-row">
+                [cite_start]<span class="label">Identificación:</span> 1091786547001 [cite: 20]
+                [cite_start]<span class="label" style="margin-left: 20px;">Fecha de Emisión:</span> 18/11/2025 [cite: 16]
+            </div>
+            <div class="info-row">
+                [cite_start]<span class="label">Dirección:</span> OBANDO LUNA 431 Y JACINTO EGAS ALMEIDA [cite: 17]
+            </div>
+        </div>
+
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Cod. Principal</th>
+                    <th>Cod. Auxiliar</th>
+                    <th>Cant</th>
+                    <th>Descripción</th>
+                    <th>Precio Unitario</th>
+                    <th>Descuento</th>
+                    <th>Precio Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>001</td>
+                    <td>1.00</td>
+                    <td class="text-left">SERVICIOS</td>
+                    <td class="text-right">450.00</td>
+                    <td class="text-right">0.00</td>
+                    <td class="text-right">450.00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer-section">
+            <div class="additional-info">
+                <div style="border: 1px solid #000; padding: 10px; margin-bottom: 10px;">
+                    <div class="label" style="margin-bottom: 5px; border-bottom: 1px solid #ccc;">Información Adicional</div>
+                    [cite_start]<p style="margin: 2px 0;"><strong>Telefono:</strong> 062603102 [cite: 25]</p>
+                    [cite_start]<p style="margin: 2px 0;"><strong>Email:</strong> contabilidad@debi.ec [cite: 26]</p>
+                </div>
+
+                <table style="margin-top: 10px;">
+                    <thead>
+                        <tr>
+                            <th style="background: #eee;">Forma de Pago</th>
+                            <th style="background: #eee;">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            [cite_start]<td>OTROS CON UTILIZACION DEL SISTEMA FINANCIERO [cite: 28]</td>
+                            [cite_start]<td class="text-right">517.50 [cite: 32]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="totals-section">
+                <table class="totals-table">
+                    <tr>
+                        <td class="text-left">SUBTOTAL 15%</td>
+                        <td class="text-right">450.00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">SUBTOTAL 0%</td>
+                        <td class="text-right">0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">SUBTOTAL NO OBJETO DE IVA</td>
+                        <td class="text-right">0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">SUBTOTAL EXENTO DE IVA</td>
+                        <td class="text-right">0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">SUBTOTAL SIN IMPUESTOS</td>
+                        <td class="text-right">450.00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">TOTAL DESCUENTO</td>
+                        <td class="text-right">0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">ICE</td>
+                        <td class="text-right">0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">IVA 15%</td>
+                        <td class="text-right">67.50</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">PROPINA</td>
+                        <td class="text-right">0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><strong>VALOR TOTAL</strong></td>
+                        <td class="text-right"><strong>517.50</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
