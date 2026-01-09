@@ -134,21 +134,26 @@ function generarClaveAcceso(fecha, tipoComprobante, ruc, ambiente, serie, numero
 
   logger.info(`[generarClaveAcceso] Parámetros: fecha=${fecha}, tipo=${tipoComprobante}, ruc=${ruc}, ambiente=${ambiente}, serie=${serie}, num=${numeroComprobante}, cod=${codigoNumerico}, emision=${tipoEmision}`);
 
-  // Formato: ddmmyyyyTTrrrrrrrrrraasssnnnnnnnnnc
-  // TT = Tipo comprobante (01 = Factura)
-  // a = Ambiente (1 = Pruebas, 2 = Producción)
-  // ss = Serie
-  // nnnnnnnnn = Número comprobante
-  // c = Dígito verificador (módulo 11)
+  // ✅ ESTRUCTURA CORRECTA DE LA CLAVE DE ACCESO (49 DÍGITOS):
+  // [Fecha 8][Tipo 2][RUC 13][Ambiente 1][Serie 6][Secuencial 9][CodNum 8][Emision 1][Verificador 1]
+  // El RUC va COMPLETO con 13 dígitos (ej: 1003066535001)
 
-  const claveBase = fecha.replace(/\//g, "") + // ddmmyyyy
-                    tipoComprobante.padStart(2, "0") + // TT
-                    ruc + // rrrrrrrrrrr
-                    ambiente + // a
-                    serie + // ss
-                    numeroComprobante.padStart(9, "0") + // nnnnnnnnn
-                    codigoNumerico.padStart(8, "0") + // cccccccc
-                    tipoEmision; // t
+  const claveBase = fecha.replace(/\//g, "") + // ddmmyyyy (8)
+                    tipoComprobante.padStart(2, "0") + // TT (2)
+                    ruc + // rrrrrrrrrrrr (13) ✅ RUC COMPLETO
+                    ambiente + // a (1)
+                    serie + // ssssss (6)
+                    numeroComprobante.padStart(9, "0") + // nnnnnnnnn (9)
+                    codigoNumerico.padStart(8, "0") + // cccccccc (8)
+                    tipoEmision; // t (1)
+
+  logger.info(`[generarClaveAcceso] Clave base generada: ${claveBase} (${claveBase.length} dígitos)`);
+  logger.info(`[generarClaveAcceso] Desglose: Fecha(8)=${fecha.replace(/\//g, "")} + Tipo(2)=${tipoComprobante.padStart(2, "0")} + RUC(13)=${ruc} + Ambiente(1)=${ambiente} + Serie(6)=${serie} + Sec(9)=${numeroComprobante.padStart(9, "0")} + Cod(8)=${codigoNumerico.padStart(8, "0")} + Emi(1)=${tipoEmision}`);
+
+  // VALIDACIÓN: La clave base debe tener 48 dígitos (sin el verificador)
+  if (claveBase.length !== 48) {
+    throw new Error(`ERROR: La clave base debe tener 48 dígitos, pero tiene ${claveBase.length}. Clave: ${claveBase}`);
+  }
 
   // Calcular dígito verificador (módulo 11)
   let suma = 0;
@@ -162,7 +167,16 @@ function generarClaveAcceso(fecha, tipoComprobante, ruc, ambiente, serie, numero
   const modulo = suma % 11;
   const digitoVerificador = modulo === 0 ? 0 : (11 - modulo);
 
-  return claveBase + digitoVerificador;
+  const claveAccesoFinal = claveBase + digitoVerificador;
+
+  logger.info(`[generarClaveAcceso] ✅ Clave de acceso generada: ${claveAccesoFinal} (${claveAccesoFinal.length} dígitos)`);
+
+  // VALIDACIÓN FINAL: La clave debe tener exactamente 49 dígitos
+  if (claveAccesoFinal.length !== 49) {
+    throw new Error(`ERROR CRÍTICO: La clave de acceso debe tener 49 dígitos, pero tiene ${claveAccesoFinal.length}. Clave: ${claveAccesoFinal}`);
+  }
+
+  return claveAccesoFinal;
 }
 
 /**

@@ -1,26 +1,5 @@
-﻿Respuesta Postman:
-{
-    "success": true,
-    "mensaje": "✅ Endpoint de prueba ejecutado correctamente",
-    "resultado": {
-        "success": false,
-        "claveAcceso": "0901202601100306653500110010010000000187625149713",
-        "estado": "DEVUELTA",
-        "mensaje": "Factura devuelta por el SRI. Motivo: CLAVE DE ACCESO EN PROCESAMIENTO ",
-        "mensajesError": [
-            {
-                "identificador": "70",
-                "mensaje": "CLAVE DE ACCESO EN PROCESAMIENTO ",
-                "informacionAdicional": "La clave de acceso 0901202601100306653500110010010000000187625149713  esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI",
-                "tipo": "ERROR"
-            }
-        ]
-    }
-}
-
-Respuesta coleccion "Facturas":
-claveAcceso
-"0901202601100306653500110010010000000187625149713"
+﻿claveAcceso
+"0901202601100306653500110010010000000214719674916"
 (string)
 
 
@@ -70,7 +49,7 @@ estado
 
 
 fechaEmision
-9 de enero de 2026 a las 10:36:26 a.m. UTC-5
+9 de enero de 2026 a las 12:58:01 p.m. UTC-5
 (timestamp)
 
 
@@ -90,7 +69,7 @@ identificador
 
 
 informacionAdicional
-"La clave de acceso 0901202601100306653500110010010000000187625149713 esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI"
+"La clave de acceso 0901202601100306653500110010010000000214719674916 esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI"
 (string)
 
 
@@ -105,7 +84,7 @@ tipo
 
 
 orderId
-"NuRfb6bQa7umkRiwudM2"
+"t9hyjOEpEpWRreqAvDGN"
 (string)
 
 
@@ -155,7 +134,7 @@ identificador
 
 
 informacionAdicional
-"La clave de acceso 0901202601100306653500110010010000000187625149713 esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI"
+"La clave de acceso 0901202601100306653500110010010000000214719674916 esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI"
 (string)
 
 
@@ -170,7 +149,7 @@ tipo
 
 
 recepcion
-"<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ns2:validarComprobanteResponse xmlns:ns2="http://ec.gob.sri.ws.recepcion"><RespuestaRecepcionComprobante><estado>DEVUELTA</estado><comprobantes><comprobante><claveAcceso>0901202601100306653500110010010000000187625149713</claveAcceso><mensajes><mensaje><identificador>70</identificador><mensaje>CLAVE DE ACCESO EN PROCESAMIENTO </mensaje><informacionAdicional>La clave de acceso 0901202601100306653500110010010000000187625149713 esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI</informacionAdicional><tipo>ERROR</tipo></mensaje></mensajes></comprobante></comprobantes></RespuestaRecepcionComprobante></ns2:validarComprobanteResponse></soap:Body></soap:Envelope>"
+"<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ns2:validarComprobanteResponse xmlns:ns2="http://ec.gob.sri.ws.recepcion"><RespuestaRecepcionComprobante><estado>DEVUELTA</estado><comprobantes><comprobante><claveAcceso>0901202601100306653500110010010000000214719674916</claveAcceso><mensajes><mensaje><identificador>70</identificador><mensaje>CLAVE DE ACCESO EN PROCESAMIENTO </mensaje><informacionAdicional>La clave de acceso 0901202601100306653500110010010000000214719674916 esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI</informacionAdicional><tipo>ERROR</tipo></mensaje></mensajes></comprobante></comprobantes></RespuestaRecepcionComprobante></ns2:validarComprobanteResponse></soap:Body></soap:Envelope>"
 (string)
 
 
@@ -205,7 +184,7 @@ identificador
 
 
 informacionAdicional
-"La clave de acceso 0901202601100306653500110010010000000187625149713 esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI"
+"La clave de acceso 0901202601100306653500110010010000000214719674916 esta en procesamiento VALOR DEVUELTO POR EL PROCEDIMIENTO: SI"
 (string)
 
 
@@ -220,12 +199,12 @@ tipo
 
 
 secuencial
-18
+21
 (number)
 
 
 totalAmount
-1615
+79.75
 (number)
 
 
@@ -235,353 +214,9 @@ userId
 
 
 xml
-"<?xml version="1.0" encoding="UTF-8"?> <factura id="comprobante" version="1.0.0"> <infoTributaria> <ambiente>1</ambiente> <tipoEmision>1</tipoEmision> <razonSocial>PALACIOS OCHOA LUIS FERNANDO</razonSocial> <nombreComercial>P&amp;P BIENES RAICES</nombreComercial> <ruc>1003066535001</ruc> <claveAcceso>0901202601100306653500110010010000000187625149713</claveAcceso> <codDoc>01</codDoc> <estab>001</estab> <ptoEmi>001</ptoEmi> <secuencial>000000018</secuencial> <dirMatriz>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirMatriz> </infoTributaria> <infoFactura> <fechaEmision>09/01/2026</fechaEmision> <dirEstablecimiento>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirEstablecimiento> <obligadoContabilidad>NO</obligadoContabilidad> <tipoIdentificacionComprador>04</tipoIdentificacionComprador> <razonSocialComprador>Luis Fernando Palacios Ochoa</razonSocialComprador> <identificacionComprador>1003066535001</identificacionComprador> <direccionComprador>N/A</direccionComprador> <totalSinImpuestos>1404.35</totalSinImpuestos> <totalDescuento>0.00</totalDescuento> <totalConImpuestos> <totalImpuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <baseImponible>1404.35</baseImponible> <valor>210.65</valor> </totalImpuesto> </totalConImpuestos> <importeTotal>1615.00</importeTotal> <moneda>DOLAR</moneda> <pagos> <pago> <formaPago>01</formaPago> <total>1615.00</total> <plazo>0</plazo> <unidadTiempo>dias</unidadTiempo> </pago> </pagos> <valorRetIva>0.00</valorRetIva> <valorRetRenta>0.00</valorRetRenta> </infoFactura> <detalles> <detalle> <codigoPrincipal>18zl4F8bmvrrxZaNagUo</codigoPrincipal> <descripcion>Asus ROG Strix (2025)</descripcion> <cantidad>1</cantidad> <precioUnitario>1400.000000</precioUnitario> <descuento>0.00</descuento> <precioTotalSinImpuesto>1400.00</precioTotalSinImpuesto> <impuestos> <impuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <tarifa>15</tarifa> <baseImponible>1400.00</baseImponible> <valor>210.00</valor> </impuesto> </impuestos> </detalle> </detalles> <infoAdicional> <campoAdicional nombre="Correo">palaciosluisfer@gmail.com</campoAdicional> <campoAdicional nombre="Teléfono">0986134645</campoAdicional> </infoAdicional> <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="Signature0901202601100306653500110010010000000187625149713"> <ds:SignedInfo> <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/> <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/> <ds:Reference URI="#comprobante"> <ds:Transforms> <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/> </ds:Transforms> <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/> <ds:DigestValue>RNxULvS7BxrAz89EzQl/2NkGXMw=</ds:DigestValue> </ds:Reference> </ds:SignedInfo> <ds:SignatureValue>H5d1uYWr8exJUGMRu52iCEYcZlzvYU9a740mQQzOa+355K5oc0L6Y1ZhhXh6qceu2/IvalFgBXpH/4VAThkT8zUhNw49LA7C4DKjNkjjQelLAzAhgupXkSsCdHS2AFkKvdL3QeG60aoBfGFlVfoS0F8yD0y3d8UUQVJ3lcn/tppjQ5wDtSbl1xySM1nWokpv23kjTrHC8l8ItzapcHbK0rQjzFt6PxNRdIN54I/0NpKrTXiz7g7GrzY+x81g8xatIaJW3qMbTJP6TYRLUjYGl5ISGxH4wRRZUaZBmpI4ZxxaZAILjDPu0k4Dj+tnQ/G12yKkQKw8l0eovAympuRL9g==</ds:SignatureValue> <ds:KeyInfo> <ds:X509Data> <ds:X509Certificate>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</ds:X509Certificate> </ds:X509Data> </ds:KeyInfo> </ds:Signature> </factura>"
+"<?xml version="1.0" encoding="UTF-8"?> <factura id="comprobante" version="1.0.0"> <infoTributaria> <ambiente>1</ambiente> <tipoEmision>1</tipoEmision> <razonSocial>PALACIOS OCHOA LUIS FERNANDO</razonSocial> <nombreComercial>P&amp;P BIENES RAICES</nombreComercial> <ruc>1003066535001</ruc> <claveAcceso>0901202601100306653500110010010000000214719674916</claveAcceso> <codDoc>01</codDoc> <estab>001</estab> <ptoEmi>001</ptoEmi> <secuencial>000000021</secuencial> <dirMatriz>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirMatriz> </infoTributaria> <infoFactura> <fechaEmision>09/01/2026</fechaEmision> <dirEstablecimiento>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirEstablecimiento> <obligadoContabilidad>NO</obligadoContabilidad> <tipoIdentificacionComprador>04</tipoIdentificacionComprador> <razonSocialComprador>Luis Fernando Palacios Ochoa</razonSocialComprador> <identificacionComprador>1003066535001</identificacionComprador> <direccionComprador>N/A</direccionComprador> <totalSinImpuestos>69.35</totalSinImpuestos> <totalDescuento>0.00</totalDescuento> <totalConImpuestos> <totalImpuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <baseImponible>69.35</baseImponible> <valor>10.40</valor> </totalImpuesto> </totalConImpuestos> <importeTotal>79.75</importeTotal> <moneda>DOLAR</moneda> <pagos> <pago> <formaPago>01</formaPago> <total>79.75</total> <plazo>0</plazo> <unidadTiempo>dias</unidadTiempo> </pago> </pagos> <valorRetIva>0.00</valorRetIva> <valorRetRenta>0.00</valorRetRenta> </infoFactura> <detalles> <detalle> <codigoPrincipal>7BFA7cXf2wuknASxHPKX</codigoPrincipal> <descripcion>pruebas del hogar</descripcion> <cantidad>1</cantidad> <precioUnitario>65.000000</precioUnitario> <descuento>0.00</descuento> <precioTotalSinImpuesto>65.00</precioTotalSinImpuesto> <impuestos> <impuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <tarifa>15</tarifa> <baseImponible>65.00</baseImponible> <valor>9.75</valor> </impuesto> </impuestos> </detalle> </detalles> <infoAdicional> <campoAdicional nombre="Correo">palaciosluisfer@gmail.com</campoAdicional> <campoAdicional nombre="Teléfono">0986134645</campoAdicional> </infoAdicional> <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="Signature0901202601100306653500110010010000000214719674916"> <ds:SignedInfo> <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/> <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/> <ds:Reference URI="#comprobante"> <ds:Transforms> <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/> </ds:Transforms> <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/> <ds:DigestValue>2VBrvhPHlSXAcIFpdhCCpmH7XvI=</ds:DigestValue> </ds:Reference> </ds:SignedInfo> <ds:SignatureValue>T6xrWpGdtcf992cEcWg5XXksJst0OpiEYigruaFRjLgRaf+qz60j9YkEdJQYLkRWdtDL3qnrJEMG1pY5Li7YjtwVZml5VoqozM/PKZkLuN78GTXMKQ9CJGbbtG+08WpiRGqThXlgqHtRpALIF9odFhe9hb2jirMjpnC0mD1GSF14oM0p/MXOEOfPlW9w5vhQfjkmURBVdy/1Cxl7cJfmdeqoUS4JO1WgiNry8nF50+kCSqIFYHCieFxSdV8bSR7PnQG96UDKMkbYnomj4AQMoNu+VHLXZjiBywLhdW7KZn2uUBJZcF8ABOPR72izeYt8kSJbwgB96mh0uR4gXkVXUw==</ds:SignatureValue> <ds:KeyInfo> <ds:X509Data> <ds:X509Certificate>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</ds:X509Certificate> </ds:X509Data> </ds:KeyInfo> </ds:Signature> </factura>"
 (string)
 
 
 xmlSinFirmar
-"<?xml version="1.0" encoding="UTF-8"?> <factura id="comprobante" version="1.0.0"> <infoTributaria> <ambiente>1</ambiente> <tipoEmision>1</tipoEmision> <razonSocial>PALACIOS OCHOA LUIS FERNANDO</razonSocial> <nombreComercial>P&amp;P BIENES RAICES</nombreComercial> <ruc>1003066535001</ruc> <claveAcceso>0901202601100306653500110010010000000187625149713</claveAcceso> <codDoc>01</codDoc> <estab>001</estab> <ptoEmi>001</ptoEmi> <secuencial>000000018</secuencial> <dirMatriz>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirMatriz> </infoTributaria> <infoFactura> <fechaEmision>09/01/2026</fechaEmision> <dirEstablecimiento>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirEstablecimiento> <obligadoContabilidad>NO</obligadoContabilidad> <tipoIdentificacionComprador>04</tipoIdentificacionComprador> <razonSocialComprador>Luis Fernando Palacios Ochoa</razonSocialComprador> <identificacionComprador>1003066535001</identificacionComprador> <direccionComprador>N/A</direccionComprador> <totalSinImpuestos>1404.35</totalSinImpuestos> <totalDescuento>0.00</totalDescuento> <totalConImpuestos> <totalImpuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <baseImponible>1404.35</baseImponible> <valor>210.65</valor> </totalImpuesto> </totalConImpuestos> <importeTotal>1615.00</importeTotal> <moneda>DOLAR</moneda> <pagos> <pago> <formaPago>01</formaPago> <total>1615.00</total> <plazo>0</plazo> <unidadTiempo>dias</unidadTiempo> </pago> </pagos> <valorRetIva>0.00</valorRetIva> <valorRetRenta>0.00</valorRetRenta> </infoFactura> <detalles> <detalle> <codigoPrincipal>18zl4F8bmvrrxZaNagUo</codigoPrincipal> <descripcion>Asus ROG Strix (2025)</descripcion> <cantidad>1</cantidad> <precioUnitario>1400.000000</precioUnitario> <descuento>0.00</descuento> <precioTotalSinImpuesto>1400.00</precioTotalSinImpuesto> <impuestos> <impuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <tarifa>15</tarifa> <baseImponible>1400.00</baseImponible> <valor>210.00</valor> </impuesto> </impuestos> </detalle> </detalles> <infoAdicional> <campoAdicional nombre="Correo">palaciosluisfer@gmail.com</campoAdicional> <campoAdicional nombre="Teléfono">0986134645</campoAdicional> </infoAdicional> </factura>"
-
-Respuesta de consola firebase:
-
-INFO 2026-01-09T15:36:24.252519Z ℹ️ [LOG] PASO 6: Generando XML de la factura
-  {
-    "textPayload": "ℹ️ [LOG] PASO 6: Generando XML de la factura",
-    "insertId": "696120780003da67e2d4866b",
-    "resource": {
-      "type": "cloud_run_revision",
-      "labels": {
-        "location": "us-central1",
-        "configuration_name": "generarfacturatest",
-        "revision_name": "generarfacturatest-00013-giq",
-        "project_id": "ecommerceapp-5f46c",
-        "service_name": "generarfacturatest"
-      }
-    },
-    "timestamp": "2026-01-09T15:36:24.252519Z",
-    "severity": "INFO",
-    "labels": {
-      "goog-drz-cloudfunctions-id": "generarfacturatest",
-      "instanceId": "0007e26d68444f6a551d553d68d355351eaa1858c016768f4341ad04f1982bff77afb3c9045283042e118731940229386d76d59f8b4f5197b1aa54d5a814bf1ae843ae71d6bede4dd3424b9321bb3e",
-      "goog-drz-cloudfunctions-location": "us-central1",
-      "firebase-functions-hash": "ad343f31184f1dcfd705ee957a2bfcc802dc3f40",
-      "goog-managed-by": "cloudfunctions",
-      "execution_id": "71grvgnhgt1b",
-      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00"
-    },
-    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
-    "trace": "projects/ecommerceapp-5f46c/traces/59b890eda05cc362582192ad8c095424",
-    "receiveTimestamp": "2026-01-09T15:36:24.308088868Z",
-    "spanId": "1040841742967287466"
-  }
-> INFO 2026-01-09T15:36:24.264450Z 📄 [DEBUG XML] Primeros 2000 caracteres del XML: <?xml version="1.0" encoding="UTF-8"?> <factura id="comprobante" version="1.0.0"> <infoTributaria> <ambiente>1</ambiente> <tipoEmision>1</tipoEmision> <razonSocial>PALACIOS OCHOA LUIS FERNANDO</razonSocial> <nombreComercial>P&amp;P BIENES RAICES</nombreComercial> <ruc>1003066535001</ruc> <claveAcceso>0901202601100306653500110010010000000187625149713</claveAcceso> <codDoc>01</codDoc> <estab>001</estab> <ptoEmi>001</ptoEmi> <secuencial>000000018</secuencial> <dirMatriz>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirMatriz> </infoTributaria> <infoFactura> <fechaEmision>09/01/2026</fechaEmision> <dirEstablecimiento>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirEstablecimiento> <obligadoContabilidad>NO</obligadoContabilidad> <tipoIdentificacionComprador>04</tipoIdentificacionComprador> <razonSocialComprador>Luis Fernando Palacios Ochoa</razonSocialComprador> <identificacionComprador>1003066535001</identificacionComprador> <direccionComprador>N/A</direccionComprador> <totalSinImpuestos>1404.35</totalSinImpuestos> <totalDescuento>0.00</totalDescuento> <totalConImpuestos> <totalImpuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <baseImponible>1404.35</baseImponible> <valor>210.65</valor> </totalImpuesto> </totalConImpuestos> <importeTotal>1615.00</importeTotal> <moneda>DOLAR</moneda> <pagos> <pago> <formaPago>01</formaPago> <total>1615.00</total> <plazo>0</plazo> <unidadTiempo>dias</unidadTiempo> </pago> </pagos> <valorRetIva>0.00</valorRetIva> <valorRetRenta>0.00</valorRetRenta> </infoFactura> <detalles> <detalle> <codigoPrincipal>18zl4F8bmvrrxZaNagUo</codigoPrincipal> <descripcion>Asus ROG Strix (2025)</descripcion> <cantida
-  {
-    "textPayload": "📄 [DEBUG XML] Primeros 2000 caracteres del XML:\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<factura id=\"comprobante\" version=\"1.0.0\">\n  <infoTributaria>\n    <ambiente>1</ambiente>\n    <tipoEmision>1</tipoEmision>\n    <razonSocial>PALACIOS OCHOA LUIS FERNANDO</razonSocial>\n    <nombreComercial>P&amp;P BIENES RAICES</nombreComercial>\n    <ruc>1003066535001</ruc>\n    <claveAcceso>0901202601100306653500110010010000000187625149713</claveAcceso>\n    <codDoc>01</codDoc>\n    <estab>001</estab>\n    <ptoEmi>001</ptoEmi>\n    <secuencial>000000018</secuencial>\n    <dirMatriz>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirMatriz>\n  </infoTributaria>\n  <infoFactura>\n    <fechaEmision>09/01/2026</fechaEmision>\n    <dirEstablecimiento>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirEstablecimiento>\n    <obligadoContabilidad>NO</obligadoContabilidad>\n    <tipoIdentificacionComprador>04</tipoIdentificacionComprador>\n    <razonSocialComprador>Luis Fernando Palacios Ochoa</razonSocialComprador>\n    <identificacionComprador>1003066535001</identificacionComprador>\n    <direccionComprador>N/A</direccionComprador>\n    <totalSinImpuestos>1404.35</totalSinImpuestos>\n    <totalDescuento>0.00</totalDescuento>\n    <totalConImpuestos>\n      <totalImpuesto>\n        <codigo>2</codigo>\n        <codigoPorcentaje>4</codigoPorcentaje>\n        <baseImponible>1404.35</baseImponible>\n        <valor>210.65</valor>\n      </totalImpuesto>\n    </totalConImpuestos>\n    <importeTotal>1615.00</importeTotal>\n    <moneda>DOLAR</moneda>\n    <pagos>\n      <pago>\n        <formaPago>01</formaPago>\n        <total>1615.00</total>\n        <plazo>0</plazo>\n        <unidadTiempo>dias</unidadTiempo>\n      </pago>\n    </pagos>\n    <valorRetIva>0.00</valorRetIva>\n    <valorRetRenta>0.00</valorRetRenta>\n  </infoFactura>\n  <detalles>\n    <detalle>\n      <codigoPrincipal>18zl4F8bmvrrxZaNagUo</codigoPrincipal>\n      <descripcion>Asus ROG Strix (2025)</descripcion>\n      <cantida",
-    "insertId": "696120780004090265f1cd53",
-    "resource": {
-      "type": "cloud_run_revision",
-      "labels": {
-        "service_name": "generarfacturatest",
-        "location": "us-central1",
-        "revision_name": "generarfacturatest-00013-giq",
-        "project_id": "ecommerceapp-5f46c",
-        "configuration_name": "generarfacturatest"
-      }
-    },
-    "timestamp": "2026-01-09T15:36:24.264450Z",
-    "severity": "INFO",
-    "labels": {
-      "goog-drz-cloudfunctions-id": "generarfacturatest",
-      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
-      "goog-managed-by": "cloudfunctions",
-      "firebase-functions-hash": "ad343f31184f1dcfd705ee957a2bfcc802dc3f40",
-      "instanceId": "0007e26d68444f6a551d553d68d355351eaa1858c016768f4341ad04f1982bff77afb3c9045283042e118731940229386d76d59f8b4f5197b1aa54d5a814bf1ae843ae71d6bede4dd3424b9321bb3e",
-      "execution_id": "71grvgnhgt1b",
-      "goog-drz-cloudfunctions-location": "us-central1"
-    },
-    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
-    "trace": "projects/ecommerceapp-5f46c/traces/59b890eda05cc362582192ad8c095424",
-    "receiveTimestamp": "2026-01-09T15:36:24.308088868Z",
-    "spanId": "1040841742967287466"
-  }
-> INFO 2026-01-09T15:36:24.264499Z 📄 [DEBUG XML] XML completo length: 2649
-  {
-    "textPayload": "📄 [DEBUG XML] XML completo length: 2649",
-    "insertId": "696120780004093307b608a9",
-    "resource": {
-      "type": "cloud_run_revision",
-      "labels": {
-        "location": "us-central1",
-        "project_id": "ecommerceapp-5f46c",
-        "configuration_name": "generarfacturatest",
-        "service_name": "generarfacturatest",
-        "revision_name": "generarfacturatest-00013-giq"
-      }
-    },
-    "timestamp": "2026-01-09T15:36:24.264499Z",
-    "severity": "INFO",
-    "labels": {
-      "firebase-functions-hash": "ad343f31184f1dcfd705ee957a2bfcc802dc3f40",
-      "instanceId": "0007e26d68444f6a551d553d68d355351eaa1858c016768f4341ad04f1982bff77afb3c9045283042e118731940229386d76d59f8b4f5197b1aa54d5a814bf1ae843ae71d6bede4dd3424b9321bb3e",
-      "goog-managed-by": "cloudfunctions",
-      "execution_id": "71grvgnhgt1b",
-      "goog-drz-cloudfunctions-location": "us-central1",
-      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
-      "goog-drz-cloudfunctions-id": "generarfacturatest"
-    },
-    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
-    "trace": "projects/ecommerceapp-5f46c/traces/59b890eda05cc362582192ad8c095424",
-    "receiveTimestamp": "2026-01-09T15:36:24.308088868Z",
-    "spanId": "1040841742967287466"
-  }
-> INFO 2026-01-09T15:36:24.264618Z 🔍 [DEBUG XML] Sección totalConImpuestos: <totalConImpuestos> <totalImpuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <baseImponible>1404.35</baseImponible> <valor>210.65</valor> </totalImpuesto> </totalConImpuestos> <importeTotal>1615.00</importeTotal> <moneda>DOLAR</moneda> <pagos> <pago> <formaPago>01</formaPago> <total>1615.00</total> <plazo>0</plazo> <unidadTiempo>dias</unidadTiempo> </pago> </pagos> <va
-  {
-    "textPayload": "🔍 [DEBUG XML] Sección totalConImpuestos:\n<totalConImpuestos>\n      <totalImpuesto>\n        <codigo>2</codigo>\n        <codigoPorcentaje>4</codigoPorcentaje>\n        <baseImponible>1404.35</baseImponible>\n        <valor>210.65</valor>\n      </totalImpuesto>\n    </totalConImpuestos>\n    <importeTotal>1615.00</importeTotal>\n    <moneda>DOLAR</moneda>\n    <pagos>\n      <pago>\n        <formaPago>01</formaPago>\n        <total>1615.00</total>\n        <plazo>0</plazo>\n        <unidadTiempo>dias</unidadTiempo>\n      </pago>\n    </pagos>\n    <va",
-    "insertId": "69612078000409aa03b7a8d0",
-    "resource": {
-      "type": "cloud_run_revision",
-      "labels": {
-        "revision_name": "generarfacturatest-00013-giq",
-        "service_name": "generarfacturatest",
-        "project_id": "ecommerceapp-5f46c",
-        "location": "us-central1",
-        "configuration_name": "generarfacturatest"
-      }
-    },
-    "timestamp": "2026-01-09T15:36:24.264618Z",
-    "severity": "INFO",
-    "labels": {
-      "goog-managed-by": "cloudfunctions",
-      "goog-drz-cloudfunctions-id": "generarfacturatest",
-      "instanceId": "0007e26d68444f6a551d553d68d355351eaa1858c016768f4341ad04f1982bff77afb3c9045283042e118731940229386d76d59f8b4f5197b1aa54d5a814bf1ae843ae71d6bede4dd3424b9321bb3e",
-      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
-      "goog-drz-cloudfunctions-location": "us-central1",
-      "firebase-functions-hash": "ad343f31184f1dcfd705ee957a2bfcc802dc3f40",
-      "execution_id": "71grvgnhgt1b"
-    },
-    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
-    "trace": "projects/ecommerceapp-5f46c/traces/59b890eda05cc362582192ad8c095424",
-    "receiveTimestamp": "2026-01-09T15:36:24.308088868Z",
-    "spanId": "1040841742967287466"
-  }
-> INFO 2026-01-09T15:36:24.324222Z ✅ [LOG] PASO 6 COMPLETADO: XML generado
-  {
-    "insertId": "696120780004f27ec67a24a0",
-    "jsonPayload": {
-      "message": "✅ [LOG] PASO 6 COMPLETADO: XML generado",
-      "xmlLength": 2649,
-      "xmlPreview": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<factura id=\"comprobante\" version=\"1.0.0\">\n  <infoTributaria>\n    <ambiente>1</ambiente>\n    <tipoEmision>1</tipoEmision>\n    <razonSocial>PALACIOS OCHOA LUIS FERNANDO</razonSocial>\n    <nombreComercial>P&amp;P BIENES RAICES</nombreComercial>\n    <ruc>1003066535001</ruc>\n    <claveAcceso>0901202601100306653500110010010000000187625149713</claveAcceso>\n    <codDoc>01</codDoc>\n    <estab>001</estab>\n    <ptoEmi>001</ptoEmi>\n    <secuencial>000000018</secuencial>\n    <dirMatriz>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirMatriz>\n  </infoTributaria>\n  <infoFactura>\n    <fechaEmision>09/01/2026</fechaEmision>\n    <dirEstablecimiento>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirEstablecimiento>\n    <obligadoContabilidad>NO</obligadoContabilidad>\n    <tipoIdentificacionComprador>04</tipoIdentificacionComprador>\n    <razonSocialComprador>Luis Fernan"
-    },
-    "resource": {
-      "type": "cloud_run_revision",
-      "labels": {
-        "project_id": "ecommerceapp-5f46c",
-        "service_name": "generarfacturatest",
-        "configuration_name": "generarfacturatest",
-        "revision_name": "generarfacturatest-00013-giq",
-        "location": "us-central1"
-      }
-    },
-    "timestamp": "2026-01-09T15:36:24.324222Z",
-    "severity": "INFO",
-    "labels": {
-      "firebase-functions-hash": "ad343f31184f1dcfd705ee957a2bfcc802dc3f40",
-      "instanceId": "0007e26d68444f6a551d553d68d355351eaa1858c016768f4341ad04f1982bff77afb3c9045283042e118731940229386d76d59f8b4f5197b1aa54d5a814bf1ae843ae71d6bede4dd3424b9321bb3e",
-      "goog-drz-cloudfunctions-location": "us-central1",
-      "execution_id": "71grvgnhgt1b",
-      "goog-drz-cloudfunctions-id": "generarfacturatest",
-      "goog-managed-by": "cloudfunctions",
-      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00"
-    },
-    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
-    "trace": "projects/ecommerceapp-5f46c/traces/59b890eda05cc362582192ad8c095424",
-    "receiveTimestamp": "2026-01-09T15:36:24.641725727Z",
-    "spanId": "1040841742967287466"
-  }
-> INFO 2026-01-09T15:36:24.324344Z 📄 [generarFactura] XML generado correctamente
-  {
-    "textPayload": "📄 [generarFactura] XML generado correctamente",
-    "insertId": "696120780004f2f863b3f8be",
-    "resource": {
-      "type": "cloud_run_revision",
-      "labels": {
-        "location": "us-central1",
-        "service_name": "generarfacturatest",
-        "configuration_name": "generarfacturatest",
-        "project_id": "ecommerceapp-5f46c",
-        "revision_name": "generarfacturatest-00013-giq"
-      }
-    },
-    "timestamp": "2026-01-09T15:36:24.324344Z",
-    "severity": "INFO",
-    "labels": {
-      "firebase-functions-hash": "ad343f31184f1dcfd705ee957a2bfcc802dc3f40",
-      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
-      "goog-drz-cloudfunctions-location": "us-central1",
-      "goog-drz-cloudfunctions-id": "generarfacturatest",
-      "execution_id": "71grvgnhgt1b",
-      "instanceId": "0007e26d68444f6a551d553d68d355351eaa1858c016768f4341ad04f1982bff77afb3c9045283042e118731940229386d76d59f8b4f5197b1aa54d5a814bf1ae843ae71d6bede4dd3424b9321bb3e",
-      "goog-managed-by": "cloudfunctions"
-    },
-    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
-    "trace": "projects/ecommerceapp-5f46c/traces/59b890eda05cc362582192ad8c095424",
-    "receiveTimestamp": "2026-01-09T15:36:24.641725727Z",
-    "spanId": "1040841742967287466"
-  }
-> INFO 2026-01-09T15:36:24.386368Z ℹ️ [LOG] PASO 7: Firmando XML con certificado digital
-  {
-    "textPayload": "ℹ️ [LOG] PASO 7: Firmando XML con certificado digital",
-    "insertId": "696120780005e540fad29ef4",
-    "resource": {
-      "type": "cloud_run_revision",
-      "labels": {
-        "revision_name": "generarfacturatest-00013-giq",
-        "service_name": "generarfacturatest",
-        "project_id": "ecommerceapp-5f46c",
-        "location": "us-central1",
-        "configuration_name": "generarfacturatest"
-      }
-    },
-    "timestamp": "2026-01-09T15:36:24.386368Z",
-    "severity": "INFO",
-    "labels": {
-      "instanceId": "0007e26d68444f6a551d553d68d355351eaa1858c016768f4341ad04f1982bff77afb3c9045283042e118731940229386d76d59f8b4f5197b1aa54d5a814bf1ae843ae71d6bede4dd3424b9321bb3e",
-      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
-      "firebase-functions-hash": "ad343f31184f1dcfd705ee957a2bfcc802dc3f40",
-      "goog-drz-cloudfunctions-id": "generarfacturatest",
-      "goog-managed-by": "cloudfunctions",
-      "execution_id": "71grvgnhgt1b",
-      "goog-drz-cloudfunctions-location": "us-central1"
-    },
-    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
-    "trace": "projects/ecommerceapp-5f46c/traces/59b890eda05cc362582192ad8c095424",
-    "receiveTimestamp": "2026-01-09T15:36:24.641725727Z",
-    "spanId": "1040841742967287466"
-  }
-> INFO 2026-01-09T15:36:25.042982Z ✅ [LOG] PASO 7 COMPLETADO: XML firmado correctamente
-  {
-    "insertId": "696120790000a7e61915f272",
-    "jsonPayload": {
-      "xmlFirmadoLength": 6594,
-      "message": "✅ [LOG] PASO 7 COMPLETADO: XML firmado correctamente"
-    },
-    "resource": {
-      "type": "cloud_run_revision",
-      "labels": {
-        "project_id": "ecommerceapp-5f46c",
-        "revision_name": "generarfacturatest-00013-giq",
-        "service_name": "generarfacturatest",
-        "configuration_name": "generarfacturatest",
-        "location": "us-central1"
-      }
-    },
-    "timestamp": "2026-01-09T15:36:25.042982Z",
-    "severity": "INFO",
-    "labels": {
-      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
-      "goog-drz-cloudfunctions-location": "us-central1",
-      "execution_id": "71grvgnhgt1b",
-      "goog-managed-by": "cloudfunctions",
-      "instanceId": "0007e26d68444f6a551d553d68d355351eaa1858c016768f4341ad04f1982bff77afb3c9045283042e118731940229386d76d59f8b4f5197b1aa54d5a814bf1ae843ae71d6bede4dd3424b9321bb3e",
-      "goog-drz-cloudfunctions-id": "generarfacturatest",
-      "firebase-functions-hash": "ad343f31184f1dcfd705ee957a2bfcc802dc3f40"
-    },
-    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
-    "trace": "projects/ecommerceapp-5f46c/traces/59b890eda05cc362582192ad8c095424",
-    "receiveTimestamp": "2026-01-09T15:36:25.307310089Z",
-    "spanId": "1040841742967287466"
-  }
-> INFO 2026-01-09T15:36:25.043090Z ✅ [generarFactura] XML firmado correctamente
-  {
-    "textPayload": "✅ [generarFactura] XML firmado correctamente",
-    "insertId": "696120790000a8523c0a1018",
-    "resource": {
-      "type": "cloud_run_revision",
-      "labels": {
-        "revision_name": "generarfacturatest-00013-giq",
-        "location": "us-central1",
-        "project_id": "ecommerceapp-5f46c",
-        "service_name": "generarfacturatest",
-        "configuration_name": "generarfacturatest"
-      }
-    },
-    "timestamp": "2026-01-09T15:36:25.043090Z",
-    "severity": "INFO",
-    "labels": {
-      "execution_id": "71grvgnhgt1b",
-      "goog-drz-cloudfunctions-location": "us-central1",
-      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
-      "goog-drz-cloudfunctions-id": "generarfacturatest",
-      "goog-managed-by": "cloudfunctions",
-      "instanceId": "0007e26d68444f6a551d553d68d355351eaa1858c016768f4341ad04f1982bff77afb3c9045283042e118731940229386d76d59f8b4f5197b1aa54d5a814bf1ae843ae71d6bede4dd3424b9321bb3e",
-      "firebase-functions-hash": "ad343f31184f1dcfd705ee957a2bfcc802dc3f40"
-    },
-    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
-    "trace": "projects/ecommerceapp-5f46c/traces/59b890eda05cc362582192ad8c095424",
-    "receiveTimestamp": "2026-01-09T15:36:25.307310089Z",
-    "spanId": "1040841742967287466"
-  }
-> INFO 2026-01-09T15:36:25.102931Z ℹ️ [LOG] PASO 8: Enviando factura al SRI
-  {
-    "insertId": "6961207900019213fb995a3e",
-    "jsonPayload": {
-      "message": "ℹ️ [LOG] PASO 8: Enviando factura al SRI",
-      "urlRecepcion": "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl",
-      "urlAutorizacion": "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl"
-    },
-    "resource": {
-      "type": "cloud_run_revision",
-      "labels": {
-        "location": "us-central1",
-        "configuration_name": "generarfacturatest",
-        "revision_name": "generarfacturatest-00013-giq",
-        "service_name": "generarfacturatest",
-        "project_id": "ecommerceapp-5f46c"
-      }
-    },
-    "timestamp": "2026-01-09T15:36:25.102931Z",
-    "severity": "INFO",
-    "labels": {
-      "goog-drz-cloudfunctions-location": "us-central1",
-      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
-      "goog-managed-by": "cloudfunctions",
-      "execution_id": "71grvgnhgt1b",
-      "firebase-functions-hash": "ad343f31184f1dcfd705ee957a2bfcc802dc3f40",
-      "instanceId": "0007e26d68444f6a551d553d68d355351eaa1858c016768f4341ad04f1982bff77afb3c9045283042e118731940229386d76d59f8b4f5197b1aa54d5a814bf1ae843ae71d6bede4dd3424b9321bb3e",
-      "goog-drz-cloudfunctions-id": "generarfacturatest"
-    },
-    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
-    "trace": "projects/ecommerceapp-5f46c/traces/59b890eda05cc362582192ad8c095424",
-    "receiveTimestamp": "2026-01-09T15:36:25.307310089Z",
-    "spanId": "1040841742967287466"
-  }
-> INFO 2026-01-09T15:36:25.103041Z 📤 [generarFactura] Enviando al SRI...
-  {
-    "textPayload": "📤 [generarFactura] Enviando al SRI...",
-    "insertId": "69612079000192810bd06c10",
-    "resource": {
-      "type": "cloud_run_revision",
-      "labels": {
-        "project_id": "ecommerceapp-5f46c",
-        "configuration_name": "generarfacturatest",
-        "location": "us-central1",
-        "service_name": "generarfacturatest",
-        "revision_name": "generarfacturatest-00013-giq"
-      }
-    },
-    "timestamp": "2026-01-09T15:36:25.103041Z",
-    "severity": "INFO",
-    "labels": {
-      "instanceId": "0007e26d68444f6a551d553d68d355351eaa1858c016768f4341ad04f1982bff77afb3c9045283042e118731940229386d76d59f8b4f5197b1aa54d5a814bf1ae843ae71d6bede4dd3424b9321bb3e",
-      "goog-managed-by": "cloudfunctions",
-      "goog-drz-cloudfunctions-location": "us-central1",
-      "goog-drz-cloudfunctions-id": "generarfacturatest",
-      "firebase-functions-hash": "ad343f31184f1dcfd705ee957a2bfcc802dc3f40",
-      "execution_id": "71grvgnhgt1b",
-      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00"
-    },
-    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
-    "trace": "projects/ecommerceapp-5f46c/traces/59b890eda05cc362582192ad8c095424",
-    "receiveTimestamp": "2026-01-09T15:36:25.307310089Z",
-    "spanId": "1040841742967287466"
-  }
+"<?xml version="1.0" encoding="UTF-8"?> <factura id="comprobante" version="1.0.0"> <infoTributaria> <ambiente>1</ambiente> <tipoEmision>1</tipoEmision> <razonSocial>PALACIOS OCHOA LUIS FERNANDO</razonSocial> <nombreComercial>P&amp;P BIENES RAICES</nombreComercial> <ruc>1003066535001</ruc> <claveAcceso>0901202601100306653500110010010000000214719674916</claveAcceso> <codDoc>01</codDoc> <estab>001</estab> <ptoEmi>001</ptoEmi> <secuencial>000000021</secuencial> <dirMatriz>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirMatriz> </infoTributaria> <infoFactura> <fechaEmision>09/01/2026</fechaEmision> <dirEstablecimiento>IMBABURA / IBARRA / SAN FRANCISCO / SANCHEZ Y CIFUENTES 17-111 Y AV. TEODORO GOMEZ DE LA TORRE</dirEstablecimiento> <obligadoContabilidad>NO</obligadoContabilidad> <tipoIdentificacionComprador>04</tipoIdentificacionComprador> <razonSocialComprador>Luis Fernando Palacios Ochoa</razonSocialComprador> <identificacionComprador>1003066535001</identificacionComprador> <direccionComprador>N/A</direccionComprador> <totalSinImpuestos>69.35</totalSinImpuestos> <totalDescuento>0.00</totalDescuento> <totalConImpuestos> <totalImpuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <baseImponible>69.35</baseImponible> <valor>10.40</valor> </totalImpuesto> </totalConImpuestos> <importeTotal>79.75</importeTotal> <moneda>DOLAR</moneda> <pagos> <pago> <formaPago>01</formaPago> <total>79.75</total> <plazo>0</plazo> <unidadTiempo>dias</unidadTiempo> </pago> </pagos> <valorRetIva>0.00</valorRetIva> <valorRetRenta>0.00</valorRetRenta> </infoFactura> <detalles> <detalle> <codigoPrincipal>7BFA7cXf2wuknASxHPKX</codigoPrincipal> <descripcion>pruebas del hogar</descripcion> <cantidad>1</cantidad> <precioUnitario>65.000000</precioUnitario> <descuento>0.00</descuento> <precioTotalSinImpuesto>65.00</precioTotalSinImpuesto> <impuestos> <impuesto> <codigo>2</codigo> <codigoPorcentaje>4</codigoPorcentaje> <tarifa>15</tarifa> <baseImponible>65.00</baseImponible> <valor>9.75</valor> </impuesto> </impuestos> </detalle> </detalles> <infoAdicional> <campoAdicional nombre="Correo">palaciosluisfer@gmail.com</campoAdicional> <campoAdicional nombre="Teléfono">0986134645</campoAdicional> </infoAdicional> </factura>"
