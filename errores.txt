@@ -1,43 +1,18 @@
-﻿G TO ROUTE /CheckoutScreen
-[GETX] Instance "OrderRepository" has been created
-[GETX] Instance "OrderRepository" has been initialized
-[GETX] Instance "OrderController" has been created
-[GETX] Instance "OrderController" has been initialized
-E/GoogleApiManager(26648): Failed to get service from broker.
-E/GoogleApiManager(26648): java.lang.SecurityException: Unknown calling package name 'com.google.android.gms'.
-E/GoogleApiManager(26648): 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3354)
-E/GoogleApiManager(26648): 	at android.os.Parcel.createException(Parcel.java:3338)
-E/GoogleApiManager(26648): 	at android.os.Parcel.readException(Parcel.java:3321)
-E/GoogleApiManager(26648): 	at android.os.Parcel.readException(Parcel.java:3263)
-E/GoogleApiManager(26648): 	at bddz.a(:com.google.android.gms@254932035@25.49.32 (260400-843446962):36)
-E/GoogleApiManager(26648): 	at bdca.z(:com.google.android.gms@254932035@25.49.32 (260400-843446962):143)
-E/GoogleApiManager(26648): 	at bcid.run(:com.google.android.gms@254932035@25.49.32 (260400-843446962):42)
-E/GoogleApiManager(26648): 	at android.os.Handler.handleCallback(Handler.java:995)
-E/GoogleApiManager(26648): 	at android.os.Handler.dispatchMessage(Handler.java:103)
-E/GoogleApiManager(26648): 	at cqne.mv(:com.google.android.gms@254932035@25.49.32 (260400-843446962):1)
-E/GoogleApiManager(26648): 	at cqne.dispatchMessage(:com.google.android.gms@254932035@25.49.32 (260400-843446962):5)
-E/GoogleApiManager(26648): 	at android.os.Looper.loopOnce(Looper.java:273)
-E/GoogleApiManager(26648): 	at android.os.Looper.loop(Looper.java:363)
-E/GoogleApiManager(26648): 	at android.os.HandlerThread.run(HandlerThread.java:85)
-W/GoogleApiManager(26648): Not showing notification since connectionResult is not user-facing: ConnectionResult{statusCode=DEVELOPER_ERROR, resolution=null, message=null, clientMethodKey=null}
-[GETX] OPEN DIALOG 66620549
-[GETX] CLOSE DIALOG 66620549
-I/flutter (26648): 📍 [OrderController] Dirección seleccionada: Daniela Salome Palacios Ochoa
-I/flutter (26648): 📍 [OrderController] Dirección completa: Calle sin Nombre y la que cruza, Ibarra, Imbabura, 100101, Ecuador
-I/flutter (26648): ✅ [OrderController] Pedido guardado con ID: BwuXeUqg9ooSXo1Vks0V
-I/flutter (26648): 📦 Actualizando stock de productos...
-I/flutter (26648): ✅ Stock de variación actualizado: 25 -> 24
-I/flutter (26648): ✅ Stock actualizado correctamente
-I/flutter (26648): 📄 [OrderController] Generando factura electrónica SRI...
-I/ple.tienda_ropa(26648): hiddenapi: Accessing hidden method Ldalvik/system/CloseGuard;->get()Ldalvik/system/CloseGuard; (runtime_flags=CorePlatformApi, domain=core-platform, api=unsupported,core-platform-api) from Lokhttp3/internal/platform/AndroidPlatform$CloseGuard; (domain=app) using reflection: allowed
-I/ple.tienda_ropa(26648): hiddenapi: Accessing hidden method Ldalvik/system/CloseGuard;->open(Ljava/lang/String;)V (runtime_flags=CorePlatformApi, domain=core-platform, api=unsupported,core-platform-api) from Lokhttp3/internal/platform/AndroidPlatform$CloseGuard; (domain=app) using reflection: allowed
-I/ple.tienda_ropa(26648): hiddenapi: Accessing hidden method Ldalvik/system/CloseGuard;->warnIfOpen()V (runtime_flags=CorePlatformApi, domain=core-platform, api=unsupported,core-platform-api) from Lokhttp3/internal/platform/AndroidPlatform$CloseGuard; (domain=app) using reflection: allowed
-W/FirebaseContextProvider(26648): Error getting App Check token. Error: com.google.firebase.FirebaseException: No AppCheckProvider installed.
-I/flutter (26648): ✅ [OrderController] Factura generada exitosamente
-[GETX] REPLACE ROUTE /CheckoutScreen
-[GETX] NEW ROUTE /SuccessScreen
-I/VRI[MainActivity]@973fd7a(26648): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@973fd7a
-[GETX] "OrderRepository" onDelete() called
-[GETX] "OrderRepository" deleted from memory
-[GETX] "OrderController" onDelete() called
-[GETX] "OrderController" deleted from memory
+﻿{
+    "success": true,
+    "mensaje": "✅ Endpoint de prueba ejecutado correctamente",
+    "resultado": {
+        "success": false,
+        "claveAcceso": "0801202601100306653500110010010000000035152018110",
+        "estado": "DEVUELTA",
+        "mensaje": "Factura devuelta por el SRI. Motivo: ARCHIVO NO CUMPLE ESTRUCTURA XML",
+        "mensajesError": [
+            {
+                "identificador": "35",
+                "mensaje": "ARCHIVO NO CUMPLE ESTRUCTURA XML",
+                "informacionAdicional": "Se encontró el siguiente error en la estructura del comprobante: cvc-maxLength-valid: Value 'VDySQoneyobxkrkbltDakKb0P0x2' with length = '28' is not facet-valid with respect to maxLength '20' for type 'identificacionComprador'..",
+                "tipo": "ERROR"
+            }
+        ]
+    }
+}

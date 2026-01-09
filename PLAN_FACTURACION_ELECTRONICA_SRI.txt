@@ -7,10 +7,11 @@ Stack: Flutter ? Firebase Cloud Functions ? SRI SOAP APIs
 ===============================================================================
   ESTADO DEL PROYECTO
 ===============================================================================
-[OK] FASE 1: PREPARACION (COMPLETADA - 08/01/2026)
-[OK] FASE 2: DESPLEGAR A FIREBASE (COMPLETADA - 08/01/2026)
-[ ] FASE 3: INTEGRACION CON FLUTTER
-[ ] FASE 4: PRUEBAS Y REFINAMIENTO
+[✅] FASE 1: PREPARACIÓN (COMPLETADA - 08/01/2026)
+[✅] FASE 2: DESPLEGAR A FIREBASE (COMPLETADA - 08/01/2026)
+[✅] FASE 3: INTEGRACIÓN CON FLUTTER (COMPLETADA - 08/01/2026)
+[✅] OPCIÓN A+C: SISTEMA DE DEBUGGING AVANZADO (COMPLETADA - 08/01/2026)
+[🔄] FASE 4: PRUEBAS Y REFINAMIENTO (EN CURSO)
 ===============================================================================
   FASE 1: PREPARACION DEL PROYECTO [COMPLETADA]
 ===============================================================================
@@ -84,7 +85,70 @@ PASO 3.3: [ ] Notificaciones
   - Enviar email con factura PDF
   - Notificacion push cuando se autorice
 ===============================================================================
-  FASE 4: PRUEBAS
+  OPCIÓN A+C: SISTEMA DE DEBUGGING AVANZADO [COMPLETADA - 08/01/2026]
+===============================================================================
+IMPLEMENTACIÓN: Sistema de logs detallados + Endpoint HTTP de prueba
+
+PASO A1: [✅] Función Helper de Logging
+  - guardarLogFacturacion() implementada
+  - Logs persistentes en colección "FacturasDebug"
+  - 4 tipos: INFO, SUCCESS, WARNING, ERROR
+  - Timestamp formateado incluido
+
+PASO A2: [✅] 11 Pasos del Proceso Documentados
+  - PASO 1: Buscar pedido en Firestore
+  - PASO 2: Validar configuración de empresa
+  - PASO 3: Obtener/Crear secuencial
+  - PASO 4: Generar clave de acceso
+  - PASO 5: Preparar datos de factura
+  - PASO 6: Generar XML
+  - PASO 7: Firmar XML con certificado
+  - PASO 8: Enviar al SRI
+  - PASO 9: Guardar factura en Firestore
+  - PASO 10: Actualizar secuencial
+  - PASO 11: Actualizar pedido
+
+PASO A3: [✅] Lógica Extraída a Función Helper
+  - procesarGeneracionFactura() creada
+  - Reutilizable desde onCall y HTTP
+  - Logging completo en cada paso
+
+PASO C1: [✅] Endpoint HTTP de Prueba Creado
+  - Función: generarFacturaTest (onRequest)
+  - URL: https://us-central1-ecommerceapp-5f46c.cloudfunctions.net/generarFacturaTest
+  - Método: POST
+  - CORS habilitado
+  - Respuestas JSON detalladas
+
+PASO C2: [✅] Funciones Desplegadas
+  - generarFactura (actualizada con logs)
+  - generarFacturaTest (nueva - HTTP endpoint)
+  - consultarAutorizacion (sin cambios)
+
+PASO C3: [✅] Emuladores Desactivados
+  - useFunctionsEmulator = false en main.dart
+  - Sistema funcionando 100% en producción
+  - Logs visibles inmediatamente
+
+PASO C4: [✅] Documentación Creada
+  - GUIA_DEBUGGING_FACTURACION.txt (Guía completa)
+  - COMO_OBTENER_IDS_PRUEBA.txt (Ayuda para testing)
+
+HERRAMIENTAS DE DEBUGGING DISPONIBLES:
+  ✅ Firebase Console Logs (tiempo real)
+  ✅ Firestore FacturasDebug (persistente)
+  ✅ Endpoint HTTP para Postman/Thunder Client
+  ✅ Logs detallados en cada paso del proceso
+  ✅ Stack traces completos en errores
+
+CÓMO USAR:
+  1. Ver GUIA_DEBUGGING_FACTURACION.txt para instrucciones completas
+  2. Usar Postman con endpoint HTTP para pruebas rápidas
+  3. Revisar FacturasDebug en Firestore para análisis detallado
+  4. Consultar Firebase Console Logs para debugging en tiempo real
+
+===============================================================================
+  FASE 4: PRUEBAS Y REFINAMIENTO [EN CURSO]
 ===============================================================================
 PASO 4.1: [ ] Pruebas Ambiente SRI Pruebas
   - Generar facturas de prueba
@@ -102,20 +166,32 @@ PASO 4.3: [ ] Migrar a Produccion (cuando este listo)
 ===============================================================================
 ARCHIVOS IMPORTANTES:
   - PLAN_FACTURACION_ELECTRONICA_SRI.txt (este archivo)
-  - functions/README.md (documentacion tecnica)
+  - GUIA_DEBUGGING_FACTURACION.txt (⭐ NUEVO - Guía de debugging completa)
+  - COMO_OBTENER_IDS_PRUEBA.txt (⭐ NUEVO - Cómo obtener IDs para testing)
+  - functions/README.md (documentación técnica)
   - functions/.env (variables de entorno - NO SUBIR A GIT)
-  - functions/index.js (codigo principal)
+  - functions/index.js (código principal - ACTUALIZADO con logs)
   - errores.txt (para logs y debugging)
+
 CONFIGURACION ACTUAL:
-  - Ambiente SRI: PRUEBAS (codigo 1)
-  - URLs: https://celospruebas.sri.gob.ec/...
+  - Ambiente SRI: PRUEBAS (código 1)
+  - URLs: https://celcer.sri.gob.ec/... (ACTUALIZADO)
   - Certificado: En Firebase Storage (privado)
-  - Contrasena: En Secret Manager (encriptado)
+  - Contraseña: En Secret Manager (encriptado)
+  - Emuladores: DESACTIVADOS (usando producción para logs)
+  - Sistema de logs: ACTIVADO (FacturasDebug en Firestore)
+
 FUNCIONES DESPLEGADAS:
-  - generarFactura: us-central1 (callable)
+  - generarFactura: us-central1 (callable) - ✅ Con logs detallados
+  - generarFacturaTest: us-central1 (http) - ⭐ NUEVO endpoint de prueba
   - consultarAutorizacion: us-central1 (callable)
-PROXIMO PASO:
-  Integrar con Flutter - Crear servicio de facturacion
+
+PRÓXIMOS PASOS:
+  1. 🧪 PROBAR con endpoint HTTP usando Postman
+  2. 📊 Revisar logs en FacturasDebug
+  3. 🔍 Identificar errores en conexión con SRI
+  4. 🛠️ Ajustar según logs detallados
+  5. ✅ Validar que XML se genera correctamente
 ===============================================================================
   RECURSOS
 ===============================================================================

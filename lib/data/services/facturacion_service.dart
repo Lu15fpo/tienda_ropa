@@ -3,13 +3,19 @@ import 'package:get/get.dart';
 import 'package:tienda_ropa/utils/popups/full_screen_loader.dart';
 import 'package:tienda_ropa/utils/popups/loaders.dart';
 
-import '../../utils/popups/full_screen_loader.dart';
 
 /// Servicio de Facturación Electrónica SRI
 class FacturacionService extends GetxService {
   static FacturacionService get instance => Get.find();
 
-  final FirebaseFunctions _functions = FirebaseFunctions.instanceFor(region: 'us-central1');
+  late final FirebaseFunctions _functions;
+
+  FacturacionService() {
+    _functions = FirebaseFunctions.instanceFor(region: 'us-central1');
+
+    // La configuración del emulador se hace en main.dart
+    print('✅ [FacturacionService] Inicializado correctamente');
+  }
 
   /// Genera una factura electrónica para un pedido
   ///

@@ -33,12 +33,90 @@ setGlobalOptions({maxInstances: 10});
 
 // Configuración del SRI (PRUEBAS)
 const SRI_CONFIG = {
-  RECEPCION_URL: "https://celospruebas.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl",
-  AUTORIZACION_URL: "https://celospruebas.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl",
+  RECEPCION_URL: "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl",
+  AUTORIZACION_URL: "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl",
   AMBIENTE: "1", // 1 = Pruebas, 2 = Producción
   TIPO_EMISION: "1", // 1 = Normal
 };
 
+/**
+ * 🕐 CORRECCIÓN 1: Obtener fecha en zona horaria de Ecuador (UTC-5)
+ * Resuelve el problema de "FECHA EMISIÓN EXTEMPORÁNEA"
+ */
+function obtenerFechaEcuador() {
+  const ahora = new Date();
+
+  // Ecuador está en UTC-5 (no cambia por horario de verano)
+  // Ajustar la fecha restando 5 horas
+  const ecuadorOffset = -5 * 60; // -5 horas en minutos
+  const utcOffset = ahora.getTimezoneOffset(); // Offset del servidor en minutos
+  const totalOffset = ecuadorOffset - utcOffset;
+
+  const fechaEcuador = new Date(ahora.getTime() + totalOffset * 60 * 1000);
+
+  logger.info(`🕐 [FechaEcuador] UTC: ${ahora.toISOString()}, Ecuador: ${fechaEcuador.toISOString()}`);
+
+  return fechaEcuador;
+}
+
+/**
+ * 🔧 Parser de XML de respuesta del SRI
+ * Extrae información de la respuesta SOAP
+ */
+function parsearRespuestaSRI(xmlString, tipo) {
+  try {
+    // Extraer estado de recepción
+    if (tipo === "recepcion") {
+      const estadoMatch = xmlString.match(/<estado>(.*?)<\/estado>/);
+      const estado = estadoMatch ? estadoMatch[1] : null;
+
+      // Extraer mensajes de error si existen
+      const mensajes = [];
+      const mensajeRegex = /<mensaje>[\s\S]*?<identificador>(.*?)<\/identificador>[\s\S]*?<mensaje>(.*?)<\/mensaje>[\s\S]*?<informacionAdicional>(.*?)<\/informacionAdicional>[\s\S]*?<tipo>(.*?)<\/tipo>[\s\S]*?<\/mensaje>/g;
+
+      let match;
+      while ((match = mensajeRegex.exec(xmlString)) !== null) {
+        mensajes.push({
+          identificador: match[1],
+          mensaje: match[2],
+          informacionAdicional: match[3],
+          tipo: match[4],
+        });
+      }
+
+      return {
+        estado,
+        mensajes,
+        estadoValido: estado === "RECIBIDA",
+      };
+    }
+
+    // Extraer información de autorización
+    if (tipo === "autorizacion") {
+      const claveMatch = xmlString.match(/<claveAccesoConsultada>(.*?)<\/claveAccesoConsultada>/);
+      const numeroMatch = xmlString.match(/<numeroComprobantes>(.*?)<\/numeroComprobantes>/);
+
+      const numeroComprobantes = numeroMatch ? parseInt(numeroMatch[1]) : 0;
+
+      // Extraer número de autorización si existe
+      const autorizacionMatch = xmlString.match(/<numeroAutorizacion>(.*?)<\/numeroAutorizacion>/);
+      const fechaAutorizacionMatch = xmlString.match(/<fechaAutorizacion>(.*?)<\/fechaAutorizacion>/);
+
+      return {
+        claveAcceso: claveMatch ? claveMatch[1] : null,
+        numeroComprobantes,
+        numeroAutorizacion: autorizacionMatch ? autorizacionMatch[1] : null,
+        fechaAutorizacion: fechaAutorizacionMatch ? fechaAutorizacionMatch[1] : null,
+        autorizado: numeroComprobantes > 0,
+      };
+    }
+
+    return null;
+  } catch (error) {
+    logger.error("Error al parsear respuesta SRI:", error);
+    return null;
+  }
+}
 
 /**
  * Genera la clave de acceso de 49 dígitos
@@ -227,7 +305,8 @@ async function firmarXML(xmlContent, claveAcceso) {
 }
 
 /**
- * Envía el XML firmado al SRI para validación y recepción
+ * 🔧 CORRECCIÓN 2 y 3: Envía el XML firmado al SRI con validación de respuesta
+ * Parsea la respuesta XML y valida el estado correcto
  */
 async function enviarSRI(xmlFirmado, claveAcceso) {
   try {
@@ -253,7 +332,35 @@ async function enviarSRI(xmlFirmado, claveAcceso) {
 
     logger.info("Respuesta recepción SRI:", responseRecepcion.data);
 
-    // Esperar y consultar autorización
+    // 🔧 CORRECCIÓN 3: Parsear respuesta de recepción
+    const recepcionParsed = parsearRespuestaSRI(responseRecepcion.data, "recepcion");
+
+    logger.info("🔍 Recepción parseada:", recepcionParsed);
+
+    // 🔧 CORRECCIÓN 2: Validar estado de recepción
+    if (!recepcionParsed || recepcionParsed.estado !== "RECIBIDA") {
+      const mensajesError = recepcionParsed?.mensajes || [];
+      const detalleError = mensajesError.map((m) =>
+        `[${m.identificador}] ${m.mensaje}: ${m.informacionAdicional}`
+      ).join("; ");
+
+      logger.warn(`⚠️ SRI rechazó el comprobante: ${recepcionParsed?.estado || "DESCONOCIDO"}`);
+      logger.warn(`📋 Mensajes del SRI: ${detalleError}`);
+
+      return {
+        recepcion: responseRecepcion.data,
+        recepcionParsed,
+        autorizacion: null,
+        autorizacionParsed: null,
+        estado: "DEVUELTA",
+        mensajesError,
+        esValido: false,
+      };
+    }
+
+    // Si la recepción fue exitosa, consultar autorización
+    logger.info("✅ Recepción EXITOSA, consultando autorización...");
+
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const soapAutorizacion = `<?xml version="1.0" encoding="UTF-8"?>
@@ -276,9 +383,24 @@ async function enviarSRI(xmlFirmado, claveAcceso) {
 
     logger.info("Respuesta autorización SRI:", responseAutorizacion.data);
 
+    // 🔧 CORRECCIÓN 3: Parsear respuesta de autorización
+    const autorizacionParsed = parsearRespuestaSRI(responseAutorizacion.data, "autorizacion");
+
+    logger.info("🔍 Autorización parseada:", autorizacionParsed);
+
+    // 🔧 CORRECCIÓN 2: Validar autorización
+    const autorizado = autorizacionParsed && autorizacionParsed.numeroComprobantes > 0;
+
     return {
       recepcion: responseRecepcion.data,
+      recepcionParsed,
       autorizacion: responseAutorizacion.data,
+      autorizacionParsed,
+      estado: autorizado ? "AUTORIZADA" : "RECIBIDA_SIN_AUTORIZAR",
+      numeroAutorizacion: autorizacionParsed?.numeroAutorizacion,
+      fechaAutorizacion: autorizacionParsed?.fechaAutorizacion,
+      esValido: true,
+      autorizado,
     };
   } catch (error) {
     logger.error("Error al enviar al SRI:", error);
@@ -287,7 +409,401 @@ async function enviarSRI(xmlFirmado, claveAcceso) {
 }
 
 /**
- * Cloud Function principal para generar factura
+ * 🔧 FUNCIÓN HELPER: Guardar log detallado en Firestore
+ */
+async function guardarLogFacturacion(tipo, mensaje, datos = null, orderId = null) {
+  try {
+    const timestamp = admin.firestore.Timestamp.now();
+    await admin.firestore().collection("FacturasDebug").add({
+      tipo, // 'INFO', 'ERROR', 'WARNING', 'SUCCESS'
+      mensaje,
+      datos: datos || {},
+      orderId,
+      timestamp,
+      timestampFormatted: new Date().toISOString(),
+    });
+
+    // También log en consola
+    const emoji = {
+      'INFO': 'ℹ️',
+      'ERROR': '❌',
+      'WARNING': '⚠️',
+      'SUCCESS': '✅',
+    }[tipo] || '📝';
+
+    logger.info(`${emoji} [LOG] ${mensaje}`, datos || {});
+  } catch (error) {
+    logger.error("Error al guardar log:", error);
+  }
+}
+
+/**
+ * 🔧 FUNCIÓN HELPER: Lógica principal de generación de factura
+ * Extraída para poder ser llamada tanto desde onCall como desde HTTP
+ */
+async function procesarGeneracionFactura(orderId, userId) {
+  await guardarLogFacturacion('INFO', 'INICIO: Proceso de generación de factura', {orderId, userId}, orderId);
+
+  if (!orderId) {
+    await guardarLogFacturacion('ERROR', 'ERROR: orderId no proporcionado', null, orderId);
+    throw new HttpsError("invalid-argument", "El ID del pedido es requerido");
+  }
+
+  if (!userId) {
+    await guardarLogFacturacion('ERROR', 'ERROR: userId no proporcionado', null, orderId);
+    throw new HttpsError("invalid-argument", "El ID del usuario es requerido");
+  }
+
+  logger.info(`📄 [generarFactura] Iniciando para pedido: ${orderId}, usuario: ${userId}`);
+
+  // PASO 1: Obtener pedido de Firestore
+  await guardarLogFacturacion('INFO', 'PASO 1: Buscando pedido en Firestore', {
+    ruta: `Users/${userId}/Orders/${orderId}`,
+  }, orderId);
+
+  const orderDoc = await admin.firestore()
+      .collection("Users")
+      .doc(userId)
+      .collection("Orders")
+      .doc(orderId)
+      .get();
+
+  if (!orderDoc.exists) {
+    await guardarLogFacturacion('ERROR', 'ERROR CRÍTICO: Pedido no encontrado en Firestore', {
+      ruta: `Users/${userId}/Orders/${orderId}`,
+    }, orderId);
+    logger.error(`❌ [generarFactura] Pedido no encontrado: Users/${userId}/Orders/${orderId}`);
+    throw new HttpsError("not-found", "Pedido no encontrado");
+  }
+
+  const orderData = orderDoc.data();
+  await guardarLogFacturacion('SUCCESS', 'PASO 1 COMPLETADO: Pedido encontrado', {
+    itemsCount: orderData.items?.length || 0,
+    totalAmount: orderData.totalAmount,
+  }, orderId);
+  logger.info(`✅ [generarFactura] Pedido encontrado. Items: ${orderData.items?.length || 0}`);
+
+  // PASO 2: Validar configuración de empresa
+  await guardarLogFacturacion('INFO', 'PASO 2: Validando configuración de empresa', {
+    RUC: EMPRESA_CONFIG.RUC,
+    RAZON_SOCIAL: EMPRESA_CONFIG.RAZON_SOCIAL,
+    NOMBRE_COMERCIAL: EMPRESA_CONFIG.NOMBRE_COMERCIAL,
+  }, orderId);
+
+  logger.info(`🏢 [generarFactura] Configuración empresa:`);
+  logger.info(`   RUC: ${EMPRESA_CONFIG.RUC}`);
+  logger.info(`   Razón Social: ${EMPRESA_CONFIG.RAZON_SOCIAL}`);
+  logger.info(`   Nombre Comercial: ${EMPRESA_CONFIG.NOMBRE_COMERCIAL}`);
+
+  // PASO 3: Obtener/Crear secuencial
+  await guardarLogFacturacion('INFO', 'PASO 3: Obteniendo secuencial de factura', null, orderId);
+
+  const secuencialRef = admin.firestore().collection("Configuracion").doc("secuenciales");
+  const secuencialDoc = await secuencialRef.get();
+
+  let secuencial = 1;
+
+  if (secuencialDoc.exists) {
+    secuencial = (secuencialDoc.data().factura || 0) + 1;
+    await guardarLogFacturacion('INFO', 'Secuencial obtenido de Firestore', {secuencial}, orderId);
+  } else {
+    // Crear documento de secuenciales
+    await secuencialRef.set({
+      factura: 0,
+      establecimiento: "001",
+      puntoEmision: "001",
+      ultimaActualizacion: admin.firestore.FieldValue.serverTimestamp(),
+    });
+    await guardarLogFacturacion('INFO', 'Documento de secuenciales creado (primera factura)', {secuencial}, orderId);
+    logger.info("📝 [generarFactura] Documento de secuenciales creado");
+  }
+
+  logger.info(`🔢 [generarFactura] Secuencial: ${secuencial}`);
+
+  // PASO 4: Generar clave de acceso
+  await guardarLogFacturacion('INFO', 'PASO 4: Generando clave de acceso', {secuencial}, orderId);
+
+  // 🔧 CORRECCIÓN 1: Usar fecha de Ecuador (UTC-5)
+  const fechaEcuador = obtenerFechaEcuador();
+  const fechaStr = `${fechaEcuador.getDate().toString().padStart(2, "0")}${(fechaEcuador.getMonth() + 1).toString().padStart(2, "0")}${fechaEcuador.getFullYear()}`;
+
+  logger.info(`📅 [generarFactura] Fecha Ecuador (UTC-5): ${fechaEcuador.toISOString()}`);
+  logger.info(`📅 [generarFactura] FechaStr para clave: ${fechaStr}`);
+  logger.info(`🏢 [generarFactura] RUC: ${EMPRESA_CONFIG.RUC}`);
+  logger.info(`🌍 [generarFactura] Ambiente: ${SRI_CONFIG.AMBIENTE}`);
+  logger.info(`📋 [generarFactura] Tipo Emisión: ${SRI_CONFIG.TIPO_EMISION}`);
+
+  const codigoNumerico = Math.floor(Math.random() * 99999999).toString();
+
+  await guardarLogFacturacion('INFO', 'Parámetros para clave de acceso', {
+    fechaStr,
+    tipoComprobante: "01",
+    ruc: EMPRESA_CONFIG.RUC,
+    ambiente: SRI_CONFIG.AMBIENTE,
+    serie: "001001",
+    secuencial: secuencial.toString(),
+    codigoNumerico,
+    tipoEmision: SRI_CONFIG.TIPO_EMISION,
+  }, orderId);
+
+  // Generar clave de acceso
+  const claveAcceso = generarClaveAcceso(
+      fechaStr,
+      "01", // Factura
+      EMPRESA_CONFIG.RUC,
+      SRI_CONFIG.AMBIENTE,
+      "001001", // Serie: establecimiento + punto emisión
+      secuencial.toString(),
+      codigoNumerico,
+      SRI_CONFIG.TIPO_EMISION,
+  );
+
+  await guardarLogFacturacion('SUCCESS', 'PASO 4 COMPLETADO: Clave de acceso generada', {claveAcceso}, orderId);
+  logger.info(`🔑 [generarFactura] Clave de acceso generada: ${claveAcceso}`);
+
+  // PASO 5: Preparar datos de la factura
+  await guardarLogFacturacion('INFO', 'PASO 5: Preparando datos de la factura', null, orderId);
+
+  // 🔧 CORRECCIÓN 1: Usar fechaEcuador para fechaEmision también
+  const datosFactura = {
+    claveAcceso,
+    fechaEmision: `${fechaEcuador.getDate().toString().padStart(2, "0")}/${(fechaEcuador.getMonth() + 1).toString().padStart(2, "0")}/${fechaEcuador.getFullYear()}`,
+    establecimiento: "001",
+    puntoEmision: "001",
+    secuencial: secuencial.toString(),
+    comprador: {
+      // 🔧 CORRECCIÓN 4: Usar identificación de Consumidor Final
+      // El userId de Firebase tiene 28 caracteres, pero el SRI solo acepta máximo 20
+      // TODO: En producción, capturar cédula/RUC del usuario en su perfil
+      tipoIdentificacion: "07", // 07 = Consumidor Final
+      identificacion: "9999999999999", // 13 dígitos - Consumidor Final válido para SRI
+      razonSocial: orderData.address?.name || "CONSUMIDOR FINAL",
+    },
+    items: (orderData.items || []).map((item) => ({
+      codigo: item.productId || "PROD",
+      descripcion: item.title || "Producto",
+      cantidad: item.quantity || 1,
+      precioUnitario: item.price || 0,
+      descuento: 0,
+      subtotal: (item.price || 0) * (item.quantity || 1),
+    })),
+    totales: {
+      subtotal: orderData.totalAmount / 1.12, // Sin IVA
+      descuento: 0,
+      iva: orderData.totalAmount - (orderData.totalAmount / 1.12),
+      total: orderData.totalAmount,
+    },
+  };
+
+  await guardarLogFacturacion('SUCCESS', 'PASO 5 COMPLETADO: Datos de factura preparados', {
+    compradorIdentificacion: datosFactura.comprador.identificacion,
+    compradorNombre: datosFactura.comprador.razonSocial,
+    compradorTipo: datosFactura.comprador.tipoIdentificacion,
+    itemsCount: datosFactura.items.length,
+    total: datosFactura.totales.total,
+    fechaEmision: datosFactura.fechaEmision,
+  }, orderId);
+
+  // PASO 6: Generar XML
+  await guardarLogFacturacion('INFO', 'PASO 6: Generando XML de la factura', null, orderId);
+
+  const xml = generarXMLFactura(datosFactura);
+
+  await guardarLogFacturacion('SUCCESS', 'PASO 6 COMPLETADO: XML generado', {
+    xmlLength: xml.length,
+  }, orderId);
+  logger.info(`📄 [generarFactura] XML generado correctamente`);
+
+  // PASO 7: Firmar XML
+  await guardarLogFacturacion('INFO', 'PASO 7: Firmando XML con certificado digital', null, orderId);
+
+  let xmlFirmado;
+  try {
+    xmlFirmado = await firmarXML(xml, claveAcceso);
+    await guardarLogFacturacion('SUCCESS', 'PASO 7 COMPLETADO: XML firmado correctamente', {
+      xmlFirmadoLength: xmlFirmado.length,
+    }, orderId);
+    logger.info(`✅ [generarFactura] XML firmado correctamente`);
+  } catch (errorFirma) {
+    await guardarLogFacturacion('ERROR', 'ERROR EN PASO 7: Error al firmar XML', {
+      error: errorFirma.message,
+      stack: errorFirma.stack,
+    }, orderId);
+    throw errorFirma;
+  }
+
+  let respuestaSRI = null;
+  let estadoFactura = "PENDIENTE";
+  let mensajesErrorSRI = [];
+  let numeroAutorizacion = null;
+  let fechaAutorizacion = null;
+
+  // PASO 8: Intentar enviar al SRI
+  await guardarLogFacturacion('INFO', 'PASO 8: Enviando factura al SRI', {
+    urlRecepcion: SRI_CONFIG.RECEPCION_URL,
+    urlAutorizacion: SRI_CONFIG.AUTORIZACION_URL,
+  }, orderId);
+
+  try {
+    logger.info(`📤 [generarFactura] Enviando al SRI...`);
+    respuestaSRI = await enviarSRI(xmlFirmado, claveAcceso);
+
+    // 🔧 CORRECCIÓN 2: Validar respuesta real del SRI
+    if (respuestaSRI.esValido) {
+      if (respuestaSRI.autorizado) {
+        estadoFactura = "AUTORIZADA";
+        numeroAutorizacion = respuestaSRI.numeroAutorizacion;
+        fechaAutorizacion = respuestaSRI.fechaAutorizacion;
+        logger.info(`✅ [generarFactura] Factura AUTORIZADA por el SRI`);
+      } else {
+        estadoFactura = "RECIBIDA";
+        logger.info(`ℹ️ [generarFactura] Factura RECIBIDA pero no autorizada aún`);
+      }
+    } else {
+      // El SRI devolvió la factura
+      estadoFactura = "DEVUELTA";
+      mensajesErrorSRI = respuestaSRI.mensajesError || [];
+      logger.warn(`⚠️ [generarFactura] Factura DEVUELTA por el SRI`);
+    }
+
+    await guardarLogFacturacion('SUCCESS', 'PASO 8 COMPLETADO: SRI respondió correctamente', {
+      estado: estadoFactura,
+      esValido: respuestaSRI.esValido,
+      autorizado: respuestaSRI.autorizado,
+      numeroAutorizacion,
+      mensajesError: mensajesErrorSRI.length > 0 ? mensajesErrorSRI : undefined,
+    }, orderId);
+    logger.info(`📊 [generarFactura] Estado final del SRI: ${estadoFactura}`);
+  } catch (errorSRI) {
+    await guardarLogFacturacion('WARNING', 'PASO 8 CON ERROR: No se pudo conectar con el SRI', {
+      error: errorSRI.message,
+      stack: errorSRI.stack,
+      urlRecepcion: SRI_CONFIG.RECEPCION_URL,
+      urlAutorizacion: SRI_CONFIG.AUTORIZACION_URL,
+    }, orderId);
+    logger.warn(`⚠️ [generarFactura] No se pudo enviar al SRI (no crítico): ${errorSRI.message}`);
+    logger.warn(`⚠️ La factura se guardará como PENDIENTE y podrá reenviarse después`);
+    estadoFactura = "ERROR_COMUNICACION";
+    // No lanzamos error, continuamos guardando la factura
+  }
+
+  // PASO 9: Guardar factura en Firestore
+  await guardarLogFacturacion('INFO', 'PASO 9: Guardando factura en Firestore', {
+    claveAcceso,
+    estado: estadoFactura,
+  }, orderId);
+
+  logger.info(`💾 [generarFactura] Guardando factura en Firestore...`);
+
+  // 🔧 CORRECCIÓN 2: Guardar información completa del SRI
+  const facturaData = {
+    orderId,
+    userId,
+    claveAcceso,
+    fechaEmision: admin.firestore.Timestamp.now(),
+    xml: xmlFirmado,
+    xmlSinFirmar: xml,
+    respuestaSRI: respuestaSRI || {error: "No se pudo conectar con el SRI"},
+    estado: estadoFactura,
+    secuencial,
+    establecimiento: "001",
+    puntoEmision: "001",
+    totalAmount: orderData.totalAmount || 0,
+    comprador: datosFactura.comprador,
+  };
+
+  // Agregar información adicional si está disponible
+  if (numeroAutorizacion) {
+    facturaData.numeroAutorizacion = numeroAutorizacion;
+  }
+  if (fechaAutorizacion) {
+    facturaData.fechaAutorizacion = fechaAutorizacion;
+  }
+  if (mensajesErrorSRI.length > 0) {
+    facturaData.mensajesErrorSRI = mensajesErrorSRI;
+  }
+
+  await admin.firestore().collection("Facturas").doc(claveAcceso).set(facturaData);
+
+  await guardarLogFacturacion('SUCCESS', 'PASO 9 COMPLETADO: Factura guardada en Firestore', {
+    coleccion: 'Facturas',
+    documentId: claveAcceso,
+    estadoGuardado: estadoFactura,
+  }, orderId);
+  logger.info(`✅ [generarFactura] Factura guardada en Firestore con estado: ${estadoFactura}`);
+
+  // PASO 10: Actualizar secuencial
+  await guardarLogFacturacion('INFO', 'PASO 10: Actualizando secuencial', {secuencial}, orderId);
+
+  await admin.firestore().collection("Configuracion").doc("secuenciales").set({
+    factura: secuencial,
+    ultimaActualizacion: admin.firestore.FieldValue.serverTimestamp(),
+  }, {merge: true});
+
+  await guardarLogFacturacion('SUCCESS', 'PASO 10 COMPLETADO: Secuencial actualizado', {secuencial}, orderId);
+  logger.info(`✅ [generarFactura] Secuencial actualizado a ${secuencial}`);
+
+  // PASO 11: Actualizar pedido con referencia a factura
+  await guardarLogFacturacion('INFO', 'PASO 11: Actualizando pedido con referencia a factura', {
+    ruta: `Users/${userId}/Orders/${orderId}`,
+  }, orderId);
+
+  await admin.firestore()
+      .collection("Users")
+      .doc(userId)
+      .collection("Orders")
+      .doc(orderId)
+      .update({
+        facturaId: claveAcceso,
+        facturaGenerada: true,
+      });
+
+  await guardarLogFacturacion('SUCCESS', 'PASO 11 COMPLETADO: Pedido actualizado', {
+    facturaId: claveAcceso,
+  }, orderId);
+  logger.info(`✅ [generarFactura] Pedido actualizado con facturaId`);
+
+  // FINALIZACIÓN - 🔧 CORRECCIÓN 2: Mensaje según estado real
+  let mensajeFinal;
+  let success = true;
+
+  switch (estadoFactura) {
+    case "AUTORIZADA":
+      mensajeFinal = "Factura generada y autorizada exitosamente por el SRI";
+      break;
+    case "RECIBIDA":
+      mensajeFinal = "Factura recibida por el SRI. Autorización en proceso";
+      break;
+    case "DEVUELTA":
+      mensajeFinal = `Factura devuelta por el SRI. Motivo: ${mensajesErrorSRI.map((m) => m.mensaje).join(", ")}`;
+      success = false;
+      break;
+    case "ERROR_COMUNICACION":
+      mensajeFinal = "Factura generada pero no se pudo enviar al SRI. Se puede reintentar después";
+      break;
+    default:
+      mensajeFinal = "Factura generada. Estado pendiente de verificación";
+  }
+
+  await guardarLogFacturacion('SUCCESS', '🎉 PROCESO COMPLETADO', {
+    claveAcceso,
+    estado: estadoFactura,
+    mensaje: mensajeFinal,
+    success,
+  }, orderId);
+
+  return {
+    success,
+    claveAcceso,
+    estado: estadoFactura,
+    mensaje: mensajeFinal,
+    numeroAutorizacion: numeroAutorizacion || undefined,
+    mensajesError: mensajesErrorSRI.length > 0 ? mensajesErrorSRI : undefined,
+  };
+}
+
+/**
+ * Cloud Function principal para generar factura (onCall)
  * Llamada desde la app móvil después de confirmar el pedido
  */
 exports.generarFactura = onCall({
@@ -296,150 +812,58 @@ exports.generarFactura = onCall({
 }, async (request) => {
   try {
     const {orderId, userId} = request.data;
-
-    if (!orderId) {
-      throw new HttpsError("invalid-argument", "El ID del pedido es requerido");
-    }
-
-    if (!userId) {
-      throw new HttpsError("invalid-argument", "El ID del usuario es requerido");
-    }
-
-    logger.info(`📄 [generarFactura] Iniciando para pedido: ${orderId}, usuario: ${userId}`);
-
-    // Obtener datos del pedido desde Firestore (ruta correcta)
-    const orderDoc = await admin.firestore()
-        .collection("Users")
-        .doc(userId)
-        .collection("Orders")
-        .doc(orderId)
-        .get();
-
-    if (!orderDoc.exists) {
-      logger.error(`❌ [generarFactura] Pedido no encontrado: Users/${userId}/Orders/${orderId}`);
-      throw new HttpsError("not-found", "Pedido no encontrado");
-    }
-
-    const orderData = orderDoc.data();
-    logger.info(`✅ [generarFactura] Pedido encontrado. Items: ${orderData.items?.length || 0}`);
-
-    // Log de configuración de empresa
-    logger.info(`🏢 [generarFactura] Configuración empresa:`);
-    logger.info(`   RUC: ${EMPRESA_CONFIG.RUC}`);
-    logger.info(`   Razón Social: ${EMPRESA_CONFIG.RAZON_SOCIAL}`);
-    logger.info(`   Nombre Comercial: ${EMPRESA_CONFIG.NOMBRE_COMERCIAL}`);
-
-    // Crear documento de secuenciales si no existe
-    const secuencialRef = admin.firestore().collection("Configuracion").doc("secuenciales");
-    const secuencialDoc = await secuencialRef.get();
-
-    let secuencial = 1;
-
-    if (secuencialDoc.exists) {
-      secuencial = (secuencialDoc.data().factura || 0) + 1;
-    } else {
-      // Crear documento de secuenciales
-      await secuencialRef.set({
-        factura: 0,
-        establecimiento: "001",
-        puntoEmision: "001",
-        ultimaActualizacion: admin.firestore.FieldValue.serverTimestamp(),
-      });
-      logger.info("📝 [generarFactura] Documento de secuenciales creado");
-    }
-
-    logger.info(`🔢 [generarFactura] Secuencial: ${secuencial}`);
-
-    // Generar datos de la factura
-    const fecha = new Date();
-    const fechaStr = `${fecha.getDate().toString().padStart(2, "0")}${(fecha.getMonth() + 1).toString().padStart(2, "0")}${fecha.getFullYear()}`;
-
-    logger.info(`📅 [generarFactura] FechaStr: ${fechaStr}`);
-    logger.info(`🏢 [generarFactura] RUC: ${EMPRESA_CONFIG.RUC}`);
-    logger.info(`🌍 [generarFactura] Ambiente: ${SRI_CONFIG.AMBIENTE}`);
-    logger.info(`📋 [generarFactura] Tipo Emisión: ${SRI_CONFIG.TIPO_EMISION}`);
-
-    // Generar clave de acceso
-    const claveAcceso = generarClaveAcceso(
-        fechaStr,
-        "01", // Factura
-        EMPRESA_CONFIG.RUC,
-        SRI_CONFIG.AMBIENTE,
-        "001001", // Serie: establecimiento + punto emisión
-        secuencial.toString(),
-        Math.floor(Math.random() * 99999999).toString(), // Código numérico aleatorio
-        SRI_CONFIG.TIPO_EMISION,
-    );
-
-    logger.info(`🔑 [generarFactura] Clave de acceso generada: ${claveAcceso}`);
-
-    // Preparar datos de la factura
-    const datosFactura = {
-      claveAcceso,
-      fechaEmision: `${fecha.getDate().toString().padStart(2, "0")}/${(fecha.getMonth() + 1).toString().padStart(2, "0")}/${fecha.getFullYear()}`,
-      establecimiento: "001",
-      puntoEmision: "001",
-      secuencial: secuencial.toString(),
-      comprador: {
-        tipoIdentificacion: "05", // 05 = CEDULA, 04 = RUC, 06 = PASAPORTE
-        identificacion: userId || "9999999999999", // Usar userId del request
-        razonSocial: orderData.address?.name || "CONSUMIDOR FINAL",
-      },
-      items: (orderData.items || []).map((item) => ({
-        codigo: item.productId || "PROD",
-        descripcion: item.title || "Producto",
-        cantidad: item.quantity || 1,
-        precioUnitario: item.price || 0,
-        descuento: 0,
-        subtotal: (item.price || 0) * (item.quantity || 1),
-      })),
-      totales: {
-        subtotal: orderData.totalAmount / 1.12, // Sin IVA
-        descuento: 0,
-        iva: orderData.totalAmount - (orderData.totalAmount / 1.12),
-        total: orderData.totalAmount,
-      },
-    };
-
-    // Generar XML
-    const xml = generarXMLFactura(datosFactura);
-
-    // Firmar XML
-    const xmlFirmado = await firmarXML(xml, claveAcceso);
-
-    // Enviar al SRI
-    const respuestaSRI = await enviarSRI(xmlFirmado, claveAcceso);
-
-    // Guardar factura en Firestore
-    await admin.firestore().collection("Facturas").doc(claveAcceso).set({
-      orderId,
-      claveAcceso,
-      fechaEmision: admin.firestore.Timestamp.now(),
-      xml: xmlFirmado,
-      respuestaSRI,
-      estado: "AUTORIZADA", // O el estado que devuelva el SRI
-      secuencial,
-    });
-
-    // Actualizar secuencial
-    await admin.firestore().collection("Configuracion").doc("secuenciales").set({
-      factura: secuencial,
-    }, {merge: true});
-
-    // Actualizar pedido con referencia a factura
-    await admin.firestore().collection("Orders").doc(orderId).update({
-      facturaId: claveAcceso,
-      facturaGenerada: true,
-    });
-
-    return {
-      success: true,
-      claveAcceso,
-      mensaje: "Factura generada y autorizada exitosamente",
-    };
+    return await procesarGeneracionFactura(orderId, userId);
   } catch (error) {
+    await guardarLogFacturacion('ERROR', '💥 ERROR CRÍTICO EN PROCESO', {
+      error: error.message,
+      stack: error.stack,
+      code: error.code,
+    }, request.data?.orderId);
     logger.error("Error en generarFactura:", error);
     throw new HttpsError("internal", error.message);
+  }
+});
+
+/**
+ * 🧪 ENDPOINT HTTP DE PRUEBA (solo para desarrollo)
+ * Permite probar la generación de factura directamente desde Postman/navegador
+ *
+ * URL: https://us-central1-[PROJECT_ID].cloudfunctions.net/generarFacturaTest
+ * Método: POST
+ * Body: { "orderId": "xxx", "userId": "yyy" }
+ */
+const {onRequest} = require("firebase-functions/v2/https");
+
+exports.generarFacturaTest = onRequest({
+  secrets: [certificadoPassword],
+  cors: true, // Habilitar CORS para pruebas desde navegador
+}, async (req, res) => {
+  try {
+    // Solo permitir POST
+    if (req.method !== "POST") {
+      res.status(405).send({error: "Método no permitido. Use POST"});
+      return;
+    }
+
+    const {orderId, userId} = req.body;
+
+    logger.info(`🧪 [TEST] Llamada a endpoint de prueba: orderId=${orderId}, userId=${userId}`);
+
+    // Llamar a la función principal
+    const resultado = await procesarGeneracionFactura(orderId, userId);
+
+    res.status(200).send({
+      success: true,
+      mensaje: "✅ Endpoint de prueba ejecutado correctamente",
+      resultado,
+    });
+  } catch (error) {
+    logger.error("❌ [TEST] Error en endpoint de prueba:", error);
+    res.status(500).send({
+      success: false,
+      error: error.message,
+      stack: error.stack,
+    });
   }
 });
 

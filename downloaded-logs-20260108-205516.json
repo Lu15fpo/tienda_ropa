@@ -1,0 +1,1674 @@
+[
+  {
+    "insertId": "69605fdb000b55cfc8982fab",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://us-central1-ecommerceapp-5f46c.cloudfunctions.net/generarFacturaTest",
+      "requestSize": "545",
+      "status": 200,
+      "responseSize": "781",
+      "userAgent": "PostmanRuntime/7.51.0",
+      "remoteIp": "157.100.139.91",
+      "serverIp": "216.239.36.54",
+      "latency": "4.408765349s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "service_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:31.329295Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-managed-by": "cloudfunctions"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.747041997Z",
+    "spanId": "3da578241ff3b735",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "🧪 [TEST] Llamada a endpoint de prueba: orderId=1portGGMdjYQXowCPrAm, userId=VDySQoneyobxkrkbltDakKb0P0x2",
+    "insertId": "69605fd70005d7d7376c13b6",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "service_name": "generarfacturatest",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:31.382935Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "execution_id": "683vbe12uc4d",
+      "goog-managed-by": "cloudfunctions"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:31.388799595Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fd80006cbf8c3940b99",
+    "jsonPayload": {
+      "orderId": "1portGGMdjYQXowCPrAm",
+      "message": "ℹ️ [LOG] INICIO: Proceso de generación de factura",
+      "userId": "VDySQoneyobxkrkbltDakKb0P0x2"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1",
+        "service_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.445432Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "execution_id": "683vbe12uc4d",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:32.720715283Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "📄 [generarFactura] Iniciando para pedido: 1portGGMdjYQXowCPrAm, usuario: VDySQoneyobxkrkbltDakKb0P0x2",
+    "insertId": "69605fd80006ccf21f647812",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "service_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "configuration_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.445682Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "execution_id": "683vbe12uc4d",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:32.720715283Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fd80008369340a98714",
+    "jsonPayload": {
+      "ruta": "Users/VDySQoneyobxkrkbltDakKb0P0x2/Orders/1portGGMdjYQXowCPrAm",
+      "message": "ℹ️ [LOG] PASO 1: Buscando pedido en Firestore"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfacturatest",
+        "location": "us-central1",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.538259Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "execution_id": "683vbe12uc4d"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:32.720715283Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fd8000a81c65fca9fd4",
+    "jsonPayload": {
+      "message": "✅ [LOG] PASO 1 COMPLETADO: Pedido encontrado",
+      "itemsCount": 1,
+      "totalAmount": 436.25
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "service_name": "generarfacturatest",
+        "configuration_name": "generarfacturatest",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.688582Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "execution_id": "683vbe12uc4d",
+      "goog-managed-by": "cloudfunctions",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:32.720715283Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "✅ [generarFactura] Pedido encontrado. Items: 1",
+    "insertId": "69605fd8000a8297259931a3",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest",
+        "location": "us-central1",
+        "revision_name": "generarfacturatest-00002-boz"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.688791Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "execution_id": "683vbe12uc4d",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfacturatest"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:32.720715283Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fd8000b939237866f53",
+    "jsonPayload": {
+      "message": "ℹ️ [LOG] PASO 2: Validando configuración de empresa",
+      "NOMBRE_COMERCIAL": "P&P BIENES RAICES",
+      "RUC": "1003066535001",
+      "RAZON_SOCIAL": "PALACIOS OCHOA LUIS FERNANDO"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "configuration_name": "generarfacturatest",
+        "service_name": "generarfacturatest",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.758674Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "execution_id": "683vbe12uc4d",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.054513508Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "🏢 [generarFactura] Configuración empresa:",
+    "insertId": "69605fd8000b9543227e7de1",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "revision_name": "generarfacturatest-00002-boz",
+        "service_name": "generarfacturatest",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.759107Z",
+    "severity": "INFO",
+    "labels": {
+      "execution_id": "683vbe12uc4d",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.054513508Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "   RUC: 1003066535001",
+    "insertId": "69605fd8000b985f5706890d",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "revision_name": "generarfacturatest-00002-boz",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfacturatest",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.759903Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "execution_id": "683vbe12uc4d",
+      "goog-managed-by": "cloudfunctions",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.054513508Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "   Razón Social: PALACIOS OCHOA LUIS FERNANDO",
+    "insertId": "69605fd8000b9974cd075814",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "configuration_name": "generarfacturatest",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.760180Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "execution_id": "683vbe12uc4d",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.054513508Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "   Nombre Comercial: P&P BIENES RAICES",
+    "insertId": "69605fd8000b99dfff3faf66",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "revision_name": "generarfacturatest-00002-boz",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfacturatest",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.760287Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.054513508Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "ℹ️ [LOG] PASO 3: Obteniendo secuencial de factura",
+    "insertId": "69605fd8000cbb7f2d1582d0",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest",
+        "location": "us-central1",
+        "service_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.834431Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "execution_id": "683vbe12uc4d",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-managed-by": "cloudfunctions"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.054513508Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fd8000f1a09cc707918",
+    "jsonPayload": {
+      "secuencial": 3,
+      "message": "ℹ️ [LOG] Secuencial obtenido de Firestore"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest",
+        "service_name": "generarfacturatest",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.989705Z",
+    "severity": "INFO",
+    "labels": {
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "execution_id": "683vbe12uc4d",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.054513508Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "🔢 [generarFactura] Secuencial: 3",
+    "insertId": "69605fd8000f1a581e119eaa",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1",
+        "configuration_name": "generarfacturatest",
+        "service_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:32.989784Z",
+    "severity": "INFO",
+    "labels": {
+      "execution_id": "683vbe12uc4d",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.054513508Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fd90001006fbfe59f8f",
+    "jsonPayload": {
+      "message": "ℹ️ [LOG] PASO 4: Generando clave de acceso",
+      "secuencial": 3
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1",
+        "service_name": "generarfacturatest",
+        "configuration_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.065647Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-managed-by": "cloudfunctions"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "🕐 [FechaEcuador] UTC: 2026-01-09T01:54:33.067Z, Ecuador: 2026-01-08T20:54:33.067Z",
+    "insertId": "69605fd9000101cd347de9a2",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfacturatest",
+        "configuration_name": "generarfacturatest",
+        "location": "us-central1",
+        "revision_name": "generarfacturatest-00002-boz"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.065997Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "📅 [generarFactura] Fecha Ecuador (UTC-5): 2026-01-08T20:54:33.067Z",
+    "insertId": "69605fd900010239d9c26655",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "revision_name": "generarfacturatest-00002-boz",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest",
+        "service_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.066105Z",
+    "severity": "INFO",
+    "labels": {
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "📅 [generarFactura] FechaStr para clave: 08012026",
+    "insertId": "69605fd900010285629970c9",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1",
+        "service_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.066181Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "🏢 [generarFactura] RUC: 1003066535001",
+    "insertId": "69605fd9000102d309aad18d",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "configuration_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.066259Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-managed-by": "cloudfunctions",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "🌍 [generarFactura] Ambiente: 1",
+    "insertId": "69605fd9000103372de08b56",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "location": "us-central1",
+        "configuration_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "revision_name": "generarfacturatest-00002-boz"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.066359Z",
+    "severity": "INFO",
+    "labels": {
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "📋 [generarFactura] Tipo Emisión: 1",
+    "insertId": "69605fd90001039c45b5c0e9",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "revision_name": "generarfacturatest-00002-boz",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.066460Z",
+    "severity": "INFO",
+    "labels": {
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "execution_id": "683vbe12uc4d"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fd90001fde2804c1a0e",
+    "jsonPayload": {
+      "codigoNumerico": "51520181",
+      "tipoEmision": "1",
+      "message": "ℹ️ [LOG] Parámetros para clave de acceso",
+      "tipoComprobante": "01",
+      "secuencial": "3",
+      "fechaStr": "08012026",
+      "ruc": "1003066535001",
+      "serie": "001001",
+      "ambiente": "1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1",
+        "configuration_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.130530Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-managed-by": "cloudfunctions",
+      "execution_id": "683vbe12uc4d",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfacturatest"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "[generarClaveAcceso] Parámetros: fecha=08012026, tipo=01, ruc=1003066535001, ambiente=1, serie=001001, num=3, cod=51520181, emision=1",
+    "insertId": "69605fd90001ff9f6802c244",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.130975Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fd900032894084ab143",
+    "jsonPayload": {
+      "message": "✅ [LOG] PASO 4 COMPLETADO: Clave de acceso generada",
+      "claveAcceso": "0801202601100306653500110010010000000035152018110"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "location": "us-central1",
+        "configuration_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "revision_name": "generarfacturatest-00002-boz"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.206996Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "execution_id": "683vbe12uc4d",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "🔑 [generarFactura] Clave de acceso generada: 0801202601100306653500110010010000000035152018110",
+    "insertId": "69605fd900032932510fabbc",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "configuration_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfacturatest",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.207154Z",
+    "severity": "INFO",
+    "labels": {
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "ℹ️ [LOG] PASO 5: Preparando datos de la factura",
+    "insertId": "69605fd90003f74b37f5799a",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "service_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.259915Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "execution_id": "683vbe12uc4d"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fd90004c56e576c7633",
+    "jsonPayload": {
+      "message": "✅ [LOG] PASO 5 COMPLETADO: Datos de factura preparados",
+      "compradorIdentificacion": "VDySQoneyobxkrkbltDakKb0P0x2",
+      "compradorNombre": "CONSUMIDOR FINAL",
+      "fechaEmision": "08/01/2026",
+      "itemsCount": 1,
+      "total": 436.25
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "location": "us-central1",
+        "service_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.312686Z",
+    "severity": "INFO",
+    "labels": {
+      "execution_id": "683vbe12uc4d",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "ℹ️ [LOG] PASO 6: Generando XML de la factura",
+    "insertId": "69605fd90005c13e435ab940",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.377150Z",
+    "severity": "INFO",
+    "labels": {
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-managed-by": "cloudfunctions",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "generarfacturatest"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.387267852Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fd9000708b00c1e5c5b",
+    "jsonPayload": {
+      "message": "✅ [LOG] PASO 6 COMPLETADO: XML generado",
+      "xmlLength": 2197
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.460976Z",
+    "severity": "INFO",
+    "labels": {
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-managed-by": "cloudfunctions",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "execution_id": "683vbe12uc4d"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.719000038Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "📄 [generarFactura] XML generado correctamente",
+    "insertId": "69605fd90007091a91b6e0b6",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "generarfacturatest",
+        "service_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "revision_name": "generarfacturatest-00002-boz",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.461082Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "execution_id": "683vbe12uc4d",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.719000038Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "ℹ️ [LOG] PASO 7: Firmando XML con certificado digital",
+    "insertId": "69605fd90008016e3ef7186c",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "configuration_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1",
+        "service_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:33.524654Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-id": "generarfacturatest"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:33.719000038Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fda000504d7f331e9fa",
+    "jsonPayload": {
+      "message": "✅ [LOG] PASO 7 COMPLETADO: XML firmado correctamente",
+      "xmlFirmadoLength": 6142
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "service_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:34.328919Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "execution_id": "683vbe12uc4d"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:34.384532602Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "✅ [generarFactura] XML firmado correctamente",
+    "insertId": "69605fda000505c0f9b195ce",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "revision_name": "generarfacturatest-00002-boz",
+        "service_name": "generarfacturatest",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:34.329152Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-managed-by": "cloudfunctions",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "execution_id": "683vbe12uc4d",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:34.384532602Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fda000643f3a1a3ddb7",
+    "jsonPayload": {
+      "urlAutorizacion": "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl",
+      "urlRecepcion": "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl",
+      "message": "ℹ️ [LOG] PASO 8: Enviando factura al SRI"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:34.410611Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "execution_id": "683vbe12uc4d",
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:34.718488274Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "📤 [generarFactura] Enviando al SRI...",
+    "insertId": "69605fda0006444721dbc55a",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:34.410695Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "execution_id": "683vbe12uc4d",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:34.718488274Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "Respuesta recepción SRI: <soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><ns2:validarComprobanteResponse xmlns:ns2=\"http://ec.gob.sri.ws.recepcion\"><RespuestaRecepcionComprobante><estado>DEVUELTA</estado><comprobantes><comprobante><claveAcceso>0801202601100306653500110010010000000035152018110</claveAcceso><mensajes><mensaje><identificador>35</identificador><mensaje>ARCHIVO NO CUMPLE ESTRUCTURA XML</mensaje><informacionAdicional>Se encontró el siguiente error en la estructura del comprobante: cvc-maxLength-valid: Value 'VDySQoneyobxkrkbltDakKb0P0x2' with length = '28' is not facet-valid with respect to maxLength '20' for type 'identificacionComprador'..</informacionAdicional><tipo>ERROR</tipo></mensaje></mensajes></comprobante></comprobantes></RespuestaRecepcionComprobante></ns2:validarComprobanteResponse></soap:Body></soap:Envelope>",
+    "insertId": "69605fdb0002ca1f8afbfdcd",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.182815Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.383225269Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fdb0002ccb3cc77d350",
+    "jsonPayload": {
+      "estadoValido": false,
+      "mensajes": [
+        {
+          "tipo": "ERROR",
+          "informacionAdicional": "Se encontró el siguiente error en la estructura del comprobante: cvc-maxLength-valid: Value 'VDySQoneyobxkrkbltDakKb0P0x2' with length = '28' is not facet-valid with respect to maxLength '20' for type 'identificacionComprador'..",
+          "identificador": "35",
+          "mensaje": "ARCHIVO NO CUMPLE ESTRUCTURA XML"
+        }
+      ],
+      "estado": "DEVUELTA",
+      "message": "🔍 Recepción parseada:"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1",
+        "configuration_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.183475Z",
+    "severity": "INFO",
+    "labels": {
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "execution_id": "683vbe12uc4d",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.383225269Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "⚠️ SRI rechazó el comprobante: DEVUELTA",
+    "insertId": "69605fdb0002cd9396650187",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "location": "us-central1",
+        "service_name": "generarfacturatest",
+        "configuration_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.183699Z",
+    "severity": "WARNING",
+    "labels": {
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "execution_id": "683vbe12uc4d",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-managed-by": "cloudfunctions",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstderr",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.188728176Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "📋 Mensajes del SRI: [35] ARCHIVO NO CUMPLE ESTRUCTURA XML: Se encontró el siguiente error en la estructura del comprobante: cvc-maxLength-valid: Value 'VDySQoneyobxkrkbltDakKb0P0x2' with length = '28' is not facet-valid with respect to maxLength '20' for type 'identificacionComprador'..",
+    "insertId": "69605fdb0002cdfe00033411",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1",
+        "service_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.183806Z",
+    "severity": "WARNING",
+    "labels": {
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "execution_id": "683vbe12uc4d",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-managed-by": "cloudfunctions",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-id": "generarfacturatest"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstderr",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.521501864Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "⚠️ [generarFactura] Factura DEVUELTA por el SRI",
+    "insertId": "69605fdb0002ce694e5da580",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.183913Z",
+    "severity": "WARNING",
+    "labels": {
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstderr",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.521501864Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "Error al guardar log: Error: Value for argument \"data\" is not a valid Firestore document. Cannot use \"undefined\" as a Firestore value (found in field \"datos.autorizado\"). If you want to ignore undefined values, enable `ignoreUndefinedProperties`.\n    at validateUserInput (/workspace/node_modules/@google-cloud/firestore/build/src/serializer.js:383:19)\n    at validateUserInput (/workspace/node_modules/@google-cloud/firestore/build/src/serializer.js:375:13)\n    at validateUserInput (/workspace/node_modules/@google-cloud/firestore/build/src/serializer.js:375:13)\n    at validateDocumentData (/workspace/node_modules/@google-cloud/firestore/build/src/write-batch.js:609:40)\n    at /workspace/node_modules/@google-cloud/firestore/build/src/reference/collection-reference.js:214:52\n    at /workspace/node_modules/@google-cloud/firestore/build/src/telemetry/enabled-trace-util.js:110:30\n    at NoopContextManager.with (/workspace/node_modules/@opentelemetry/api/build/src/context/NoopContextManager.js:25:19)\n    at ContextAPI.with (/workspace/node_modules/@opentelemetry/api/build/src/api/context.js:60:46)\n    at NoopTracer.startActiveSpan (/workspace/node_modules/@opentelemetry/api/build/src/trace/NoopTracer.js:65:31)\n    at ProxyTracer.startActiveSpan (/workspace/node_modules/@opentelemetry/api/build/src/trace/ProxyTracer.js:36:24)",
+    "insertId": "69605fdb0002d4bc87276447",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfacturatest",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.185532Z",
+    "severity": "ERROR",
+    "labels": {
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "execution_id": "683vbe12uc4d",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstderr",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.521501864Z",
+    "spanId": "4442088704021083957",
+    "errorGroups": [
+      {
+        "id": "CMyww6PVyK2xKQ"
+      }
+    ]
+  },
+  {
+    "textPayload": "📊 [generarFactura] Estado final del SRI: DEVUELTA",
+    "insertId": "69605fdb0002d5353e6d2e0a",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.185653Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "execution_id": "683vbe12uc4d",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.383225269Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fdb0003d49e6a6b3be8",
+    "jsonPayload": {
+      "claveAcceso": "0801202601100306653500110010010000000035152018110",
+      "message": "ℹ️ [LOG] PASO 9: Guardando factura en Firestore",
+      "estado": "DEVUELTA"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "location": "us-central1",
+        "revision_name": "generarfacturatest-00002-boz",
+        "configuration_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.251038Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "execution_id": "683vbe12uc4d",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-managed-by": "cloudfunctions",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.383225269Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "💾 [generarFactura] Guardando factura en Firestore...",
+    "insertId": "69605fdb0003d5075061af78",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "revision_name": "generarfacturatest-00002-boz",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest",
+        "service_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.251143Z",
+    "severity": "INFO",
+    "labels": {
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "execution_id": "683vbe12uc4d",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-id": "generarfacturatest"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.383225269Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fdb000578353ef28860",
+    "jsonPayload": {
+      "coleccion": "Facturas",
+      "documentId": "0801202601100306653500110010010000000035152018110",
+      "estadoGuardado": "DEVUELTA",
+      "message": "✅ [LOG] PASO 9 COMPLETADO: Factura guardada en Firestore"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c",
+        "revision_name": "generarfacturatest-00002-boz",
+        "configuration_name": "generarfacturatest",
+        "service_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.358453Z",
+    "severity": "INFO",
+    "labels": {
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-managed-by": "cloudfunctions",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.383225269Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "✅ [generarFactura] Factura guardada en Firestore con estado: DEVUELTA",
+    "insertId": "69605fdb000578d6fa08ad8e",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "generarfacturatest",
+        "location": "us-central1",
+        "revision_name": "generarfacturatest-00002-boz",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.358614Z",
+    "severity": "INFO",
+    "labels": {
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "goog-managed-by": "cloudfunctions",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.383225269Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fdb0006570bb6f8cd23",
+    "jsonPayload": {
+      "message": "ℹ️ [LOG] PASO 10: Actualizando secuencial",
+      "secuencial": 3
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.415499Z",
+    "severity": "INFO",
+    "labels": {
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.717318347Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fdb0007e34f369340e5",
+    "jsonPayload": {
+      "message": "✅ [LOG] PASO 10 COMPLETADO: Secuencial actualizado",
+      "secuencial": 3
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "configuration_name": "generarfacturatest",
+        "revision_name": "generarfacturatest-00002-boz",
+        "location": "us-central1",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.516943Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "execution_id": "683vbe12uc4d",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.717318347Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "✅ [generarFactura] Secuencial actualizado a 3",
+    "insertId": "69605fdb0007e3bc124dbd0c",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "service_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.517052Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "execution_id": "683vbe12uc4d"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.717318347Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fdb0008b82d3a9a6124",
+    "jsonPayload": {
+      "message": "ℹ️ [LOG] PASO 11: Actualizando pedido con referencia a factura",
+      "ruta": "Users/VDySQoneyobxkrkbltDakKb0P0x2/Orders/1portGGMdjYQXowCPrAm"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "location": "us-central1",
+        "configuration_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "service_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.571437Z",
+    "severity": "INFO",
+    "labels": {
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "goog-managed-by": "cloudfunctions",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "execution_id": "683vbe12uc4d",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.717318347Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fdb000a606e20834329",
+    "jsonPayload": {
+      "message": "✅ [LOG] PASO 11 COMPLETADO: Pedido actualizado",
+      "facturaId": "0801202601100306653500110010010000000035152018110"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "project_id": "ecommerceapp-5f46c",
+        "configuration_name": "generarfacturatest",
+        "location": "us-central1",
+        "service_name": "generarfacturatest"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.680046Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-managed-by": "cloudfunctions",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "execution_id": "683vbe12uc4d",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.717318347Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "textPayload": "✅ [generarFactura] Pedido actualizado con facturaId",
+    "insertId": "69605fdb000a60c54261b460",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "generarfacturatest",
+        "location": "us-central1",
+        "configuration_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c",
+        "revision_name": "generarfacturatest-00002-boz"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.680133Z",
+    "severity": "INFO",
+    "labels": {
+      "goog-drz-cloudfunctions-id": "generarfacturatest",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "execution_id": "683vbe12uc4d",
+      "goog-managed-by": "cloudfunctions",
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-drz-cloudfunctions-location": "us-central1"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:35.717318347Z",
+    "spanId": "4442088704021083957"
+  },
+  {
+    "insertId": "69605fdb000b4957fe6e637a",
+    "jsonPayload": {
+      "success": false,
+      "message": "✅ [LOG] 🎉 PROCESO COMPLETADO",
+      "mensaje": "Factura devuelta por el SRI. Motivo: ARCHIVO NO CUMPLE ESTRUCTURA XML",
+      "claveAcceso": "0801202601100306653500110010010000000035152018110",
+      "estado": "DEVUELTA"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "generarfacturatest-00002-boz",
+        "service_name": "generarfacturatest",
+        "location": "us-central1",
+        "configuration_name": "generarfacturatest",
+        "project_id": "ecommerceapp-5f46c"
+      }
+    },
+    "timestamp": "2026-01-09T01:54:35.739671Z",
+    "severity": "INFO",
+    "labels": {
+      "firebase-functions-hash": "e7201f36e20ea19697972df035e50f44a3857226",
+      "run.googleapis.com/base_image_versions": "us-docker.pkg.dev/serverless-runtimes/google-24-full/runtimes/nodejs24:nodejs24_20251207_24_11_0_RC00",
+      "goog-managed-by": "cloudfunctions",
+      "execution_id": "683vbe12uc4d",
+      "instanceId": "0007e26d686e69180eabacd7cb4f1484d1e42711cdb25f30d9a752dbc1ab0f6013a74e85b5a0e1958f67391b596054836ba919b880e79601b859d37deef8127ff51e22bf44d58166154623d771fc6e",
+      "goog-drz-cloudfunctions-location": "us-central1",
+      "goog-drz-cloudfunctions-id": "generarfacturatest"
+    },
+    "logName": "projects/ecommerceapp-5f46c/logs/run.googleapis.com%2Fstdout",
+    "trace": "projects/ecommerceapp-5f46c/traces/b05721c9d6043556473898827e58c7d9",
+    "receiveTimestamp": "2026-01-09T01:54:36.049435405Z",
+    "spanId": "4442088704021083957"
+  }
+]
