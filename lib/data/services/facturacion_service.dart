@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:get/get.dart';
 import 'package:tienda_ropa/utils/popups/full_screen_loader.dart';
@@ -166,5 +167,54 @@ class FacturacionService extends GetxService {
       );
     }
   }
+
+  /// Obtiene la URL del PDF de la factura desde Firestore
+  ///
+  /// [facturaId] - ID de la factura (clave de acceso)
+  /// Retorna la URL del PDF o null si no existe
+  Future<String?> obtenerUrlPdfFactura(String facturaId) async {
+    try {
+      final facturaDoc = await FirebaseFirestore.instance
+          .collection('Facturas')
+          .doc(facturaId)
+          .get();
+
+      if (!facturaDoc.exists) {
+        return null;
+      }
+
+      final data = facturaDoc.data();
+      return data?['pdfUrl'] as String?;
+    } catch (e) {
+      print('❌ [FacturacionService] Error al obtener URL del PDF: $e');
+      return null;
+    }
+  }
+
+  /// Obtiene la URL del PDF de una factura a partir del ID del pedido
+  ///
+  /// [orderId] - ID del pedido
+  /// Retorna la URL del PDF o null si no existe
+  Future<String?> obtenerUrlPdfPorPedido(String orderId) async {
+    try {
+      // Buscar la factura por orderId
+      final facturas = await FirebaseFirestore.instance
+          .collection('Facturas')
+          .where('orderId', isEqualTo: orderId)
+          .limit(1)
+          .get();
+
+      if (facturas.docs.isEmpty) {
+        return null;
+      }
+
+      final data = facturas.docs.first.data();
+      return data['pdfUrl'] as String?;
+    } catch (e) {
+      print('❌ [FacturacionService] Error al obtener URL del PDF por pedido: $e');
+      return null;
+    }
+  }
 }
+
 

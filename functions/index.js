@@ -836,6 +836,9 @@ async function procesarGeneracionFactura(orderId, userId) {
   if (mensajesErrorSRI.length > 0) {
     facturaData.mensajesErrorSRI = mensajesErrorSRI;
   }
+  if (pdfUrl) {
+    facturaData.pdfUrl = pdfUrl;
+  }
 
   await admin.firestore().collection("Facturas").doc(claveAcceso).set(facturaData);
 
@@ -848,6 +851,7 @@ async function procesarGeneracionFactura(orderId, userId) {
 
   // PASO 9.1: Generar PDF de la factura
   let pdfBuffer = null;
+  let pdfUrl = null;
   try {
     await guardarLogFacturacion('INFO', 'PASO 9.1: Generando PDF de factura', null, orderId);
 
@@ -863,11 +867,42 @@ async function procesarGeneracionFactura(orderId, userId) {
       pdfSize: pdfBuffer.length,
     }, orderId);
     logger.info(`✅ [generarFactura] PDF generado (${pdfBuffer.length} bytes)`);
+
+    // PASO 9.1.1: Guardar PDF en Firebase Storage
+    await guardarLogFacturacion('INFO', 'PASO 9.1.1: Guardando PDF en Firebase Storage', null, orderId);
+
+    const bucket = admin.storage().bucket();
+    const numeroFactura = `${datosFactura.establecimiento}-${datosFactura.puntoEmision}-${datosFactura.secuencial.toString().padStart(9, "0")}`;
+    const pdfFileName = `Facturas/${numeroFactura}_${claveAcceso}.pdf`;
+    const pdfFile = bucket.file(pdfFileName);
+
+    await pdfFile.save(pdfBuffer, {
+      metadata: {
+        contentType: 'application/pdf',
+        metadata: {
+          orderId: orderId,
+          claveAcceso: claveAcceso,
+          numeroFactura: numeroFactura,
+        },
+      },
+    });
+
+    // Hacer el archivo público para acceso directo
+    await pdfFile.makePublic();
+
+    // Obtener URL pública
+    pdfUrl = `https://storage.googleapis.com/${bucket.name}/${pdfFileName}`;
+
+    await guardarLogFacturacion('SUCCESS', 'PASO 9.1.1 COMPLETADO: PDF guardado en Storage', {
+      pdfUrl: pdfUrl,
+      fileName: pdfFileName,
+    }, orderId);
+    logger.info(`✅ [generarFactura] PDF guardado en Storage: ${pdfUrl}`);
   } catch (errorPDF) {
-    await guardarLogFacturacion('WARNING', 'PASO 9.1 ADVERTENCIA: Error al generar PDF', {
+    await guardarLogFacturacion('WARNING', 'PASO 9.1 ADVERTENCIA: Error al generar o guardar PDF', {
       error: errorPDF.message,
     }, orderId);
-    logger.warn(`⚠️ [generarFactura] Error al generar PDF:`, errorPDF);
+    logger.warn(`⚠️ [generarFactura] Error al generar o guardar PDF:`, errorPDF);
   }
 
   // PASO 9.2: Enviar email con PDF y XML

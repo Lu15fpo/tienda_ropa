@@ -245,9 +245,25 @@ class OrderDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: TSizes.spaceBtwSections),
 
+              /// Botón Ver Factura PDF (Siempre visible)
+              const Divider(),
+              const SizedBox(height: TSizes.spaceBtwItems),
+
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () => controller.verPdfFactura(order.id),
+                  icon: const Icon(Iconsax.document),
+                  label: const Text('Ver Factura PDF'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: TColors.primary,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ),
+
               /// Botones de Acción (Solo si puede modificar)
               if (canModify) ...[
-                const Divider(),
                 const SizedBox(height: TSizes.spaceBtwItems),
 
                 /// Botón Cambiar Dirección

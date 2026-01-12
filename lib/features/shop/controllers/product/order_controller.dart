@@ -9,6 +9,7 @@ import 'package:tienda_ropa/utils/constants/enums.dart';
 import 'package:tienda_ropa/utils/constants/image_strings.dart';
 import 'package:tienda_ropa/utils/popups/full_screen_loader.dart';
 import 'package:tienda_ropa/utils/popups/loaders.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../data/repositories/authentication/authentication_repository.dart';
 import '../../../../data/repositories/order/order_repository.dart';
@@ -306,6 +307,51 @@ class OrderController extends GetxController {
       TLoaders.errorSnackBar(
         title: 'Error',
         message: e.toString(),
+      );
+    }
+  }
+
+  /// Ver PDF de la factura
+  Future<void> verPdfFactura(String orderId) async {
+    try {
+      // Mostrar loader
+      TFullScreenLoader.openLoadingDialog(
+        'Obteniendo factura...',
+        TImages.docerAnimation,
+      );
+
+      // Obtener URL del PDF desde Firestore
+      final pdfUrl = await facturacionService.obtenerUrlPdfPorPedido(orderId);
+
+      // Ocultar loader
+      TFullScreenLoader.stopLoading();
+
+      if (pdfUrl == null || pdfUrl.isEmpty) {
+        TLoaders.warningSnackBar(
+          title: 'Factura no disponible',
+          message: 'La factura para este pedido aún no ha sido generada.',
+        );
+        return;
+      }
+
+      // Abrir PDF en el navegador/visor del sistema
+      final uri = Uri.parse(pdfUrl);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(
+          uri,
+          mode: LaunchMode.externalApplication,
+        );
+      } else {
+        TLoaders.errorSnackBar(
+          title: 'Error',
+          message: 'No se pudo abrir el PDF. Por favor intenta nuevamente.',
+        );
+      }
+    } catch (e) {
+      TFullScreenLoader.stopLoading();
+      TLoaders.errorSnackBar(
+        title: 'Error',
+        message: 'Error al obtener la factura: ${e.toString()}',
       );
     }
   }
