@@ -183,7 +183,12 @@ function generarClaveAcceso(fecha, tipoComprobante, ruc, ambiente, serie, numero
   }
 
   const modulo = suma % 11;
-  const digitoVerificador = modulo === 0 ? 0 : (11 - modulo);
+  let digitoVerificador = modulo === 0 ? 0 : (11 - modulo);
+
+  // 🔧 CORRECCIÓN: Si el verificador es 10, usar 1 (según especificación SRI)
+  if (digitoVerificador === 10) {
+    digitoVerificador = 1;
+  }
 
   const claveAccesoFinal = claveBase + digitoVerificador;
 
