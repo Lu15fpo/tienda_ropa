@@ -12,6 +12,7 @@ const {create} = require("xmlbuilder2");
 const forge = require("node-forge");
 const logger = require("firebase-functions/logger");
 const bwipjs = require("bwip-js");
+const nodemailer = require("nodemailer");
 
 // Inicializar Firebase Admin
 admin.initializeApp();
@@ -28,6 +29,22 @@ const EMPRESA_CONFIG = {
   OBLIGADO_CONTABILIDAD: process.env.OBLIGADO_CONTABILIDAD || "NO",
   CONTRIBUYENTE_ESPECIAL: process.env.CONTRIBUYENTE_ESPECIAL || "000",
 };
+
+// Configuración de Email
+const EMAIL_CONFIG = {
+  EMAIL: process.env.EMAIL_SENDER || "palaciosluisfer@gmail.com",
+  PASSWORD: process.env.EMAIL_PASSWORD || "fpzv kpuv hqhz ozdd",
+  NOMBRE_REMITENTE: "Men's Locker Clothing Ec - Factura Electronica",
+};
+
+// Configurar transporter de nodemailer
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: EMAIL_CONFIG.EMAIL,
+    pass: EMAIL_CONFIG.PASSWORD,
+  },
+});
 
 // Configuración global
 setGlobalOptions({maxInstances: 10});
@@ -619,8 +636,8 @@ async function procesarGeneracionFactura(orderId, userId) {
       tipoIdentificacion: userData?.Cedula && userData.Cedula.length === 13 ? "04" : userData?.Cedula && userData.Cedula.length === 10 ? "05" : "07", // 04=RUC, 05=Cédula, 07=Consumidor Final
       identificacion: userData?.Cedula || "9999999999999",
       razonSocial: `${userData?.FirstName || ""} ${userData?.LastName || ""}`.trim() || "CONSUMIDOR FINAL",
-      direccion: orderData.address?.street || "N/A",
-      telefono: userData?.PhoneNumber || orderData.address?.phoneNumber || "",
+      direccion: orderData.address?.Street || orderData.address?.street || "N/A", // 🔧 Probar Street (mayúscula) y street (minúscula)
+      telefono: userData?.PhoneNumber || orderData.address?.PhoneNumber || orderData.address?.phoneNumber || "",
       correo: userData?.Email || "",
     },
     // 🔧 Determinar forma de pago según tipo de tarjeta
@@ -641,8 +658,22 @@ async function procesarGeneracionFactura(orderId, userId) {
       const baseImponible = subtotalConDescuento;
       const valorIva = baseImponible * 0.15;
 
+      // 🔧 Generar SKU automático si no existe
+      let codigoProducto;
+      if (item.sku) {
+        // Si tiene SKU, usarlo
+        codigoProducto = item.sku;
+      } else if (item.productId) {
+        // Si no tiene SKU, generar uno automático a partir del productId
+        // Formato: PROD-[primeros 8 caracteres en mayúsculas]
+        codigoProducto = `PROD-${item.productId.substring(0, 8).toUpperCase()}`;
+      } else {
+        // Fallback final
+        codigoProducto = "PROD-SIN-CODIGO";
+      }
+
       return {
-        codigo: item.productId || "PROD",
+        codigo: codigoProducto, // 🔧 SKU generado automáticamente si no existe
         descripcion: item.title || "Producto",
         cantidad: cantidad,
         precioUnitario: precioUnitario,
@@ -815,6 +846,59 @@ async function procesarGeneracionFactura(orderId, userId) {
   }, orderId);
   logger.info(`✅ [generarFactura] Factura guardada en Firestore con estado: ${estadoFactura}`);
 
+  // PASO 9.1: Generar PDF de la factura
+  let pdfBuffer = null;
+  try {
+    await guardarLogFacturacion('INFO', 'PASO 9.1: Generando PDF de factura', null, orderId);
+
+    pdfBuffer = await generarPDFFactura({
+      ...datosFactura,
+      claveAcceso,
+      estado: estadoFactura,
+      numeroAutorizacion,
+      fechaAutorizacion,
+    });
+
+    await guardarLogFacturacion('SUCCESS', 'PASO 9.1 COMPLETADO: PDF generado exitosamente', {
+      pdfSize: pdfBuffer.length,
+    }, orderId);
+    logger.info(`✅ [generarFactura] PDF generado (${pdfBuffer.length} bytes)`);
+  } catch (errorPDF) {
+    await guardarLogFacturacion('WARNING', 'PASO 9.1 ADVERTENCIA: Error al generar PDF', {
+      error: errorPDF.message,
+    }, orderId);
+    logger.warn(`⚠️ [generarFactura] Error al generar PDF:`, errorPDF);
+  }
+
+  // PASO 9.2: Enviar email con PDF y XML
+  try {
+    await guardarLogFacturacion('INFO', 'PASO 9.2: Enviando email con factura', {
+      correoDestino: datosFactura.comprador.correo,
+    }, orderId);
+
+    const emailEnviado = await enviarEmailFactura({
+      correo: datosFactura.comprador.correo,
+      nombreCliente: datosFactura.comprador.razonSocial,
+      claveAcceso,
+      numeroFactura: `${datosFactura.establecimiento}-${datosFactura.puntoEmision}-${datosFactura.secuencial.toString().padStart(9, "0")}`,
+      pdfBuffer,
+      xmlBuffer: Buffer.from(xmlFirmado, "utf-8"),
+      estadoFactura,
+    });
+
+    if (emailEnviado) {
+      await guardarLogFacturacion('SUCCESS', 'PASO 9.2 COMPLETADO: Email enviado exitosamente', {
+        correo: datosFactura.comprador.correo,
+      }, orderId);
+      logger.info(`✅ [generarFactura] Email enviado a ${datosFactura.comprador.correo}`);
+    }
+  } catch (errorEmail) {
+    await guardarLogFacturacion('WARNING', 'PASO 9.2 ADVERTENCIA: Error al enviar email', {
+      error: errorEmail.message,
+    }, orderId);
+    logger.warn(`⚠️ [generarFactura] Error al enviar email:`, errorEmail);
+  }
+
   // PASO 10: Actualizar secuencial
   await guardarLogFacturacion('INFO', 'PASO 10: Actualizando secuencial', {secuencial}, orderId);
 
@@ -891,6 +975,7 @@ async function procesarGeneracionFactura(orderId, userId) {
  */
 exports.generarFactura = onCall({
   maxInstances: 5,
+  memory: "512MiB", // 🔧 Aumentado de 256MB a 512MB para generación de PDF + envío de email
   secrets: [certificadoPassword], // Declarar que esta función usa secrets
 }, async (request) => {
   try {
@@ -919,6 +1004,7 @@ const {onRequest} = require("firebase-functions/v2/https");
 
 exports.generarFacturaTest = onRequest({
   secrets: [certificadoPassword],
+  memory: "512MiB", // 🔧 Aumentado para evitar errores de memoria
   cors: true, // Habilitar CORS para pruebas desde navegador
 }, async (req, res) => {
   try {
@@ -992,7 +1078,6 @@ exports.consultarAutorizacion = onCall(async (request) => {
 // 📧 SISTEMA DE ENVÍO DE FACTURAS POR EMAIL
 // ═══════════════════════════════════════════════════════════════════════════
 
-const nodemailer = require("nodemailer");
 
 // Configuración del transporter de Gmail
 const emailConfig = {
@@ -1015,6 +1100,200 @@ function crearTransporterEmail() {
       pass: emailConfig.password,
     },
   });
+}
+
+/**
+ * 📧 Enviar email con factura PDF y XML adjuntos
+ * @param {Object} datos - Datos del email
+ * @param {string} datos.correo - Email del destinatario
+ * @param {string} datos.nombreCliente - Nombre del cliente
+ * @param {string} datos.claveAcceso - Clave de acceso de la factura
+ * @param {string} datos.numeroFactura - Número de factura (001-001-000000001)
+ * @param {Buffer} datos.pdfBuffer - Buffer del PDF
+ * @param {Buffer} datos.xmlBuffer - Buffer del XML
+ * @param {string} datos.estadoFactura - Estado de la factura
+ * @return {Promise<boolean>} True si se envió correctamente
+ */
+async function enviarEmailFactura(datos) {
+  try {
+    const {correo, nombreCliente, claveAcceso, numeroFactura, pdfBuffer, xmlBuffer, estadoFactura} = datos;
+
+    logger.info(`📧 [EMAIL] Preparando envío de factura a: ${correo}`);
+
+    // Descargar logo desde Firebase Storage
+    let logoBuffer;
+    try {
+      const bucket = admin.storage().bucket();
+      const logoFile = bucket.file("logos/LogoRedondoLightLogin.png");
+      [logoBuffer] = await logoFile.download();
+      logger.info(`📧 [EMAIL] Logo descargado exitosamente`);
+    } catch (error) {
+      logger.warn(`⚠️ [EMAIL] No se pudo descargar logo:`, error.message);
+    }
+
+    // Crear mensaje de estado según el estado de la factura
+    let mensajeEstado = "";
+    let colorEstado = "#28a745"; // Verde por defecto
+
+    switch (estadoFactura) {
+      case "AUTORIZADA":
+        mensajeEstado = "✅ <strong>AUTORIZADA</strong> - Su factura ha sido autorizada exitosamente por el SRI.";
+        colorEstado = "#28a745";
+        break;
+      case "RECIBIDA":
+        mensajeEstado = "🔄 <strong>RECIBIDA</strong> - Su factura ha sido recibida y está en proceso de autorización.";
+        colorEstado = "#ffc107";
+        break;
+      case "ERROR_COMUNICACION":
+        mensajeEstado = "⚠️ <strong>PENDIENTE</strong> - Hubo un problema temporal de comunicación. La factura será procesada pronto.";
+        colorEstado = "#ff9800";
+        break;
+      default:
+        mensajeEstado = "📄 <strong>GENERADA</strong> - Su factura ha sido generada exitosamente.";
+        colorEstado = "#17a2b8";
+    }
+
+    // Configurar email
+    const mailOptions = {
+      from: `"${EMAIL_CONFIG.NOMBRE_REMITENTE}" <${EMAIL_CONFIG.EMAIL}>`,
+      to: correo,
+      subject: `Factura Electrónica ${numeroFactura} - ${EMPRESA_CONFIG.NOMBRE_COMERCIAL}`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <style>
+            body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+            .container { max-width: 600px; margin: 30px auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; }
+            .logo { width: 120px; height: auto; margin-bottom: 15px; border-radius: 50%; }
+            .header h1 { color: white; margin: 0; font-size: 24px; }
+            .header p { color: rgba(255,255,255,0.9); margin: 5px 0 0; font-size: 14px; }
+            .content { padding: 30px; }
+            .estado-box { background: ${colorEstado}15; border-left: 4px solid ${colorEstado}; padding: 15px; margin: 20px 0; border-radius: 5px; }
+            .estado-box p { margin: 0; color: #333; }
+            .info-factura { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+            .info-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #dee2e6; }
+            .info-row:last-child { border-bottom: none; }
+            .info-label { font-weight: 600; color: #495057; }
+            .info-value { color: #6c757d; }
+            .adjuntos { background: #e7f3ff; padding: 15px; border-radius: 8px; margin: 20px 0; }
+            .adjuntos h3 { margin: 0 0 10px; color: #0056b3; font-size: 16px; }
+            .adjunto-item { display: inline-block; margin: 5px 10px 5px 0; padding: 8px 15px; background: white; border-radius: 5px; border: 1px solid #0056b3; color: #0056b3; font-size: 14px; }
+            .footer { background: #f8f9fa; padding: 20px; text-align: center; font-size: 12px; color: #6c757d; }
+            .clave-acceso { background: #f8f9fa; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 11px; word-break: break-all; color: #495057; margin-top: 10px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              ${logoBuffer ? '<img src="cid:logo" class="logo" alt="Logo">' : ""}
+              <h1>Factura Electrónica</h1>
+              <p>${EMPRESA_CONFIG.NOMBRE_COMERCIAL}</p>
+            </div>
+
+            <div class="content">
+              <p>Estimado/a <strong>${nombreCliente}</strong>,</p>
+              <p>Adjuntamos su factura electrónica generada por nuestro sistema.</p>
+
+              <div class="estado-box">
+                <p>${mensajeEstado}</p>
+              </div>
+
+              <div class="info-factura">
+                <div class="info-row">
+                  <span class="info-label">Número de Factura:</span>
+                  <span class="info-value">${numeroFactura}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Empresa:</span>
+                  <span class="info-value">${EMPRESA_CONFIG.RAZON_SOCIAL}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">RUC:</span>
+                  <span class="info-value">${EMPRESA_CONFIG.RUC}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Estado:</span>
+                  <span class="info-value" style="color: ${colorEstado}; font-weight: 600;">${estadoFactura}</span>
+                </div>
+              </div>
+
+              <div class="adjuntos">
+                <h3>📎 Archivos Adjuntos</h3>
+                <span class="adjunto-item">📄 Factura.pdf</span>
+                <span class="adjunto-item">📋 Factura.xml</span>
+              </div>
+
+              <p style="margin-top: 20px; font-size: 14px; color: #6c757d;">
+                <strong>Clave de Acceso:</strong>
+              </p>
+              <div class="clave-acceso">${claveAcceso}</div>
+
+              <p style="margin-top: 20px; font-size: 13px; color: #6c757d;">
+                Gracias por su compra. Si tiene alguna duda, no dude en contactarnos.
+              </p>
+            </div>
+
+            <div class="footer">
+              <p><strong>${EMPRESA_CONFIG.RAZON_SOCIAL}</strong></p>
+              <p>${EMPRESA_CONFIG.DIRECCION_MATRIZ}</p>
+              <p>RUC: ${EMPRESA_CONFIG.RUC}</p>
+              <p style="margin-top: 10px; font-size: 11px; color: #adb5bd;">
+                Este es un email automático, por favor no responder.
+              </p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `,
+      attachments: [],
+    };
+
+    // Agregar logo como adjunto si existe
+    if (logoBuffer) {
+      mailOptions.attachments.push({
+        filename: "logo.png",
+        content: logoBuffer,
+        cid: "logo",
+      });
+    }
+
+    // Agregar PDF si existe
+    if (pdfBuffer) {
+      mailOptions.attachments.push({
+        filename: `Factura_${numeroFactura}.pdf`,
+        content: pdfBuffer,
+        contentType: "application/pdf",
+      });
+      logger.info(`📧 [EMAIL] PDF adjunto agregado (${pdfBuffer.length} bytes)`);
+    }
+
+    // Agregar XML
+    if (xmlBuffer) {
+      mailOptions.attachments.push({
+        filename: `Factura_${numeroFactura}.xml`,
+        content: xmlBuffer,
+        contentType: "application/xml",
+      });
+      logger.info(`📧 [EMAIL] XML adjunto agregado (${xmlBuffer.length} bytes)`);
+    }
+
+    // Enviar email
+    const info = await transporter.sendMail(mailOptions);
+
+    logger.info(`✅ [EMAIL] Email enviado exitosamente`, {
+      messageId: info.messageId,
+      to: correo,
+      numeroFactura,
+    });
+
+    return true;
+  } catch (error) {
+    logger.error(`❌ [EMAIL] Error al enviar email:`, error);
+    throw error;
+  }
 }
 
 /**
@@ -1147,39 +1426,45 @@ async function generarPDFFactura(datosFactura) {
       }
 
       // Recuadro con información de la empresa - ALTURA IGUALADA A 200px
-      doc.roundedRect(leftBoxX, yPos, leftBoxWidth, 200, 5)
+      doc.roundedRect(leftBoxX, yPos, leftBoxWidth, 90, 5)
           .stroke("#000000");
 
-      let boxYPos = yPos + 15; // Más espacio superior para centrar mejor
+      let boxYPos = yPos + 8; // Reducido para ahorrar espacio
 
       doc.font("Helvetica-Bold").fontSize(9)
           .text(EMPRESA_CONFIG.RAZON_SOCIAL, leftBoxX + 10, boxYPos, {width: leftBoxWidth - 20});
 
-      boxYPos += 20; // Más espacio entre elementos
+      boxYPos += 16; // Reducido de 20 a 14
 
-      doc.font("Helvetica").fontSize(8)
+      doc.font("Helvetica-Bold").fontSize(8) // NEGRITA
           .text("Dirección Matriz:", leftBoxX + 10, boxYPos);
 
-      boxYPos += 10;
+      boxYPos += 9; // Reducido de 10 a 9
 
-      doc.fontSize(8)
+      doc.font("Helvetica").fontSize(8) // Volver a normal para el contenido
           .text(EMPRESA_CONFIG.DIRECCION_MATRIZ, leftBoxX + 10, boxYPos, {
             width: leftBoxWidth - 20,
           });
 
-      boxYPos += 35; // Más espacio entre secciones
+      boxYPos += 20; // Reducido de 25 a 14
 
-      doc.fontSize(8)
-          .text(`Dirección Sucursal: ${EMPRESA_CONFIG.NOMBRE_COMERCIAL}`, leftBoxX + 10, boxYPos, {
-            width: leftBoxWidth - 20,
-          });
+      // Título en negrilla
+      doc.font("Helvetica-Bold").fontSize(8)
+          .text("Dirección Sucursal: ", leftBoxX + 10, boxYPos, {continued: true});
 
-      boxYPos += 20; // Más espacio entre elementos
+      // Contenido en texto normal
+      doc.font("Helvetica").fontSize(8)
+          .text(EMPRESA_CONFIG.NOMBRE_COMERCIAL);
 
-      doc.fontSize(8)
-          .text(`OBLIGADO A LLEVAR CONTABILIDAD: ${EMPRESA_CONFIG.OBLIGADO_CONTABILIDAD}`, leftBoxX + 10, boxYPos, {
-            width: leftBoxWidth - 20,
-          });
+      boxYPos += 15; // Reducido de 20 a 12
+
+      // Título en negrilla
+      doc.font("Helvetica-Bold").fontSize(8)
+          .text("OBLIGADO A LLEVAR CONTABILIDAD: ", leftBoxX + 10, boxYPos, {continued: true});
+
+      // Contenido en texto normal
+      doc.font("Helvetica").fontSize(8)
+          .text(EMPRESA_CONFIG.OBLIGADO_CONTABILIDAD);
 
       // ═══════════════════════════════════════════════════════════════════
       // HEADER: LADO DERECHO (RUC, FACTURA, AUTORIZACIÓN EN RECUADRO)
@@ -1368,9 +1653,17 @@ async function generarPDFFactura(datosFactura) {
       doc.font("Helvetica").fontSize(8);
 
       datosFactura.items.forEach((item, index) => {
-        // Calcular altura necesaria para la descripción con ancho actualizado
+        // Calcular altura necesaria para todos los campos de texto
+        const codigoPrincipal = item.codigo || item.codigoPrincipal || "001";
+        const codigoAuxiliar = item.codigoAuxiliar || "001";
+
+        const codigoPrincipalHeight = doc.heightOfString(codigoPrincipal, {width: 60});
+        const codigoAuxiliarHeight = doc.heightOfString(codigoAuxiliar, {width: 60});
         const descripcionHeight = doc.heightOfString(item.descripcion, {width: 175});
-        const rowHeight = Math.max(18, descripcionHeight + 10); // Mínimo 18, máximo según descripción
+
+        // Tomar la altura máxima entre todos los campos de texto
+        const maxContentHeight = Math.max(codigoPrincipalHeight, codigoAuxiliarHeight, descripcionHeight);
+        const rowHeight = Math.max(18, maxContentHeight + 10); // Mínimo 18, máximo según el contenido más alto
 
         // Bordes de la fila
         doc.rect(40, yPos, 515, rowHeight).stroke("#000000");
@@ -1442,7 +1735,20 @@ async function generarPDFFactura(datosFactura) {
 
       doc.rect(footerLeftX, tableFPY, footerLeftWidth, 18).stroke("#000000");
 
-      const formaPagoTexto = datosFactura.formaPago || "OTROS CON UTILIZACION DEL SISTEMA FINANCIERO";
+      // 🔧 Mapear código de forma de pago a descripción
+      const formasPago = {
+        "01": "SIN UTILIZACION DEL SISTEMA FINANCIERO",
+        "15": "COMPENSACIÓN DE DEUDAS",
+        "16": "TARJETA DE DÉBITO",
+        "17": "DINERO ELECTRÓNICO",
+        "18": "TARJETA PREPAGO",
+        "19": "TARJETA DE CRÉDITO",
+        "20": "OTROS CON UTILIZACION DEL SISTEMA FINANCIERO",
+        "21": "ENDOSO DE TÍTULOS",
+      };
+
+      const codigoFormaPago = datosFactura.formaPago?.codigo || "01";
+      const formaPagoTexto = formasPago[codigoFormaPago] || "OTROS CON UTILIZACION DEL SISTEMA FINANCIERO";
 
       doc.font("Helvetica").fontSize(8)
           .text(formaPagoTexto, footerLeftX + 5, tableFPY + 5, {width: 200})
