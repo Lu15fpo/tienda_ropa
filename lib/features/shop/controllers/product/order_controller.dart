@@ -344,11 +344,20 @@ class OrderController extends GetxController {
       // Abrir PDF en el navegador/visor del sistema
       final uri = Uri.parse(pdfUrl);
       if (await canLaunchUrl(uri)) {
-        await launchUrl(
+        final launched = await launchUrl(
           uri,
-          mode: LaunchMode.externalApplication,
+          mode: LaunchMode.platformDefault, // 🔧 Usar modo por defecto (abre en navegador)
         );
+
+        if (!launched) {
+          print('⚠️ [OrderController] No se pudo lanzar la URL');
+          TLoaders.errorSnackBar(
+            title: 'Error',
+            message: 'No se pudo abrir el PDF. Por favor intenta nuevamente.',
+          );
+        }
       } else {
+        print('⚠️ [OrderController] canLaunchUrl retornó false');
         TLoaders.errorSnackBar(
           title: 'Error',
           message: 'No se pudo abrir el PDF. Por favor intenta nuevamente.',
