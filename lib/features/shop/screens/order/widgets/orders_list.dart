@@ -11,20 +11,24 @@ import '../../../../../navigation_menu.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../../../utils/constants/enums.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
 import '../../../controllers/product/order_controller.dart';
 
 class TOrderListItems extends StatelessWidget {
   const TOrderListItems({
     super.key,
+    this.filterStatus, // Filtro opcional por estado
   });
+
+  final OrderStatus? filterStatus; // null = todos, o un estado específico
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(OrderController());
     THelperFunctions.isDarkMode(context);
     return FutureBuilder(
-      future: controller.fetchUserOrders(),
+      future: controller.fetchOrdersByStatus(filterStatus), // Usar nuevo método con filtro
       builder: (_, snapshot) {
         /// No se encontro el Widget
         final emptyWidget = TAnimationLoaderWidget(

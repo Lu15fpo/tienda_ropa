@@ -34,10 +34,48 @@ class OrderController extends GetxController {
   Future<List<OrderModel>> fetchUserOrders() async {
     try {
       final userOrders = await orderRepository.fetchUserOrders();
+      // Ordenar por fecha descendente (más reciente primero)
+      userOrders.sort((a, b) => b.orderDate.compareTo(a.orderDate));
       return userOrders;
     } catch (e) {
       TLoaders.warningSnackBar(title: 'Oh Vaya!', message: e.toString());
       return [];
+    }
+  }
+
+  /// Obtener pedidos filtrados por estado
+  Future<List<OrderModel>> fetchOrdersByStatus(OrderStatus? status) async {
+    try {
+      final allOrders = await fetchUserOrders();
+
+      // Si status es null, retornar todos los pedidos
+      if (status == null) {
+        return allOrders;
+      }
+
+      // Si status es processing, incluir también pending
+      if (status == OrderStatus.processing) {
+        return allOrders.where((order) =>
+          order.status == OrderStatus.processing ||
+          order.status == OrderStatus.pending
+        ).toList();
+      }
+
+      // Filtrar por estado específico
+      return allOrders.where((order) => order.status == status).toList();
+    } catch (e) {
+      TLoaders.warningSnackBar(title: 'Oh Vaya!', message: e.toString());
+      return [];
+    }
+  }
+
+  /// Contar pedidos por estado
+  Future<int> countOrdersByStatus(OrderStatus? status) async {
+    try {
+      final filteredOrders = await fetchOrdersByStatus(status);
+      return filteredOrders.length;
+    } catch (e) {
+      return 0;
     }
   }
 

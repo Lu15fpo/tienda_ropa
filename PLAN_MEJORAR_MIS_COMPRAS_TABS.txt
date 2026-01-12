@@ -1,0 +1,144 @@
+═══════════════════════════════════════════════════════════════
+  📋 PLAN - MEJORAR PANTALLA "MIS COMPRAS" CON TABS
+═══════════════════════════════════════════════════════════════
+
+📅 FECHA: 12 de enero de 2026
+🎯 OBJETIVO: Organizar pedidos con tabs y ordenar por fecha
+
+═══════════════════════════════════════════════════════════════
+  ✅ REQUISITOS CONFIRMADOS
+═══════════════════════════════════════════════════════════════
+
+1. ✅ ORDENAR por fecha/hora (más reciente primero)
+2. ✅ CREAR TabBar con 5 pestañas:
+   - Todos (predeterminada)
+   - Pendiente/Procesando (juntos)
+   - Enviando
+   - Entregado
+   - Cancelado
+3. ✅ TabBar deslizable si no caben
+4. ✅ Contador de pedidos en cada tab
+5. ✅ Pestaña "Todos" seleccionada por defecto
+
+═══════════════════════════════════════════════════════════════
+  📊 ESTADOS EN EL SISTEMA
+═══════════════════════════════════════════════════════════════
+
+enum OrderStatus {
+  processing,   // Procesando
+  shipped,      // Enviado
+  delivered,    // Entregado
+  pending,      // Pendiente
+  cancelled     // Cancelado
+}
+
+AGRUPACIÓN PARA TABS:
+---------------------
+Tab 1: "Todos" → Todos los estados
+Tab 2: "Pendiente/Procesando" → pending + processing
+Tab 3: "Enviando" → shipped
+Tab 4: "Entregado" → delivered
+Tab 5: "Cancelado" → cancelled
+
+═══════════════════════════════════════════════════════════════
+  🔧 ARCHIVOS A MODIFICAR
+═══════════════════════════════════════════════════════════════
+
+1. ✅ lib/features/shop/screens/order/order.dart
+   - Convertir a StatefulWidget con TabController
+   - Agregar TabBar con 5 tabs
+   - Implementar TabBarView
+
+2. ✅ lib/features/shop/screens/order/widgets/orders_list.dart
+   - Agregar parámetro opcional para filtrar por estado
+   - Ordenar pedidos por fecha (descendente)
+   - Agregar lógica de filtrado
+
+3. ✅ lib/features/shop/controllers/product/order_controller.dart
+   - Agregar método para filtrar pedidos por estado
+   - Agregar método para contar pedidos por estado
+
+═══════════════════════════════════════════════════════════════
+  📝 FASES DE IMPLEMENTACIÓN
+═══════════════════════════════════════════════════════════════
+
+FASE 1: Modificar OrderController
+----------------------------------
+□ Agregar método: getOrdersByStatus(OrderStatus? status)
+□ Agregar método: getOrderCountByStatus(OrderStatus status)
+□ Ordenar pedidos por fecha descendente
+
+FASE 2: Modificar TOrderListItems Widget
+-----------------------------------------
+□ Agregar parámetro: OrderStatus? filterStatus
+□ Aplicar filtro de estado
+□ Mantener ordenamiento por fecha
+
+FASE 3: Crear nueva OrderScreen con Tabs
+-----------------------------------------
+□ Convertir a StatefulWidget
+□ Agregar TabController (5 tabs)
+□ Crear TabBar deslizable
+□ Agregar contadores dinámicos
+□ Crear TabBarView con filtros
+
+FASE 4: Pruebas y Ajustes
+--------------------------
+□ Verificar ordenamiento
+□ Verificar filtros
+□ Verificar contadores
+□ Ajustar diseño visual
+
+═══════════════════════════════════════════════════════════════
+  🎨 DISEÑO VISUAL
+═══════════════════════════════════════════════════════════════
+
+┌───────────────────────────────────────────────────────────┐
+│  ← Mis Compras                                            │
+├───────────────────────────────────────────────────────────┤
+│  [Todos⁵] [Pendiente²] [Enviando¹] [Entregado³] [Cancelado⁰] │ ← Tabs
+├───────────────────────────────────────────────────────────┤
+│                                                           │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │ 📦 Pedido #027                                      │ │ ← Más reciente
+│  │    12/01/2026 17:31                                 │ │
+│  │    $33.75 - 🟠 Procesando                          │ │
+│  │    [→]                                              │ │
+│  └─────────────────────────────────────────────────────┘ │
+│                                                           │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │ 📦 Pedido #026                                      │ │
+│  │    12/01/2026 12:40                                 │ │
+│  │    $33.75 - 🟠 Procesando                          │ │
+│  │    [→]                                              │ │
+│  └─────────────────────────────────────────────────────┘ │
+│                                                           │
+└───────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+  ✅ ESTADO
+═══════════════════════════════════════════════════════════════
+
+FASE 1: ✅ COMPLETADA
+  - Agregado método: fetchOrdersByStatus(OrderStatus? status)
+  - Agregado método: countOrdersByStatus(OrderStatus? status)
+  - Ordenamiento por fecha descendente implementado
+
+FASE 2: ✅ COMPLETADA
+  - Parámetro filterStatus agregado a TOrderListItems
+  - Filtro por estado aplicado
+  - Ordenamiento mantenido
+
+FASE 3: ✅ COMPLETADA
+  - OrderScreen convertido a StatefulWidget
+  - TabController con 5 tabs implementado
+  - TabBar deslizable configurado
+  - Contadores dinámicos agregados
+  - TabBarView con filtros funcionando
+
+FASE 4: ⏳ PENDIENTE (Pruebas del usuario)
+  - Verificar ordenamiento ⏳
+  - Verificar filtros ⏳
+  - Verificar contadores ⏳
+  - Ajustar diseño visual si es necesario ⏳
+
