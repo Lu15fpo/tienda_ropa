@@ -801,55 +801,7 @@ async function procesarGeneracionFactura(orderId, userId) {
     // No lanzamos error, continuamos guardando la factura
   }
 
-  // PASO 9: Guardar factura en Firestore
-  await guardarLogFacturacion('INFO', 'PASO 9: Guardando factura en Firestore', {
-    claveAcceso,
-    estado: estadoFactura,
-  }, orderId);
-
-  logger.info(`💾 [generarFactura] Guardando factura en Firestore...`);
-
-  // 🔧 CORRECCIÓN 2: Guardar información completa del SRI
-  const facturaData = {
-    orderId,
-    userId,
-    claveAcceso,
-    fechaEmision: admin.firestore.Timestamp.now(),
-    xml: xmlFirmado,
-    xmlSinFirmar: xml,
-    respuestaSRI: respuestaSRI || {error: "No se pudo conectar con el SRI"},
-    estado: estadoFactura,
-    secuencial,
-    establecimiento: "001",
-    puntoEmision: "001",
-    totalAmount: orderData.totalAmount || 0,
-    comprador: datosFactura.comprador,
-  };
-
-  // Agregar información adicional si está disponible
-  if (numeroAutorizacion) {
-    facturaData.numeroAutorizacion = numeroAutorizacion;
-  }
-  if (fechaAutorizacion) {
-    facturaData.fechaAutorizacion = fechaAutorizacion;
-  }
-  if (mensajesErrorSRI.length > 0) {
-    facturaData.mensajesErrorSRI = mensajesErrorSRI;
-  }
-  if (pdfUrl) {
-    facturaData.pdfUrl = pdfUrl;
-  }
-
-  await admin.firestore().collection("Facturas").doc(claveAcceso).set(facturaData);
-
-  await guardarLogFacturacion('SUCCESS', 'PASO 9 COMPLETADO: Factura guardada en Firestore', {
-    coleccion: 'Facturas',
-    documentId: claveAcceso,
-    estadoGuardado: estadoFactura,
-  }, orderId);
-  logger.info(`✅ [generarFactura] Factura guardada en Firestore con estado: ${estadoFactura}`);
-
-  // PASO 9.1: Generar PDF de la factura
+  // PASO 9.1: Generar PDF de la factura (PRIMERO para tener pdfUrl disponible)
   let pdfBuffer = null;
   let pdfUrl = null;
   try {
@@ -933,6 +885,54 @@ async function procesarGeneracionFactura(orderId, userId) {
     }, orderId);
     logger.warn(`⚠️ [generarFactura] Error al enviar email:`, errorEmail);
   }
+
+  // PASO 9: Guardar factura en Firestore (DESPUÉS de generar PDF para tener pdfUrl)
+  await guardarLogFacturacion('INFO', 'PASO 9: Guardando factura en Firestore', {
+    claveAcceso,
+    estado: estadoFactura,
+  }, orderId);
+
+  logger.info(`💾 [generarFactura] Guardando factura en Firestore...`);
+
+  // 🔧 CORRECCIÓN 2: Guardar información completa del SRI
+  const facturaData = {
+    orderId,
+    userId,
+    claveAcceso,
+    fechaEmision: admin.firestore.Timestamp.now(),
+    xml: xmlFirmado,
+    xmlSinFirmar: xml,
+    respuestaSRI: respuestaSRI || {error: "No se pudo conectar con el SRI"},
+    estado: estadoFactura,
+    secuencial,
+    establecimiento: "001",
+    puntoEmision: "001",
+    totalAmount: orderData.totalAmount || 0,
+    comprador: datosFactura.comprador,
+  };
+
+  // Agregar información adicional si está disponible
+  if (numeroAutorizacion) {
+    facturaData.numeroAutorizacion = numeroAutorizacion;
+  }
+  if (fechaAutorizacion) {
+    facturaData.fechaAutorizacion = fechaAutorizacion;
+  }
+  if (mensajesErrorSRI.length > 0) {
+    facturaData.mensajesErrorSRI = mensajesErrorSRI;
+  }
+  if (pdfUrl) {
+    facturaData.pdfUrl = pdfUrl;
+  }
+
+  await admin.firestore().collection("Facturas").doc(claveAcceso).set(facturaData);
+
+  await guardarLogFacturacion('SUCCESS', 'PASO 9 COMPLETADO: Factura guardada en Firestore', {
+    coleccion: 'Facturas',
+    documentId: claveAcceso,
+    estadoGuardado: estadoFactura,
+  }, orderId);
+  logger.info(`✅ [generarFactura] Factura guardada en Firestore con estado: ${estadoFactura}`);
 
   // PASO 10: Actualizar secuencial
   await guardarLogFacturacion('INFO', 'PASO 10: Actualizando secuencial', {secuencial}, orderId);
