@@ -341,27 +341,49 @@ class OrderController extends GetxController {
 
       print('✅ [OrderController] Abriendo PDF: $pdfUrl');
 
-      // Abrir PDF en el navegador/visor del sistema
-      final uri = Uri.parse(pdfUrl);
-      if (await canLaunchUrl(uri)) {
+      // Intentar abrir PDF directamente
+      try {
+        final uri = Uri.parse(pdfUrl);
+
+        // 🔧 Intentar lanzar sin validar primero (canLaunchUrl a veces falla)
         final launched = await launchUrl(
           uri,
-          mode: LaunchMode.platformDefault, // 🔧 Usar modo por defecto (abre en navegador)
-        );
+          mode: LaunchMode.externalApplication, // Intentar con app externa primero
+        ).catchError((error) async {
+          // Si falla con externalApplication, intentar con platformDefault
+          print('⚠️ [OrderController] externalApplication falló, intentando platformDefault');
+          return await launchUrl(
+            uri,
+            mode: LaunchMode.platformDefault,
+          );
+        });
 
         if (!launched) {
-          print('⚠️ [OrderController] No se pudo lanzar la URL');
+          print('⚠️ [OrderController] No se pudo lanzar la URL después de intentos');
           TLoaders.errorSnackBar(
             title: 'Error',
-            message: 'No se pudo abrir el PDF. Por favor intenta nuevamente.',
+            message: 'No se pudo abrir el PDF. Intenta copiar el enlace manualmente.',
+          );
+        } else {
+          print('✅ [OrderController] PDF abierto exitosamente');
+        }
+      } catch (e) {
+        print('❌ [OrderController] Error al abrir PDF: $e');
+
+        // Último intento: Abrir en navegador usando platformDefault
+        try {
+          final uri = Uri.parse(pdfUrl);
+          await launchUrl(
+            uri,
+            mode: LaunchMode.platformDefault,
+          );
+        } catch (e2) {
+          print('❌ [OrderController] Falló completamente: $e2');
+          TLoaders.errorSnackBar(
+            title: 'Error',
+            message: 'No se pudo abrir el PDF. URL: $pdfUrl',
           );
         }
-      } else {
-        print('⚠️ [OrderController] canLaunchUrl retornó false');
-        TLoaders.errorSnackBar(
-          title: 'Error',
-          message: 'No se pudo abrir el PDF. Por favor intenta nuevamente.',
-        );
       }
     } catch (e) {
       TFullScreenLoader.stopLoading();
