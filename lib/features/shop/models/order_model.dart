@@ -106,7 +106,7 @@ class OrderModel {
     }
 
     return OrderModel(
-      id: data['id'] ?? '',
+      id: snapshot.id, // 🔧 CORRECCIÓN: Usar el ID del documento de Firestore, no el campo 'id'
       userId: data['userId'] ?? '',
 
       // Usar la función de mapeo mejorada

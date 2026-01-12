@@ -197,6 +197,8 @@ class FacturacionService extends GetxService {
   /// Retorna la URL del PDF o null si no existe
   Future<String?> obtenerUrlPdfPorPedido(String orderId) async {
     try {
+      print('🔍 [FacturacionService] Buscando factura para orderId: $orderId');
+
       // Buscar la factura por orderId
       final facturas = await FirebaseFirestore.instance
           .collection('Facturas')
@@ -204,12 +206,19 @@ class FacturacionService extends GetxService {
           .limit(1)
           .get();
 
+      print('📊 [FacturacionService] Facturas encontradas: ${facturas.docs.length}');
+
       if (facturas.docs.isEmpty) {
+        print('⚠️ [FacturacionService] No se encontró factura para orderId: $orderId');
         return null;
       }
 
       final data = facturas.docs.first.data();
-      return data['pdfUrl'] as String?;
+      final pdfUrl = data['pdfUrl'] as String?;
+
+      print('📄 [FacturacionService] pdfUrl encontrada: $pdfUrl');
+
+      return pdfUrl;
     } catch (e) {
       print('❌ [FacturacionService] Error al obtener URL del PDF por pedido: $e');
       return null;

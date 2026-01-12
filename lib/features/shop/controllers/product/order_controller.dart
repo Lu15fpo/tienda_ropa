@@ -314,6 +314,8 @@ class OrderController extends GetxController {
   /// Ver PDF de la factura
   Future<void> verPdfFactura(String orderId) async {
     try {
+      print('🔍 [OrderController] Intentando obtener PDF para orderId: $orderId');
+
       // Mostrar loader
       TFullScreenLoader.openLoadingDialog(
         'Obteniendo factura...',
@@ -326,13 +328,18 @@ class OrderController extends GetxController {
       // Ocultar loader
       TFullScreenLoader.stopLoading();
 
+      print('📄 [OrderController] pdfUrl obtenida: $pdfUrl');
+
       if (pdfUrl == null || pdfUrl.isEmpty) {
+        print('⚠️ [OrderController] pdfUrl es null o vacía');
         TLoaders.warningSnackBar(
           title: 'Factura no disponible',
           message: 'La factura para este pedido aún no ha sido generada.',
         );
         return;
       }
+
+      print('✅ [OrderController] Abriendo PDF: $pdfUrl');
 
       // Abrir PDF en el navegador/visor del sistema
       final uri = Uri.parse(pdfUrl);
@@ -349,6 +356,7 @@ class OrderController extends GetxController {
       }
     } catch (e) {
       TFullScreenLoader.stopLoading();
+      print('❌ [OrderController] Error: ${e.toString()}');
       TLoaders.errorSnackBar(
         title: 'Error',
         message: 'Error al obtener la factura: ${e.toString()}',
