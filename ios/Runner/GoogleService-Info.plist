@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAyOseoCUAf3Dj_bl0_z9XPpvXuZ0p7qws</string>
+	<key>GCM_SENDER_ID</key>
+	<string>246112394482</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.tiendaRopa</string>
+	<key>PROJECT_ID</key>
+	<string>ecommerceapp-5f46c</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ecommerceapp-5f46c.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:246112394482:ios:34f7096cde83901b6b446b</string>
+	<key>CLIENT_ID</key>
+	<string>246112394482-o7283mvrgdn1qks1qqn406h79guk4c9g.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.246112394482-o7283mvrgdn1qks1qqn406h79guk4c9g</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>246112394482-aqaj8u4hma7uf96l87sm38hikpki7nch.apps.googleusercontent.com</string>
+	<key>DATABASE_URL</key>
+	<string></string>
+</dict>
+</plist>
+
