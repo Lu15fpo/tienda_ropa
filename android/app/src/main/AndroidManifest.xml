@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="tienda_ropa"
+        android:label="Men's Locker Clothing Ec."
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
