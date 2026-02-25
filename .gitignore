@@ -111,7 +111,7 @@ coverage/
 
 # Firebase
 **/google-services.json
-**/GoogleService-Info.plist
+# **/GoogleService-Info.plist  # Comentado: repositorio privado, archivo necesario para iOS
 firebase_options.dart
 
 # Environment variables
